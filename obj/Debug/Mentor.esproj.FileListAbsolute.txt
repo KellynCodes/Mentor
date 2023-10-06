@@ -1,0 +1,2 @@
+C:\Users\KELLYNCODES\source\projects\Mentor\client\Mentor\obj\Debug\Mentor.esproj.SuggestedBindingRedirects.cache
+C:\Users\KELLYNCODES\source\projects\Mentor\client\Mentor\obj\Debug\Mentor.esproj.CoreCompileInputs.cache
