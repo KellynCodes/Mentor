@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import PureCounter from '@srexi/purecounterjs';
 import * as Aos from 'aos';
+
 @Component({
   selector: 'mentor-root',
   templateUrl: './app.component.html',
