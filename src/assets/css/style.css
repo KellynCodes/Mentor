@@ -54,6 +54,7 @@ h6 {
   font-size: 28px;
   color: #fff;
   line-height: 0;
+  cursor: pointer;
 }
 
 .back-to-top:hover {

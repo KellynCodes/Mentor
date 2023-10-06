@@ -1,11 +1,17 @@
 <!-- ======= Header ======= -->
 <header id="header" class="fixed-top">
   <div class="container d-flex align-items-center">
-    <h1 class="logo me-auto"><a routerLink="/">Mentor</a></h1>
+     <h1 class="logo me-auto"><a routerLink="/">Learnal</a></h1> 
     <!-- Uncomment below if you prefer to use an image logo -->
-    <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-
-    <nav id="navbar" class="navbar order-last order-lg-0">
+<!--    <a routerLink="/" class="logo me-auto"
+      ><img src="assets/img/logo.png" alt="" class="img-fluid"
+    /></a>
+-->
+    <nav
+      id="navbar"
+      [class]="isNavbarOpen ? 'navbar-mobile' : 'navbar'"
+      class="order-last order-lg-0"
+    >
       <ul>
         <li>
           <a
@@ -51,7 +57,7 @@
           <a
             routerLinkActive="active"
             (click)="toggleNavbar()"
-            routerLink="/page/pricing"
+            routerLink="/course/pricing"
             >Pricing</a
           >
         </li>
@@ -88,10 +94,7 @@
           >
         </li>
       </ul>
-      <i
-        class="bi bi-list mobile-nav-toggle"
-        (click)="toggleNavbar()"
-      ></i>
+      <i class="bi bi-list mobile-nav-toggle" (click)="toggleNavbar()"></i>
     </nav>
     <!-- .navbar -->
 

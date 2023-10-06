@@ -3,6 +3,8 @@ import { CoursesComponent } from '../courses/courses.component';
 import { CourseDetailComponent } from '../course-detail/course-detail.component';
 import { TrainersComponent } from '../trainers/trainers.component';
 import { EventsComponent } from '../events/events.component';
+import { PricingComponent } from '../../course/pricing/pricing.component';
+
 
 export const courseRoute: Routes = [
   {
@@ -24,5 +26,10 @@ export const courseRoute: Routes = [
     path: 'events',
     component: EventsComponent,
     title: 'Events',
+  },
+  {
+    path: 'pricing',
+    component: PricingComponent,
+    title: 'Pricing',
   },
 ];
