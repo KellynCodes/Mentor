@@ -23,6 +23,9 @@ import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { JwtTokenInterceptor } from './extension/http.interceptor';
 import { TitleStrategy } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { register } from 'swiper/element/bundle';
+
+register();
 
 @NgModule({
   declarations: [
@@ -53,4 +56,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  ngAfterViewInit(): void {
+    // Swiper
+  }
+}
