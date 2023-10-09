@@ -94,7 +94,7 @@
           >
         </li>
       </ul>
-      <i class="bi bi-list mobile-nav-toggle" (click)="toggleNavbar()"></i>
+      <i [class]="isNavbarOpen ? 'bi-x' : 'bi-list'" class="bi mobile-nav-toggle" (click)="toggleNavbar()"></i>
     </nav>
     <!-- .navbar -->
 

@@ -57,6 +57,10 @@
     onscroll(document, toggleBacktotop);
   }
 
+  backtotop.addEventListener('click', () => {
+    window.scrollTo(0, 0);
+  })
+
   /**
    * Mobile nav dropdowns activate
    */
