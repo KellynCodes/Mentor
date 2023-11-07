@@ -24,7 +24,7 @@ export class UserService {
   }
 
   getUsers(query: PaginationQueryDto): Observable<HttpResponse<UserDto[]>> {
-    const url: string = `${environment.apiUrl}/user/get-all?page=${query.page}&limit=${query.limit}&keyword=${query.keyword}`;
+    const url: string = `${environment.apiUrl}/user/get-all?page=${query.pageNumber}&limit=${query.pageSize}&keyword=${query.keyword}`;
     return this.http.get<HttpResponse<UserDto[]>>(url);
   }
 

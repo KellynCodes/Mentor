@@ -7,12 +7,13 @@ import {
   HttpStatusCode,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, exhaustMap, from, take } from 'rxjs';
-import { selectToken } from '../auth/state/auth/auth.selector';
-import { AuthFailure } from '../auth/state/auth/auth.action';
+import { EMPTY, Observable, catchError, exhaustMap, from, take } from 'rxjs';
+import { selectToken } from '../modules/auth/state/auth/auth.selector';
 import { AuthService } from '../services/auth/auth.service';
 import { AppState } from '../state/app/app.state';
 import { Store } from '@ngrx/store';
+import { setErrorMessage } from '../state/shared/shared.action';
+import { ErrorResult } from '../data/Dto/shared/error.result';
 // ... other imports ...
 
 @Injectable({
@@ -43,16 +44,37 @@ export class JwtTokenInterceptor implements HttpInterceptor {
             if (error.status === HttpStatusCode.Unauthorized) {
               this.authService.logout();
             }
-            this.store.dispatch(AuthFailure(error));
+            console.log(error);
+            const errorResponse: ErrorResult = {
+              isSuccessful: error?.error?.IsSuccessful,
+              message: error?.error?.Message,
+              httpStatusCode: error?.error?.HttpStatusCode,
+            };
+            this.store.dispatch(
+              setErrorMessage({
+                message: errorResponse.message,
+                isSuccessful: errorResponse.isSuccessful,
+              })
+            );
             return next.handle(request);
           })
         );
       }),
-      catchError(() => {
-        // Handle the case where location is not available
-        // You can still send the request with just the token and browser name headers
-        //const clonedRequest = request.clone({ headers });
-        return next.handle(request);
+      catchError((error) => {
+        debugger;
+        console.log(error);
+        const errorResponse: ErrorResult = {
+          isSuccessful: error?.error?.IsSuccessful,
+          message: error?.error?.Message,
+          httpStatusCode: error?.error?.HttpStatusCode,
+        };
+        this.store.dispatch(
+          setErrorMessage({
+            message: errorResponse.message,
+            isSuccessful: errorResponse.isSuccessful,
+          })
+        );
+        return EMPTY;
       })
     );
   }

@@ -5,7 +5,7 @@ import { PagesRoutingModule } from './routes/pages-routing.module';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { HomeComponent } from './home/home.component';
-import { SwiperDirective } from '../directives/swiper';
+import { SwiperDirective } from '../../lib/directives/swiper';
 
 @NgModule({
   declarations: [

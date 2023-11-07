@@ -1,8 +1,6 @@
-import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import PureCounter from '@srexi/purecounterjs';
 import * as Aos from 'aos';
-import Swiper from 'swiper';
-import { SwiperContainer } from 'swiper/element';
 import { SwiperOptions } from 'swiper/types';
 
 @Component({
@@ -11,33 +9,32 @@ import { SwiperOptions } from 'swiper/types';
   styleUrls: ['./about.component.css'],
 })
 export class AboutComponent {
-  @ViewChild('swiper') swiper!: ElementRef<SwiperContainer>;
   swiperConfig: SwiperOptions = {
     speed: 600,
     loop: true,
     autoplay: {
       delay: 5000,
-      disableOnInteraction: false
+      disableOnInteraction: false,
     },
     slidesPerView: 'auto',
     pagination: {
       el: '.swiper-pagination',
       type: 'bullets',
-      clickable: true
+      clickable: true,
     },
     breakpoints: {
       320: {
         slidesPerView: 1,
-        spaceBetween: 20
+        spaceBetween: 20,
       },
 
       1200: {
         slidesPerView: 2,
-        spaceBetween: 20
-      }
-    }
+        spaceBetween: 20,
+      },
+    },
   };
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     Aos.init({
@@ -48,5 +45,4 @@ export class AboutComponent {
     });
     new PureCounter();
   }
-
 }

@@ -1,0 +1,65 @@
+<ng-container *ngIf="errorMessage$ | async as errorMessage">
+  <learnal-alert [errorMessage]="errorMessage" />
+</ng-container>
+
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs">
+  <div class="container">
+    <h2>Courses</h2>
+    <p>
+      We have the right course for you! Take your time to search for the courses
+      you would like to enroll on, because we gat you.
+    </p>
+  </div>
+</div>
+<!-- End Breadcrumbs -->
+<!-- ======= Courses Section ======= -->
+<section id="courses" class="courses">
+  <div class="container" data-aos="fade-up">
+    <div class="row" data-aos="zoom-in" data-aos-delay="100">
+      <learnal-loader  *ngIf="IsCourseLoading$ | async" />
+      <ng-container *ngIf="IsCourseLoading$ | async; else noLoader">
+        <learnal-loader/>
+        {{noLoader}}
+      </ng-container>
+      <ng-template #noLoader>
+        <!-- Your course list rendering code -->
+      <div class="col-lg-4 col-md-6 d-flex align-items-stretch"
+           *ngFor="let course of courses$ | async">
+        <div class="course-item">
+          <img [src]="course.mediaUrl" class="img-fluid" alt="..." />
+          <div class="course-content">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h4>{{ course.category }}</h4>
+              <p class="price">${{ course.price }}</p>
+            </div>
+
+            <h3>
+              <a [routerLink]="['/course/course-details', course.id]">
+                {{ course.name }}
+              </a>
+            </h3>
+            <p>
+              {{ course.description }}
+            </p>
+            <div class="trainer d-flex justify-content-between align-items-center">
+              <div class="trainer-profile d-flex align-items-center">
+                <img [src]="course.user.avatarUrl"
+                     class="img-fluid"
+                     alt="Course Owner" />
+                <span>{{ course?.user?.userName }}</span>  
+              </div>
+              <div class="trainer-rank d-flex align-items-center">
+                <i class="bx bx-user"></i>&nbsp;60 &nbsp;&nbsp;
+                <i class="bx bx-heart"></i>&nbsp;{{ course.likes }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Course Item-->
+      </ng-template>
+    </div>
+  </div>
+</section>
+<!-- End Courses Section -->

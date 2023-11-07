@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environment/environment';
 import { HttpResponse } from '../../data/Dto/shared/http.response.dto';
 import { localStorageToken } from '../../extension/local.storage';
-import * as authActions from '../../auth/state/auth/auth.action';
+import * as authActions from '../../modules/auth/state/auth/auth.action';
 import { AppState } from '../../state/app/app.state';
 import { LoginSuccessDto } from './Dto/LoginSuccessDto';
 import { LoginDto } from './Dto/login.dto';

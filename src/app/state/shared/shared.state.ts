@@ -1,4 +1,5 @@
 export interface SharedState {
+  IsSuccessful: boolean;
   IsLoading: boolean;
   errorMessage: string | null;
   successMessage: string | null;
@@ -6,6 +7,7 @@ export interface SharedState {
 }
 
 export const sharedState: SharedState = {
+  IsSuccessful: false,
   IsLoading: false,
   errorMessage: null,
   successMessage: null,

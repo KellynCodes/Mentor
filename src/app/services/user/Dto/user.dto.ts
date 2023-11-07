@@ -1,3 +1,5 @@
+import { CourseResponseDto } from '../../course/Dto/CourseResponseDto';
+
 export interface UserDto {
   userId?: string;
 
@@ -10,4 +12,11 @@ export interface UserDto {
   password: string;
 
   role: string;
+}
+
+export interface UserResponseDto {
+  email: string;
+  userName: string;
+  avatarUrl: string;
+  courses?: CourseResponseDto[];
 }

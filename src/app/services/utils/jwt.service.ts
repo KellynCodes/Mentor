@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../state/app/app.state';
 import { LoginSuccessDto } from '../auth/Dto/LoginSuccessDto';
 import { setErrorMessage } from '../../state/shared/shared.action';
-import { GetUserSuccess } from '../../auth/state/auth/auth.action';
+import { GetUserSuccess } from '../../modules/auth/state/auth/auth.action';
 
 @Injectable({
   providedIn: 'root',
@@ -47,6 +47,7 @@ export class JwtService {
           setErrorMessage({
             message:
               'Something unexpected happened while saving your session please try again.',
+            isSuccessful: false,
           })
         );
       }, 3000);

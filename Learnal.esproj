@@ -11,6 +11,19 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\Mentor</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="src\app\directives\" />
+    <Folder Include="src\app\modules\user\state\" />
+    <Folder Include="src\app\services\course\Dto\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptConfiguration Remove="src\app\directives\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="src\app\directives\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptConfiguration Remove="src\app\course\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="src\app\course\**" />
   </ItemGroup>
 </Project>

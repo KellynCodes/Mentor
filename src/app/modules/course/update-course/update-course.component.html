@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Price</mat-label>
+          <input matInput type="number" formControlName="price" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description"></textarea>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Created By</mat-label>
+          <input matInput formControlName="createdBy" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Category</mat-label>
+          <input matInput formControlName="category" />
+        </mat-form-field>
+
+        <div>
+          <label>Course File:</label>
+          <input type="file" (change)="onFileChange($event)" />
+        </div>
+
+        <mat-form-field>
+          <mat-label>File Type</mat-label>
+          <mat-select formControlName="fileType">
+            <!-- You would populate this with possible MediaType values -->
+            <mat-option value="type1">Type 1</mat-option>
+            <mat-option value="type2">Type 2</mat-option>
+            <!-- ... other types ... -->
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

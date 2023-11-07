@@ -1,13 +1,9 @@
 export interface PaginationQueryDto {
-  page: number;
+  pageSize: number;
 
-  limit: number;
+  pageNumber: number;
 
-  year?: number;
-
-  month?: number;
-
-  IsFetchByMonth?: boolean;
+  courseLikes: number;
 
   keyword: string;
 }

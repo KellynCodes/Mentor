@@ -1,3 +1,11 @@
-<mentor-navbar />
+<learnal-navbar />
+
+<ng-container *ngIf="errorMessage$ | async as errorMessage">
+  <learnal-alert [errorMessage]="errorMessage" />
+</ng-container>
+
+<ng-container *ngIf="successMessage$ | async as successMessage">
+  <learnal-alert [successMessage]="successMessage" />
+</ng-container>
 <router-outlet />
-<mentor-footer />
+<learnal-footer />

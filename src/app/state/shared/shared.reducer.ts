@@ -11,9 +11,19 @@ const _sharedReducer = createReducer(
     };
   }),
 
-  on(sharedActions.setErrorMessage, (state, { message }) => {
+  on(sharedActions.setErrorMessage, (state, { message, isSuccessful }) => {
     return {
       ...state,
+      isSuccessful: isSuccessful,
+      errorMessage: message,
+    };
+  }),
+
+  on(sharedActions.resetErrorMessage, (state, { message, isSuccessful }) => {
+    console.log(message);
+    return {
+      ...state,
+      isSuccessful: isSuccessful,
       errorMessage: message,
     };
   }),
