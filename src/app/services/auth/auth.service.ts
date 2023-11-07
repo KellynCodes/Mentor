@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environment/environment';
+import { environment } from '../../../environments/environment';
 import { HttpResponse } from '../../data/Dto/shared/http.response.dto';
 import { localStorageToken } from '../../extension/local.storage';
 import * as authActions from '../../modules/auth/state/auth/auth.action';

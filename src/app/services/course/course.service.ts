@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PaginationQueryDto } from '../../data/Dto/shared/request.query.dto';
 import { CourseResponseDto } from './Dto/CourseResponseDto';
-import { environment } from '../../../environment/environment';
+import { environment } from '../../../environments/environment';
 import { Operation } from 'fast-json-patch';
 
 @Injectable({
