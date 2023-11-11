@@ -4,5 +4,6 @@
   status = 200
 
 [build]
+  command = "npm install --force"
   command = "ng build"
-  publish = "dist/mentor"
+  publish = "dist/learnal"
