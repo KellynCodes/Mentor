@@ -17,8 +17,6 @@ export class UserCoursesComponent {
   public errorMessage$ = this.store.select(courseSelector.errorMessage);
 
   public user: UserDto = this.jwtService.getUser();
-  public userName: string = this.user.unique_name[0];
-    constructor(private store: Store<AppState>, private jwtService: JwtService) { }
-
- 
+  public userName: string = this.user?.unique_name[0] ?? 'Username';
+  constructor(private store: Store<AppState>, private jwtService: JwtService) {}
 }

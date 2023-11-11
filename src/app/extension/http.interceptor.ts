@@ -39,29 +39,9 @@ export class JwtTokenInterceptor implements HttpInterceptor {
         const headers = request.headers.set('Authorization', `Bearer ${token}`);
         const clonedRequest = request.clone({ headers });
 
-        return next.handle(clonedRequest).pipe(
-          catchError((error: HttpErrorResponse) => {
-            if (error.status === HttpStatusCode.Unauthorized) {
-              this.authService.logout();
-            }
-            console.log(error);
-            const errorResponse: ErrorResult = {
-              isSuccessful: error?.error?.IsSuccessful,
-              message: error?.error?.Message,
-              httpStatusCode: error?.error?.HttpStatusCode,
-            };
-            this.store.dispatch(
-              setErrorMessage({
-                message: errorResponse.message,
-                isSuccessful: errorResponse.isSuccessful,
-              })
-            );
-            return next.handle(request);
-          })
-        );
+        return next.handle(clonedRequest);
       }),
       catchError((error) => {
-        console.log(error);
         const errorResponse: ErrorResult = {
           isSuccessful: error?.error?.IsSuccessful,
           message: error?.error?.Message,
@@ -73,7 +53,7 @@ export class JwtTokenInterceptor implements HttpInterceptor {
             isSuccessful: errorResponse.isSuccessful,
           })
         );
-        return EMPTY;
+        return next.handle(request);
       })
     );
   }

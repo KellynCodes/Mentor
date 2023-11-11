@@ -9,7 +9,7 @@ import * as authSelectors from '../../auth/state/auth/auth.selector';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
-  public user$ = this.store.select(authSelectors.selectUser);
+  public user$ = this.store.select(authSelectors.selectToken);
   isNavbarOpen = false;
   constructor(private store: Store<AppState>) {}
 

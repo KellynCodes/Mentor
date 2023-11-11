@@ -1,11 +1,9 @@
 <learnal-navbar />
 
-<ng-container *ngIf="errorMessage$ | async as errorMessage">
-  <learnal-alert [errorMessage]="errorMessage" />
-</ng-container>
-
-<ng-container *ngIf="successMessage$ | async as successMessage">
-  <learnal-alert [successMessage]="successMessage" />
-</ng-container>
+@if(errorMessage$ | async){
+<learnal-alert [errorMessage]="errorMessage$ | async" />
+} @if(successMessage$ | async){
+<learnal-alert [successMessage]="successMessage$ | async" />
+}
 <router-outlet />
 <learnal-footer />

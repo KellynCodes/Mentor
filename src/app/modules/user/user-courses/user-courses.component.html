@@ -8,11 +8,11 @@
     <h2 class="mb-3">Your Courses</h2>
     <p>
       These are your courses
-      <learnal-button
-        link="/user/dashboard"
-        customClasses="bg-white hover:text-[#5fcf80] text-green-300 text-sm font-bold rounded-[30px]"
-        [label]="userName"
-      />
+      <a
+        routerLink="/user/dashboard"
+        class="max-w-[fit-content] transition-all delay-[100ms] text-center font-bold py-1 px-4 rounded-[30px] bg-white hover:text-[#5fcf80] text-green-300 text-sm"
+        >{{ userName }}</a
+      >
     </p>
   </div>
 </div>
@@ -72,7 +72,7 @@
           No course found
         </h1>
         <learnal-button
-          customClasses="bg-green-500 hover:bg-white border text-white hover:text-green-500 y-3"
+          customClasses="bg-green-500 hover:bg-white border text-white hover:text-green-500 p-3"
           link="course/courses"
           label="Buy Course"
         />

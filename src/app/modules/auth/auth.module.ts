@@ -7,9 +7,17 @@ import { SignupComponent } from './signup/signup.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { SharedModule } from '../components/shared.module';
 import { MaterialModule } from '../material/material.module';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
-  declarations: [LoginComponent, SignupComponent, VerifyEmailComponent],
+  declarations: [
+    LoginComponent,
+    SignupComponent,
+    VerifyEmailComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
+  ],
   imports: [
     CommonModule,
     AuthRoutingModule,

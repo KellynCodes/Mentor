@@ -20,7 +20,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { JwtTokenInterceptor } from './extension/http.interceptor';
 import { TitleStrategy } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { register } from 'swiper/element/bundle';
 import { SharedModule } from './modules/components/shared.module';
 
@@ -34,7 +33,6 @@ register();
     NotfoundComponent,
   ],
   imports: [
-    NgbModule,
     BrowserModule,
     SharedModule,
     AppRoutingModule,

@@ -23,7 +23,7 @@ export class JwtService {
     return authUser?.user!;
   }
 
-  public CheckUser(): UserDto {
+  public CheckUser(): UserDto | undefined {
     const authUser: LoginSuccessDto = JSON.parse(this.user);
     this.store.dispatch(GetUserSuccess(authUser));
     return authUser?.user!;

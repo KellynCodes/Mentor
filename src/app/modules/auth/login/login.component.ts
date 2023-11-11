@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { LoginDto } from '../../../services/auth/Dto/login.dto';
 import { TimeOut } from '../../../services/utils/timeout.util';
@@ -14,7 +19,6 @@ import * as authSelectors from '../state/auth/auth.selector';
 })
 export class LoginComponent {
   constructor(private store: Store<AppState>, private timeoutUtil: TimeOut) {}
-  IsFetching!: boolean;
   hidePassword!: boolean;
   loginForm!: FormGroup;
   errorMessage: string | null = null;
@@ -29,6 +33,16 @@ export class LoginComponent {
         Validators.minLength(8),
       ]),
     });
+  }
+
+  controlHasError(control: string, errorName: string): boolean | undefined {
+    if (!this.loginForm.dirty) {
+      return;
+    }
+    return (
+      this.loginForm?.get(control)?.touched &&
+      this.loginForm?.get(control)?.hasError(errorName)
+    );
   }
 
   Login(): void {
