@@ -5,10 +5,12 @@
 <!-- ======= Breadcrumbs ======= -->
 <div class="breadcrumbs">
   <div class="container">
-    <h2>Courses</h2>
+    <h2 class="mb-3">Your Courses</h2>
     <p>
-      We have the right course for you! Take your time to search for the courses
-      you would like to enroll on, because we gat you.
+     These are your courses
+        <learnal-button link="/user/dashboard"
+                        customClasses="bg-white hover:text-[#5fcf80] text-green-300 text-sm font-bold rounded-[30px]"
+                        [label]="userName" />
     </p>
   </div>
 </div>
@@ -17,17 +19,15 @@
 <section id="courses" class="courses">
   <div class="container" data-aos="fade-up">
     <div class="row" data-aos="zoom-in" data-aos-delay="100">
-      <learnal-loader *ngIf="IsCourseLoading$ | async" />
       <ng-container *ngIf="IsCourseLoading$ | async; else noLoader">
         <learnal-loader />
-        {{noLoader}}
       </ng-container>
       <ng-template #noLoader>
         <!-- Your course list rendering code -->
         <div class="col-lg-4 col-md-6 d-flex align-items-stretch"
              *ngFor="let course of courses$ | async">
           <div class="course-item">
-            <img [src]="course.mediaUrl" class="img-fluid" alt="..." />
+            <img [src]="course.mediaUrl" class="img-fluid" [alt]="course.name" />
             <div class="course-content">
               <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4>{{ course.category }}</h4>
@@ -59,6 +59,21 @@
         </div>
         <!-- End Course Item-->
       </ng-template>
+
+
+      <ng-container *ngIf="courses$ | async as course; else noCourse">
+        
+      </ng-container>
+      <ng-template #noCourse>
+        <div class="borderize flex justify-around flex-col m-auto text-center w-full md:w-1/2 h-[50vh]">
+            <h1 class="font-bold text-xl text-red-300 text-center"> No course found</h1>
+            <learnal-button customClasses="bg-green-500 hover:bg-white border text-white hover:text-green-500 py-3"
+                            link="course/courses"
+                            label="Buy Course" />
+        </div>
+      </ng-template>
+
+
     </div>
   </div>
 </section>

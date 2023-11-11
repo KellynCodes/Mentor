@@ -1,9 +1,68 @@
-<div [class]="errorMessage != null ? 'show' : ''" class="alert error">
-  <span class="icon">X</span>
-  <span class="text">{{ errorMessage }}</span>
+<div [class]="successMessage != null ? 'show' : ''"
+     class="alert w-[30rem] bg-green-200 border-l-4 border-green-500 text-green-700 p-4"
+     role="alert">
+  <div class="flex items-center">
+    <div class="mr-2">
+      <svg xmlns="http://www.w3.org/2000/svg"
+           class="h-6 w-6 text-green-500"
+           fill="none"
+           viewBox="0 0 24 24"
+           stroke="currentColor">
+        <path stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 13l4 4L19 7"></path>
+      </svg>
+    </div>
+    <div>
+      <p class="font-bold">Success</p>
+      <p>{{ successMessage }}</p>
+    </div>
+  </div>
 </div>
 
-<div [class]="successMessage != null ? 'show' : ''" class="alert success">
-  <span class="icon">&#10003;</span>
-  <span class="text">{{ successMessage }}</span>
+<div [class]="errorMessage != null ? 'show' : ''"
+     class="alert w-[30rem] bg-red-200 border-l-4 border-red-500 text-red-700 p-4"
+     role="alert">
+  <div class="flex items-center">
+    <div class="mr-2">
+      <svg xmlns="http://www.w3.org/2000/svg"
+           class="h-6 w-6 text-red-500"
+           fill="none"
+           viewBox="0 0 24 24"
+           stroke="currentColor">
+        <path stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </div>
+    <div>
+      <p class="font-bold">Error</p>
+      <p>{{ errorMessage }}</p>
+    </div>
+  </div>
+</div>
+
+<div [class]="info != null ? 'show' : ''"
+     class="alert w-[30rem] bg-blue-200 border-l-4 border-blue-500 text-blue-700 p-4"
+     role="alert">
+  <div class="flex items-center">
+    <div class="mr-2">
+      <svg xmlns="http://www.w3.org/2000/svg"
+           class="h-6 w-6 text-blue-500"
+           fill="none"
+           viewBox="0 0 24 24"
+           stroke="currentColor">
+        <path stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 13l4 4L19 7"></path>
+      </svg>
+    </div>
+    <div>
+      <p class="font-bold">Info</p>
+      <p>{{ info }}</p>
+    </div>
+  </div>
 </div>

@@ -12,8 +12,6 @@ export class AlertComponent {
   @Input({ required: false })
   successMessage?: string | null;
 
-  constructor() {
-    console.log(this.errorMessage);
-    console.log(this.successMessage);
-  }
+  @Input({ required: false })
+  info?: string | null;
 }
