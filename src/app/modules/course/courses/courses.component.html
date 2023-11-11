@@ -17,15 +17,12 @@
 <section id="courses" class="courses">
   <div class="container" data-aos="fade-up">
     <div class="row" data-aos="zoom-in" data-aos-delay="100">
-      <learnal-loader  *ngIf="IsCourseLoading$ | async" />
-      <ng-container *ngIf="IsCourseLoading$ | async; else noLoader">
-        <learnal-loader/>
-        {{noLoader}}
-      </ng-container>
-      <ng-template #noLoader>
-        <!-- Your course list rendering code -->
-      <div class="col-lg-4 col-md-6 d-flex align-items-stretch"
-           *ngFor="let course of courses$ | async">
+      @if(IsCourseLoading$ | async){
+      <learnal-loader />
+      }@else {
+      <!-- Your course list rendering code -->
+      @for(course of courses$ | async; track course.name){
+      <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
         <div class="course-item">
           <img [src]="course.mediaUrl" class="img-fluid" alt="..." />
           <div class="course-content">
@@ -42,12 +39,16 @@
             <p>
               {{ course.description }}
             </p>
-            <div class="trainer d-flex justify-content-between align-items-center">
+            <div
+              class="trainer d-flex justify-content-between align-items-center"
+            >
               <div class="trainer-profile d-flex align-items-center">
-                <img [src]="course.user.avatarUrl"
-                     class="img-fluid"
-                     alt="Course Owner" />
-                <span>{{ course?.user?.userName }}</span>  
+                <img
+                  [src]="course.user.avatarUrl"
+                  class="img-fluid"
+                  alt="Course Owner"
+                />
+                <span>{{ course?.user?.userName }}</span>
               </div>
               <div class="trainer-rank d-flex align-items-center">
                 <i class="bx bx-user"></i>&nbsp;60 &nbsp;&nbsp;
@@ -57,8 +58,8 @@
           </div>
         </div>
       </div>
+      } }
       <!-- End Course Item-->
-      </ng-template>
     </div>
   </div>
 </section>

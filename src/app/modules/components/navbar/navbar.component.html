@@ -1,9 +1,9 @@
 <!-- ======= Header ======= -->
 <header id="header" class="fixed-top">
   <div class="container d-flex align-items-center">
-     <h1 class="logo me-auto"><a routerLink="/">Learnal</a></h1> 
+    <h1 class="logo me-auto"><a routerLink="/">Learnal</a></h1>
     <!-- Uncomment below if you prefer to use an image logo -->
-<!--    <a routerLink="/" class="logo me-auto"
+    <!--    <a routerLink="/" class="logo me-auto"
       ><img src="assets/img/logo.png" alt="" class="img-fluid"
     /></a>
 -->
@@ -56,7 +56,7 @@
         <li>
           <a
             routerLinkActive="active"
-            (click)="toggleNavbar()" 
+            (click)="toggleNavbar()"
             routerLink="/course/pricing"
             >Pricing</a
           >
@@ -94,12 +94,19 @@
           >
         </li>
       </ul>
-      <i [class]="isNavbarOpen ? 'bi-x' : 'bi-list'" class="bi mobile-nav-toggle" (click)="toggleNavbar()"></i>
+      <i
+        [class]="isNavbarOpen ? 'bi-x' : 'bi-list'"
+        class="bi mobile-nav-toggle"
+        (click)="toggleNavbar()"
+      ></i>
     </nav>
     <!-- .navbar -->
 
-    <a *ngIf="user$ | async as user" routerLink="/user/courses" class="get-started-btn">Your Courses</a>
-    <a *ngIf="(user$ | async)?.userId == null" routerLink="/course/courses" class="get-started-btn">Get Started</a>
+    @if (user$ | async) {
+    <a routerLink="/user/courses" class="get-started-btn">Your Courses</a>
+    }@else {
+    <a routerLink="/course/courses" class="get-started-btn">Get Started</a>
+    }
   </div>
 </header>
 <!-- End Header -->

@@ -3,30 +3,28 @@
     <h2>SignUp</h2>
     <div class="form_container">
       <div class="img_preview_container">
-        <img
-          *ngIf="imagePreviewLink != null"
-          [src]="imagePreviewLink"
-          alt="image preview"
-        />
+        @if(imagePreviewLink != null){
+        <img [src]="imagePreviewLink" alt="image preview" />
+        }
       </div>
       <div class="input_container">
         <mat-form-field appearance="outline">
           <mat-label>Username</mat-label>
           <input matInput formControlName="userName" type="text" />
-          <mat-error *ngIf="regForm.get('userName')?.hasError('required')">
-            Username is required.
-          </mat-error>
+          @if(regForm.get('userName')?.hasError('required')){
+          <mat-error> Username is required. </mat-error>
+          }
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>example@gmail.com</mat-label>
+          <mat-label>example&#64;gmail.com</mat-label>
           <input matInput formControlName="email" type="email" />
-          <mat-error *ngIf="regForm.get('email')?.hasError('required')">
-            Email is required.
-          </mat-error>
-          <mat-error *ngIf="regForm.get('email')?.hasError('email')">
-            Please enter a valid email.
-          </mat-error>
+
+          @if(regForm.get('email')?.hasError('required')){
+          <mat-error> Email is required. </mat-error>
+          } @if (regForm.get('email')?.hasError('email')) {
+          <mat-error> Please enter a valid email. </mat-error>
+          }
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -47,27 +45,26 @@
               hidePassword ? "visibility_off" : "visibility"
             }}</mat-icon>
           </button>
-          <mat-error *ngIf="regForm.get('password')?.hasError('required')">
-            Password is required.
-          </mat-error>
-          <mat-error *ngIf="regForm.get('password')?.hasError('minLength')">
-            Password should be at least 8 characters.
-          </mat-error>
+
+          @if(regForm.get('password')?.hasError('required')){
+          <mat-error> Password is required. </mat-error>
+          } @if (regForm.get('password')?.hasError('minLength')) {
+          <mat-error> Password should be at least 8 characters. </mat-error>
+          } @if(regForm.get('password')?.hasError('passwordUppercase')){
           <mat-error
-            *ngIf="regForm.get('password')?.hasError('passwordUppercase')"
             >Password must have at least one uppercase letter.</mat-error
           >
+          } @if(regForm.get('password')?.hasError('passwordLowercase')){
           <mat-error
-            *ngIf="regForm.get('password')?.hasError('passwordLowercase')"
             >Password must have at least one lowercase letter.</mat-error
           >
-          <mat-error *ngIf="regForm.get('password')?.hasError('passwordNumber')"
-            >Password must have at least one number.</mat-error
-          >
+          } @if(regForm.get('password')?.hasError('passwordNumber')){
+          <mat-error>Password must have at least one number.</mat-error>
+          } @if(regForm.get('password')?.hasError('passwordSpecial')){
           <mat-error
-            *ngIf="regForm.get('password')?.hasError('passwordSpecial')"
             >Password must have at least one special character.</mat-error
           >
+          }
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -88,19 +85,13 @@
               hidePassword ? "visibility_off" : "visibility"
             }}</mat-icon>
           </button>
-          <mat-error
-            *ngIf="regForm.get('confirmPassword')?.hasError('required')"
-          >
-            Confirm Password is required.
-          </mat-error>
-          <p *ngIf="regForm.get('confirmPassword')?.hasError('minLength')">
-            Confirm Password should be at least 8 characters.
-          </p>
-          <mat-error
-            *ngIf="regForm.get('confirmPassword')?.hasError('mustMatch')"
-          >
-            Passwords do not match.
-          </mat-error>
+          @if(regForm.get('confirmPassword')?.hasError('required')){
+          <mat-error> Confirm Password is required. </mat-error>
+          } @if(regForm.get('confirmPassword')?.hasError('minLength')){
+          <p>Confirm Password should be at least 8 characters.</p>
+          } @if(regForm.get('confirmPassword')?.hasError('mustMatch')){
+          <mat-error> Passwords do not match. </mat-error>
+          }
         </mat-form-field>
       </div>
 
@@ -154,11 +145,9 @@
               </div>
 
               <div class="col-md-3">
-                <img
-                  *ngIf="imagePreviewLink != null"
-                  [src]="imagePreviewLink"
-                  alt="image preview"
-                />
+                @if(imagePreviewLink != null){
+                <img [src]="imagePreviewLink" alt="image preview" />
+                }
               </div>
               <!-- Modal footer -->
               <div class="modal-footer">
@@ -174,13 +163,20 @@
           </div>
         </div>
       </div>
-
-      <h5 class="badge bg-info" *ngIf="signUpMessage$ | async as message">
-        {{ message }}
+      @if(signUpMessage$ | async){
+      <h5 class="badge bg-info">
+        {{ signUpMessage$ | async }}
       </h5>
-      <h5 class="badge bg-success" *ngIf="isSigningUp$ | async">Loading...</h5>
+      }
 
-      <button mat-raised-button color="primary" type="submit">SignUp</button>
+      <button
+        mat-raised-button
+        color="primary"
+        [innerText]="(isSigningUp$ | async) ? 'Loading' : 'SignUp'"
+        type="submit"
+      >
+        SignUp
+      </button>
     </div>
     <h4>
       Already have an account?

@@ -61,7 +61,6 @@ export class JwtTokenInterceptor implements HttpInterceptor {
         );
       }),
       catchError((error) => {
-        debugger;
         console.log(error);
         const errorResponse: ErrorResult = {
           isSuccessful: error?.error?.IsSuccessful,

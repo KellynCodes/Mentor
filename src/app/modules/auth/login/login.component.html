@@ -4,7 +4,7 @@
     <div class="form_container">
       <div class="input_container">
         <mat-form-field appearance="outline">
-          <mat-label>example@gmail.com</mat-label>
+          <mat-label>example&#64;gmail.com</mat-label>
           <input matInput formControlName="email" type="email" />
           <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
             Email is required.
@@ -40,10 +40,13 @@
           </mat-error>
         </mat-form-field>
       </div>
-      <h5 class="badge bg-danger" *ngIf="errorMessage$ | async as authMessage">
-        {{ authMessage }}
+      @if(errorMessage$ | async){
+      <h5 class="badge bg-danger">
+        {{ errorMessage$ | async }}
       </h5>
-      <learnal-loader *ngIf="IsLoading$ | async" />
+      } @if(IsLoading$ | async){
+      <learnal-loader />
+      }
       <button
         type="submit"
         [disabled]="!loginForm.valid"

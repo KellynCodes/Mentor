@@ -7,10 +7,12 @@
   <div class="container">
     <h2 class="mb-3">Your Courses</h2>
     <p>
-     These are your courses
-        <learnal-button link="/user/dashboard"
-                        customClasses="bg-white hover:text-[#5fcf80] text-green-300 text-sm font-bold rounded-[30px]"
-                        [label]="userName" />
+      These are your courses
+      <learnal-button
+        link="/user/dashboard"
+        customClasses="bg-white hover:text-[#5fcf80] text-green-300 text-sm font-bold rounded-[30px]"
+        [label]="userName"
+      />
     </p>
   </div>
 </div>
@@ -19,61 +21,63 @@
 <section id="courses" class="courses">
   <div class="container" data-aos="fade-up">
     <div class="row" data-aos="zoom-in" data-aos-delay="100">
-      <ng-container *ngIf="IsCourseLoading$ | async; else noLoader">
-        <learnal-loader />
-      </ng-container>
-      <ng-template #noLoader>
-        <!-- Your course list rendering code -->
-        <div class="col-lg-4 col-md-6 d-flex align-items-stretch"
-             *ngFor="let course of courses$ | async">
-          <div class="course-item">
-            <img [src]="course.mediaUrl" class="img-fluid" [alt]="course.name" />
-            <div class="course-content">
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4>{{ course.category }}</h4>
-                <p class="price">${{ course.price }}</p>
-              </div>
+      @if(IsCourseLoading$ | async){
+      <learnal-loader />
+      } @for(course of courses$ | async; track course.name){
+      <!-- Your course list rendering code -->
+      <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+        <div class="course-item">
+          <img [src]="course.mediaUrl" class="img-fluid" [alt]="course.name" />
+          <div class="course-content">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h4>{{ course.category }}</h4>
+              <p class="price">${{ course.price }}</p>
+            </div>
 
-              <h3>
-                <a [routerLink]="['/course/course-details', course.id]">
-                  {{ course.name }}
-                </a>
-              </h3>
-              <p>
-                {{ course.description }}
-              </p>
-              <div class="trainer d-flex justify-content-between align-items-center">
-                <div class="trainer-profile d-flex align-items-center">
-                  <img [src]="course.user.avatarUrl"
-                       class="img-fluid"
-                       alt="Course Owner" />
-                  <span>{{ course?.user?.userName }}</span>
-                </div>
-                <div class="trainer-rank d-flex align-items-center">
-                  <i class="bx bx-user"></i>&nbsp;60 &nbsp;&nbsp;
-                  <i class="bx bx-heart"></i>&nbsp;{{ course.likes }}
-                </div>
+            <h3>
+              <a [routerLink]="['/course/course-details', course.id]">
+                {{ course.name }}
+              </a>
+            </h3>
+            <p>
+              {{ course.description }}
+            </p>
+            <div
+              class="trainer d-flex justify-content-between align-items-center"
+            >
+              <div class="trainer-profile d-flex align-items-center">
+                <img
+                  [src]="course.user.avatarUrl"
+                  class="img-fluid"
+                  alt="Course Owner"
+                />
+                <span>{{ course?.user?.userName }}</span>
+              </div>
+              <div class="trainer-rank d-flex align-items-center">
+                <i class="bx bx-user"></i>&nbsp;60 &nbsp;&nbsp;
+                <i class="bx bx-heart"></i>&nbsp;{{ course.likes }}
               </div>
             </div>
           </div>
         </div>
-        <!-- End Course Item-->
-      </ng-template>
+      </div>
+      }
+      <!-- End Course Item-->
 
-
-      <ng-container *ngIf="courses$ | async as course; else noCourse">
-        
-      </ng-container>
-      <ng-template #noCourse>
-        <div class="borderize flex justify-around flex-col m-auto text-center w-full md:w-1/2 h-[50vh]">
-            <h1 class="font-bold text-xl text-red-300 text-center"> No course found</h1>
-            <learnal-button customClasses="bg-green-500 hover:bg-white border text-white hover:text-green-500 py-3"
-                            link="course/courses"
-                            label="Buy Course" />
-        </div>
-      </ng-template>
-
-
+      @if((courses$ | async) == null){
+      <div
+        class="borderize flex justify-around flex-col m-auto text-center w-full md:w-1/2 h-[50vh]"
+      >
+        <h1 class="font-bold text-xl text-red-300 text-center">
+          No course found
+        </h1>
+        <learnal-button
+          customClasses="bg-green-500 hover:bg-white border text-white hover:text-green-500 y-3"
+          link="course/courses"
+          label="Buy Course"
+        />
+      </div>
+      }
     </div>
   </div>
 </section>
