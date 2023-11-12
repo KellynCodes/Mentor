@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { PricingComponent } from './pricing/pricing.component';
 import { CourseRoutingModule } from './routes/course-routing.module';
 import { CoursesComponent } from './courses/courses.component';
@@ -19,6 +18,6 @@ import { SharedModule } from '../components/shared.module';
     PricingComponent,
     UpdateCourseComponent,
   ],
-  imports: [CommonModule, CourseRoutingModule, MaterialModule, SharedModule],
+  imports: [CourseRoutingModule, MaterialModule, SharedModule],
 })
 export class CourseModule {}

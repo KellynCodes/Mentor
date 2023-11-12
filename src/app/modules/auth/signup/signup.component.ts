@@ -27,10 +27,11 @@ export class SignupComponent {
   imageChangedEvent!: Event;
   hidePassword!: boolean;
   regForm!: FormGroup;
+  isOpen: boolean = false;
 
   // signup
   isSigningUp$ = this.store.select(selectSignUpStates.getSignUpIsLoading);
-  signUpMessage$ = this.store.select(selectSignUpStates.getSignUpMessage);
+  errorMessage$ = this.store.select(selectSignUpStates.getSignUpMessage);
 
   constructor(
     private store: Store<AppState>,
@@ -40,7 +41,7 @@ export class SignupComponent {
   ngOnInit(): void {
     this.regForm = new FormGroup(
       {
-        userName: new FormControl('', Validators.required),
+        username: new FormControl('', Validators.required),
         email: new FormControl('', [Validators.required, Validators.email]),
         password: new FormControl('', [
           Validators.required,
@@ -56,14 +57,19 @@ export class SignupComponent {
     );
   }
 
-  getControl(name: string): AbstractControl | null {
-    return this.regForm.get(name);
+  toggleModal(): void {
+    this.isOpen = !this.isOpen;
   }
 
-  hasError(controlName: string, errorName: string): boolean | undefined {
-    return this.regForm.get(controlName)?.hasError(errorName);
+  controlHasError(control: string, errorName: string): boolean | undefined {
+    if (!this.regForm.dirty) {
+      return;
+    }
+    return (
+      this.regForm?.get(control)?.touched &&
+      this.regForm?.get(control)?.hasError(errorName)
+    );
   }
-
   toggleChoice(): void {
     this.IsRememberMe = !this.IsRememberMe;
   }
