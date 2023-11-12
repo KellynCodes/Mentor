@@ -1,6 +1,6 @@
-<ng-container *ngIf="errorMessage$ | async as errorMessage">
-  <learnal-alert [errorMessage]="errorMessage" />
-</ng-container>
+@if(errorMessage$ | async){
+<learnal-alert [errorMessage]="errorMessage$ | async" />
+}
 
 <!-- ======= Breadcrumbs ======= -->
 <div class="breadcrumbs">
@@ -58,6 +58,8 @@
           </div>
         </div>
       </div>
+      }@empty{
+      <learnal-course-not-found />
       } }
       <!-- End Course Item-->
     </div>

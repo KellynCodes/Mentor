@@ -1,6 +1,9 @@
 import { TemplatePageTitleStrategy } from './extension/title.strategy';
 import { NgModule, isDevMode } from '@angular/core';
-import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  provideClientHydration,
+} from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './modules/components/navbar/navbar.component';
