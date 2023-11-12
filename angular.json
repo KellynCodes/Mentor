@@ -39,7 +39,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": ["@srexi/purecounterjs", "aos"],
-            "outputPath": "dist/learnal",
+            "outputPath": "dist/learnal/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -109,7 +109,9 @@
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {}
+          "options": {
+            "buildTarget": "learnal:build"
+          }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -130,6 +132,72 @@
             ],
             "karmaConfig": "karma.conf.js"
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/learnal/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.prod.ts",
+                  "with": "src/environments/environment.ts"
+                }
+              ],
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@angular-devkit/build-angular:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "learnal:build:development",
+              "serverTarget": "learnal:server:development"
+            },
+            "production": {
+              "browserTarget": "learnal:build:production",
+              "serverTarget": "learnal:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@angular-devkit/build-angular:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "learnal:build:production",
+              "serverTarget": "learnal:server:production"
+            },
+            "development": {
+              "browserTarget": "learnal:build:development",
+              "serverTarget": "learnal:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
