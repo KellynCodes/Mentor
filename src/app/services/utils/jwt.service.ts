@@ -1,5 +1,5 @@
+import jwtDecode from 'jwt-decode';
 import { Inject, Injectable } from '@angular/core';
-import jwt_decode from 'jwt-decode';
 import { UserDto } from '../user/Dto/user.dto';
 import { localStorageToken } from '../../extension/local.storage';
 import { Store } from '@ngrx/store';
@@ -31,7 +31,7 @@ export class JwtService {
 
   public decodeJwtToken(loginSuccess: LoginSuccessDto): UserDto | null {
     try {
-      const decodedToken: UserDto = jwt_decode(loginSuccess.accessToken!);
+      const decodedToken: UserDto = jwtDecode(loginSuccess.accessToken!);
       const userSession: LoginSuccessDto = {
         accessToken: loginSuccess.accessToken,
         refreshToken: loginSuccess.refreshToken,
