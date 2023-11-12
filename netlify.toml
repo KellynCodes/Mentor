@@ -6,3 +6,7 @@
 [build]
   command = "ng build"
   publish = "dist/learnal/browser"
+
+[deployment]
+   command = "ng serve"
+   publish = "dist/learnal"
