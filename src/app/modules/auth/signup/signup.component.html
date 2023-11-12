@@ -136,19 +136,16 @@
           }@else{
           <div class="flex items-center flex-col w-full justify-center gap-5">
             <div class="img_preview_container">
-              @if(imagePreviewLink != null){
               <img [src]="imagePreviewLink" alt="image preview" />
-              }
             </div>
-            <button
-              type="button"
-              class="w-full text-center bg-accent-dark hover:bg-accent text-gray-100 p-3 rounded-md font-semibold cursor-pointer transition ease-in duration-500"
+            <img
+              src="../../../../assets/svg/auth/edit.image.svg"
+              alt="..."
+              id="preview"
+              class="w-16 h-16 mx-auto text-center bg-accent-dark hover:bg-accent text-gray-100 p-3 rounded-full font-semibold cursor-pointer transition ease-in duration-500"
               (click)="toggleModal()"
-            >
-              Change
-            </button>
+            />
           </div>
-
           }
 
           <!-- Upload Image Modal-->

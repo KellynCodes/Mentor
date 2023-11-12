@@ -10,6 +10,10 @@ a {
   text-decoration: none !important;
 }
 
+mat-error {
+  @apply text-red-500;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
