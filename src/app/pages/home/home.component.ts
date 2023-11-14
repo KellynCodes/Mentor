@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import PureCounter from '@srexi/purecounterjs';
 import * as Aos from 'aos';
 import { PaginationQueryDto } from './../../data/Dto/shared/request.query.dto';
 import { Store } from '@ngrx/store';
@@ -25,7 +24,6 @@ export class HomeComponent {
       once: true,
       mirror: false,
     });
-    new PureCounter();
 
     //fetch popular courses
     this.getCourses();

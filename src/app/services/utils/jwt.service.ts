@@ -1,20 +1,20 @@
 import jwtDecode from 'jwt-decode';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { UserDto } from '../user/Dto/user.dto';
-import { localStorageToken } from '../../extension/local.storage';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../state/app/app.state';
 import { LoginSuccessDto } from '../auth/Dto/LoginSuccessDto';
 import { setErrorMessage } from '../../state/shared/shared.action';
 import { GetUserSuccess } from '../../modules/auth/state/auth/auth.action';
+import { BrowserApiService } from './browser.api.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class JwtService {
-  private user: any | null = this.localStorage.getItem('authUser');
+  private user: any | null = this.browserApiService.getItem('authUser');
   constructor(
-    @Inject(localStorageToken) private localStorage: Storage,
+    private browserApiService: BrowserApiService,
     private store: Store<AppState>
   ) {}
 
@@ -39,7 +39,7 @@ export class JwtService {
         user: decodedToken,
       };
       const authUser: string = JSON.stringify(userSession);
-      this.localStorage.setItem('authUser', authUser);
+      this.browserApiService.setItem('authUser', authUser);
       return decodedToken;
     } catch (error) {
       setTimeout(() => {

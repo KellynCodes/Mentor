@@ -1,7 +1,6 @@
-<ng-template *ngIf="errorMessage$ | async as errorMessage">
-  <learnal-alert [message]="errorMessage" />
-</ng-template>
-
+@if(errorMessage$ | async){
+<learnal-alert [message]="errorMessage$ | async" />
+}
 <!-- ======= Hero Section ======= -->
 <section id="hero" class="d-flex justify-content-center align-items-center">
   <div

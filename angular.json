@@ -101,7 +101,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": { "buildTarget": "learnal:build:production" },
-            "development": { "buildTarget": "learnal:build:development" }
+            "development": { "buildTarget": "learnal:server:development" }
           },
           "defaultConfiguration": "development"
         },
