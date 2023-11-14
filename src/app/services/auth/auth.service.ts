@@ -1,3 +1,4 @@
+import { setErrorMessage } from './../../state/shared/shared.action';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import {
@@ -10,26 +11,25 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { HttpResponse } from '../../data/Dto/shared/http.response.dto';
-import { localStorageToken } from '../../extension/local.storage';
 import * as authActions from '../../modules/auth/state/auth/auth.action';
 import { AppState } from '../../state/app/app.state';
 import { LoginSuccessDto } from './Dto/LoginSuccessDto';
 import { LoginDto } from './Dto/login.dto';
 import { VerifyEmailDto } from './Dto/verify-email.dto';
+import { BrowserApiService } from '../utils/browser.api.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   constructor(
-    @Inject(localStorageToken) private localStorage: Storage,
     private http: HttpClient,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private browserApiService: BrowserApiService
   ) {}
 
   Login(model: LoginDto): Observable<HttpResponse<LoginSuccessDto>> {
     if (model == null) {
-      debugger;
       throw new Error('model value cannot be null');
     }
     const url: string = `${environment.apiUrl}/auth/sign-in`;
@@ -53,7 +53,7 @@ export class AuthService {
   }
 
   logout(): boolean {
-    this.localStorage.removeItem('authUser');
+    this.browserApiService.removeItem('authUser');
     this.store.dispatch(authActions.LogoutSuccess());
     return true;
   }

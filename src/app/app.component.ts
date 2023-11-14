@@ -1,6 +1,5 @@
 import { JwtService } from './services/utils/jwt.service';
 import { Component } from '@angular/core';
-import PureCounter from '@srexi/purecounterjs';
 import * as Aos from 'aos';
 import * as sharedSelectors from './state/shared/shared.selector';
 import { Store } from '@ngrx/store';
@@ -31,6 +30,5 @@ export class AppComponent {
     });
 
     //counter
-    new PureCounter();
   }
 }

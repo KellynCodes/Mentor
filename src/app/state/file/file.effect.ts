@@ -3,14 +3,12 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, exhaustMap, finalize, map, of } from 'rxjs';
 import * as FileActions from './file.action';
-import { localStorageToken } from '../../extension/local.storage';
 import { FileService } from '../../services/file/file.service';
 import { AppState } from '../app/app.state';
 
 @Injectable()
 export class FileEffect {
   constructor(
-    @Inject(localStorageToken) private localStorage: Storage,
     private actions$: Actions,
     private fileService: FileService,
     private store: Store<AppState>
@@ -36,5 +34,4 @@ export class FileEffect {
       )
     )
   );
-
 }

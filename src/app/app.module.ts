@@ -1,5 +1,5 @@
 import { TemplatePageTitleStrategy } from './extension/title.strategy';
-import { NgModule, isDevMode } from '@angular/core';
+import { ErrorHandler, NgModule, isDevMode } from '@angular/core';
 import {
   BrowserModule,
   provideClientHydration,
@@ -25,6 +25,7 @@ import { JwtTokenInterceptor } from './extension/http.interceptor';
 import { TitleStrategy } from '@angular/router';
 import { register } from 'swiper/element/bundle';
 import { SharedModule } from './modules/components/shared.module';
+import { HandleGlobalError } from './extension/handle.error';
 
 register();
 
@@ -53,6 +54,7 @@ register();
     { provide: LocationStrategy, useClass: PathLocationStrategy },
     { provide: TitleStrategy, useClass: TemplatePageTitleStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: JwtTokenInterceptor, multi: true },
+    { provide: ErrorHandler, useClass: HandleGlobalError },
     provideClientHydration(),
   ],
   bootstrap: [AppComponent],

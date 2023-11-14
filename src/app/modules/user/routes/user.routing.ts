@@ -18,7 +18,6 @@ export const userRoutes: Routes = [
     component: UserCoursesComponent,
     title: 'Your Courses',
   },
-
   {
     path: ':username',
     component: UserComponent,
