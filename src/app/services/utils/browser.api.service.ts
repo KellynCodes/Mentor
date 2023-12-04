@@ -5,7 +5,7 @@ import { isPlatformBrowser } from '@angular/common';
   providedIn: 'root',
 })
 export class BrowserApiService {
-  private isBrowser: boolean;
+  public isBrowser: boolean;
 
   constructor(@Inject(PLATFORM_ID) private platformId: any) {
     this.isBrowser = isPlatformBrowser(this.platformId);

@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class AlertComponent {
   @Input({ required: false })
-  errorMessage?: string | null | unknown;
+  errorMessage?: string | unknown;
 
   @Input({ required: false })
   successMessage?: string | null;

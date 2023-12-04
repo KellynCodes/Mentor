@@ -1,7 +1,7 @@
 import { CourseService } from './../../../services/course/course.service';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, map,  of, tap } from 'rxjs';
+import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import * as CourseActions from './action';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../state/app/app.state';
@@ -19,15 +19,44 @@ export class CourseEffect {
     this.actions$.pipe(
       ofType(CourseActions.LoadCourse),
       exhaustMap((action) =>
-        this.courseService.getAllCourse(action.query).pipe(
+        this.courseService.getAllCourse(action.query!).pipe(
           map((res) => {
             return CourseActions.LoadCourseSuccess({
               courses: res.data!.records,
             });
           }),
           catchError((error) => {
-            debugger;
-            return of(CourseActions.LoadCourseFailure({courses: null, IsLoading: false, errorMessage: error.error}));
+            return of(
+              CourseActions.LoadCourseFailure({
+                courses: null,
+                IsLoading: false,
+                errorMessage: error.error,
+              })
+            );
+          })
+        )
+      )
+    )
+  );
+
+  GetCourseRequest$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CourseActions.GetCourse),
+      exhaustMap((action) =>
+        this.courseService.getCourse(action.courseId).pipe(
+          map((res) => {
+            return CourseActions.GetCourseSuccess({
+              course: res.data!,
+            });
+          }),
+          catchError((error) => {
+            return of(
+              CourseActions.LoadCourseFailure({
+                courses: null,
+                IsLoading: false,
+                errorMessage: error.error,
+              })
+            );
           })
         )
       )

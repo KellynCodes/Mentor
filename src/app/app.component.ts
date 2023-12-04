@@ -1,9 +1,7 @@
 import { JwtService } from './services/utils/jwt.service';
-import { Component } from '@angular/core';
+import { Component, afterRender } from '@angular/core';
 import * as Aos from 'aos';
-import * as sharedSelectors from './state/shared/shared.selector';
-import { Store } from '@ngrx/store';
-import { AppState } from './state/app/app.state';
+import { BrowserApiService } from './services/utils/browser.api.service';
 
 @Component({
   selector: 'learnal-root',
@@ -11,24 +9,22 @@ import { AppState } from './state/app/app.state';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  public errorMessage$ = this.store.select(sharedSelectors.getErrorMessage);
-  public successMessage$ = this.store.select(sharedSelectors.getSuccessMessage);
-  public IsSuccessful = this.store.select(sharedSelectors.getIsSuccessful);
-
-  constructor(private jwtService: JwtService, private store: Store<AppState>) {}
+  constructor(
+    private jwtService: JwtService,
+    private browserService: BrowserApiService
+  ) {
+    afterRender(() => {
+      Aos.init({
+        duration: 1000,
+        easing: 'ease-in-out',
+        once: true,
+        mirror: false,
+      });
+    });
+  }
 
   ngOnInit(): void {
     //Get user from local storage.
     this.jwtService.CheckUser();
-
-    //aos animation initialization.
-    Aos.init({
-      duration: 1000,
-      easing: 'ease-in-out',
-      once: true,
-      mirror: false,
-    });
-
-    //counter
   }
 }

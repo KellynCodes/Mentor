@@ -4,18 +4,32 @@ import { createAction, props } from '@ngrx/store';
 import { Operation } from 'fast-json-patch';
 
 export const LoadCourse = createAction(
-  '[Course] Load Course Success.',
-  props<{ query: PaginationQueryDto; IsLoading: boolean }>()
+  '[Course] Load Course.',
+  props<{ query: PaginationQueryDto | null; IsLoading: boolean }>()
+);
+
+export const GetCourse = createAction(
+  '[Course] Get Course.',
+  props<{ courseId: string; IsLoading: boolean }>()
 );
 
 export const LoadCourseFailure = createAction(
   '[Course] Load Course Failure',
-  props<{courses:  CourseResponseDto[] | null, IsLoading: boolean, errorMessage: string | null}>()
-)
+  props<{
+    courses: CourseResponseDto[] | null;
+    IsLoading: boolean;
+    errorMessage: string | null;
+  }>()
+);
 
 export const LoadCourseSuccess = createAction(
   '[Course] Load Course Success.',
   props<{ courses: CourseResponseDto[] }>()
+);
+
+export const GetCourseSuccess = createAction(
+  '[Course] Get Course Success.',
+  props<{ course: CourseResponseDto }>()
 );
 
 export const CreateCourse = createAction(

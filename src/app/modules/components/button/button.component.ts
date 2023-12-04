@@ -9,6 +9,5 @@ import { Component, Input } from '@angular/core';
 export class ButtonComponent {
   @Input() label: string = '';
   @Input() customClasses: string = '';
-  @Input() link?: string = '';
-  @Input() backgroundStyles?: string = '';
+  @Input() link!: string | Array<string>;
 }

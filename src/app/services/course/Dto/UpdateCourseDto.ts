@@ -1,4 +1,4 @@
-import { MediaType } from '../../../data/enum/MediaType';
+import { MediaDto, TopicDto } from './CourseResponseDto';
 
 export interface UpdateCourseDto {
   id: string;
@@ -13,5 +13,7 @@ export interface UpdateCourseDto {
 
   mediaUrl: string;
 
-  mediaType: MediaType;
+  media: MediaDto;
+
+  Topics: TopicDto;
 }
