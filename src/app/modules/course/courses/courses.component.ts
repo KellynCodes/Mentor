@@ -4,20 +4,25 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as courseActions from '../state/action';
 import * as courseSelector from '../state/selector';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'learnal-courses',
   templateUrl: './courses.component.html',
-  styleUrls: ['./courses.component.css'],
+  styleUrl: './courses.component.css',
 })
 export class CoursesComponent {
   public courses$ = this.store.select(courseSelector.getCourse);
   public IsCourseLoading$ = this.store.select(courseSelector.IsCourseLoading);
   public errorMessage$ = this.store.select(courseSelector.errorMessage);
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>, private router: Router) {}
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     this.getCourses();
+  }
+
+  goTo(path: string): void {
+    this.router.navigateByUrl(path);
   }
 
   getCourses(

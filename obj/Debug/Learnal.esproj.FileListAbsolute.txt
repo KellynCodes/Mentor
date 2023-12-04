@@ -1,2 +1,1 @@
-C:\Users\KELLYNCODES\source\projects\Learnal\client\Learnal\obj\Debug\Learnal.esproj.SuggestedBindingRedirects.cache
 C:\Users\KELLYNCODES\source\projects\Learnal\client\Learnal\obj\Debug\Learnal.esproj.CoreCompileInputs.cache

@@ -41,7 +41,7 @@ export class SignupComponent {
   ngOnInit(): void {
     this.regForm = new FormGroup(
       {
-        username: new FormControl('', Validators.required),
+        userName: new FormControl('', Validators.required),
         email: new FormControl('', [Validators.required, Validators.email]),
         password: new FormControl('', [
           Validators.required,
@@ -101,6 +101,7 @@ export class SignupComponent {
     const model: SignUpDto = {
       ...this.regForm.value,
     };
+    console.log({ ...model });
     const formData: FormData = new FormData();
     formData.append('email', model.email);
     formData.append('userName', model.userName);
@@ -109,7 +110,7 @@ export class SignupComponent {
     if (this.croppedFile != null) {
       formData.append('profileImage', this.croppedFile, this.file?.name);
     }
-
+    console.log(`${formData.get('userName')} ${model}`);
     this.store.dispatch(
       signUpActions.RegistrationFired({
         message: null,

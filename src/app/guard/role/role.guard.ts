@@ -13,6 +13,6 @@ export const roleGuard: CanActivateFn = (route, state) => {
   if (IsAdmin) {
     return true;
   } else {
-    return router.parseUrl('/home');
+    return router.navigateByUrl('/');
   }
 };

@@ -45,9 +45,9 @@ export class CourseService {
     return this.http.get<HttpResponse<{ records: CourseResponseDto[] }>>(url);
   }
 
-  getCourse(courseId: string): Observable<HttpResponse<UpdateCourseDto>> {
+  getCourse(courseId: string): Observable<HttpResponse<CourseResponseDto>> {
     const url: string = `${environment.apiUrl}/course/${courseId}`;
-    return this.http.get<HttpResponse<UpdateCourseDto>>(url);
+    return this.http.get<HttpResponse<CourseResponseDto>>(url);
   }
 
   deleteCourse(courseId: string): Observable<HttpResponse<CourseResponseDto>> {

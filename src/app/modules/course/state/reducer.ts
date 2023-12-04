@@ -1,7 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { initialCourseState } from './selector';
 import * as courseActions from './action';
-import { CourseResponseDto } from '../../../services/course/Dto/CourseResponseDto';
 
 const _courseReducer = createReducer(
   initialCourseState,
@@ -22,7 +21,14 @@ const _courseReducer = createReducer(
   }),
 
   on(courseActions.LoadCourse, (state, action) => {
-    console.log(action.IsLoading);
+    return {
+      ...state,
+      courses: state.courses,
+      IsLoading: action.IsLoading,
+    };
+  }),
+
+  on(courseActions.GetCourse, (state, action) => {
     return {
       ...state,
       courses: state.courses,
@@ -31,12 +37,11 @@ const _courseReducer = createReducer(
   }),
 
   on(courseActions.LoadCourseFailure, (state, action) => {
-    console.log(action.IsLoading);
     return {
       ...state,
       courses: state.courses,
       IsLoading: action.IsLoading,
-      errorMessage: action.errorMessage
+      errorMessage: action.errorMessage,
     };
   }),
 

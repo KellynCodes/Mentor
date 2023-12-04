@@ -1,4 +1,4 @@
-import { UpdateCourseDto } from './../../../services/course/Dto/UpdateCourseDto';
+import { CourseResponseDto } from './../../../services/course/Dto/CourseResponseDto';
 import { CourseService } from '../../../services/course/course.service';
 import { Component } from '@angular/core';
 import * as jsonpatch from 'fast-json-patch';
@@ -14,7 +14,7 @@ import * as courseActions from '../state/action';
   styleUrls: ['./update-course.component.css'],
 })
 export class UpdateCourseComponent {
-  public originalCourse!: UpdateCourseDto | null;
+  public originalCourse!: CourseResponseDto | null;
   public courseForm!: FormGroup;
 
   constructor(
@@ -50,7 +50,7 @@ export class UpdateCourseComponent {
   }
 
   onSubmit(): void {
-    const updatedCourse: UpdateCourseDto = this.courseForm.value;
+    const updatedCourse: CourseResponseDto = this.courseForm.value;
     if (this.originalCourse == updatedCourse) {
       alert('No changes made');
     }

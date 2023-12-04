@@ -1,4 +1,3 @@
-import { setErrorMessage } from './../../state/shared/shared.action';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import {
@@ -37,6 +36,7 @@ export class AuthService {
   }
 
   signUp(model: FormData): Observable<HttpResponse> {
+    console.log(model.get('userName'));
     if (model == null) {
       throw new Error('model value cannot be null');
     }
