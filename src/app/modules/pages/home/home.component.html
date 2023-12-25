@@ -20,14 +20,6 @@
       course for you.
     </h2>
     @if(authToken$ | async){
-    <div class="my-3">
-      <span class="font-bold text-white text-xl">
-        Welcome back
-        <h1 class="text-lg text-success">
-          {{ ((user$ | async)?.unique_name)![0] }}
-        </h1></span
-      >
-    </div>
     <a routerLink="/user/dashboard" class="btn-get-started">Dashboard</a>
     }@else{
     <a routerLink="/course/courses" class="btn-get-started">Get Started</a>
