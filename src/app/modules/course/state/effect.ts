@@ -1,17 +1,20 @@
+import { errorMessage } from './selector';
 import { CourseService } from './../../../services/course/course.service';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import * as CourseActions from './action';
 import { Store } from '@ngrx/store';
+import { ToastrService } from 'ngx-toastr';
 import { AppState } from '../../../state/app/app.state';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CourseEffect {
   constructor(
     private actions$: Actions,
     private courseService: CourseService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private toastr: ToastrService
   ) {}
 
   // Fetch Course request
@@ -67,15 +70,20 @@ export class CourseEffect {
     () =>
       this.actions$.pipe(
         ofType(CourseActions.LoadCourseFailure),
-        tap(() => {
-          setTimeout(() => {
-            this.store.dispatch(
-              CourseActions.LoadCourseFailure({
-                courses: null,
-                IsLoading: false,
-                errorMessage: null,
-              })
+        tap((error) => {
+          if (typeof error?.errorMessage == 'object') {
+            console.log('error from equilibrum', error.errorMessage.message);
+            this.toastr.error(error.errorMessage.message);
+          }
+          if (typeof error?.errorMessage == 'string') {
+            console.log(
+              'errorMessage from string message',
+              error?.errorMessage
             );
+            this.toastr.error(`${error.errorMessage}`);
+          }
+          setTimeout(() => {
+            this.store.dispatch(CourseActions.ResetCourseFetchState());
           }, 6000);
         })
       ),

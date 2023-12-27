@@ -18,8 +18,12 @@ export const LoadCourseFailure = createAction(
   props<{
     courses: CourseResponseDto[] | null;
     IsLoading: boolean;
-    errorMessage: string | null;
+    errorMessage: string | any | null;
   }>()
+);
+
+export const ResetCourseFetchState = createAction(
+  '[Course] Load Course State Reset'
 );
 
 export const LoadCourseSuccess = createAction(

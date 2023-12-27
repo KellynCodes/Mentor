@@ -45,6 +45,15 @@ const _courseReducer = createReducer(
     };
   }),
 
+  on(courseActions.ResetCourseFetchState, (state, action) => {
+    return {
+      ...state,
+      courses: null,
+      IsLoading: false,
+      errorMessage: null,
+    };
+  }),
+
   on(courseActions.LoadCourseSuccess, (state, action) => {
     return {
       ...state,

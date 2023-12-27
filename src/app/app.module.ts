@@ -39,6 +39,7 @@ import { SharedModule } from './modules/components/shared.module';
 import { HandleGlobalError } from './extension/handle.error';
 import { NgOptimizedImage } from '@angular/common';
 import { MaterialModule } from './modules/material/material.module';
+import { ToastrModule } from 'ngx-toastr';
 
 register();
 
@@ -51,6 +52,12 @@ register();
     AppRoutingModule,
     HttpClientModule,
     NgOptimizedImage,
+    ToastrModule.forRoot({
+      maxOpened: 8,
+      autoDismiss: true,
+      timeOut: 3000,
+      positionClass: 'toast-top-center',
+    }),
     BrowserAnimationsModule,
     StoreModule.forRoot(appReducer),
     EffectsModule.forRoot(appEffects),

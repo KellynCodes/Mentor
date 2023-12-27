@@ -10,7 +10,6 @@ import { AppState } from '../../../state/app/app.state';
   styleUrl: './index.component.css',
 })
 export class IndexComponent {
-  public errorMessage$ = this.store.select(sharedSelectors.getErrorMessage);
   public successMessage$ = this.store.select(sharedSelectors.getSuccessMessage);
   public IsSuccessful = this.store.select(sharedSelectors.getIsSuccessful);
 
