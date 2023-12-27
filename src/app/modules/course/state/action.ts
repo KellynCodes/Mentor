@@ -18,7 +18,7 @@ export const LoadCourseFailure = createAction(
   props<{
     courses: CourseResponseDto[] | null;
     IsLoading: boolean;
-    errorMessage: string | null;
+    errorMessage: string | any | null;
   }>()
 );
 

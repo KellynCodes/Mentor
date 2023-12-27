@@ -1,12 +1,14 @@
+import { errorMessage } from './selector';
 import { CourseService } from './../../../services/course/course.service';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import * as CourseActions from './action';
 import { Store } from '@ngrx/store';
+import { ToastrService } from 'ngx-toastr';
 import { AppState } from '../../../state/app/app.state';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CourseEffect {
   constructor(
     private actions$: Actions,
@@ -67,7 +69,16 @@ export class CourseEffect {
     () =>
       this.actions$.pipe(
         ofType(CourseActions.LoadCourseFailure),
-        tap(() => {
+        tap((error) => {
+          const toastr = inject(ToastrService);
+          if (typeof error?.errorMessage == 'object') {
+            console.log(error);
+            toastr.error(error.errorMessage?.message);
+          }
+          if (typeof error?.errorMessage == 'string') {
+            console.log(error?.errorMessage);
+            toastr.error(`${error.errorMessage}`);
+          }
           setTimeout(() => {
             this.store.dispatch(
               CourseActions.LoadCourseFailure({

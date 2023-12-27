@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { AlertComponent } from './alert/alert.component';
 import { LoaderComponent } from './loader/loader.component';
 import { ButtonComponent } from './button/button.component';
 import { RouterModule } from '@angular/router';
@@ -17,7 +16,6 @@ import { FormsModule } from '@angular/forms';
     NavbarComponent,
     FooterComponent,
     NotfoundComponent,
-    AlertComponent,
     LoaderComponent,
     ButtonComponent,
     SearchComponent,
@@ -29,7 +27,6 @@ import { FormsModule } from '@angular/forms';
     NavbarComponent,
     FooterComponent,
     NotfoundComponent,
-    AlertComponent,
     LoaderComponent,
     ButtonComponent,
     CourseNotFoundComponent,

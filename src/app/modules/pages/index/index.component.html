@@ -1,9 +1,3 @@
 <learnal-navbar />
-
-@if(errorMessage$ | async){
-<learnal-alert [errorMessage]="errorMessage$ | async" />
-} @if(successMessage$ | async){
-<learnal-alert [successMessage]="successMessage$ | async" />
-}
 <router-outlet />
 <learnal-footer />
