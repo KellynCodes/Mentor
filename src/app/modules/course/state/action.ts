@@ -22,6 +22,10 @@ export const LoadCourseFailure = createAction(
   }>()
 );
 
+export const ResetCourseFetchState = createAction(
+  '[Course] Load Course State Reset'
+);
+
 export const LoadCourseSuccess = createAction(
   '[Course] Load Course Success.',
   props<{ courses: CourseResponseDto[] }>()

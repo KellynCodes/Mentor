@@ -13,7 +13,8 @@ export class CourseEffect {
   constructor(
     private actions$: Actions,
     private courseService: CourseService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private toastr: ToastrService
   ) {}
 
   // Fetch Course request
@@ -70,23 +71,19 @@ export class CourseEffect {
       this.actions$.pipe(
         ofType(CourseActions.LoadCourseFailure),
         tap((error) => {
-          const toastr = inject(ToastrService);
           if (typeof error?.errorMessage == 'object') {
-            console.log(error);
-            toastr.error(error.errorMessage?.message);
+            console.log('error from equilibrum', error.errorMessage.message);
+            this.toastr.error(error.errorMessage.message);
           }
           if (typeof error?.errorMessage == 'string') {
-            console.log(error?.errorMessage);
-            toastr.error(`${error.errorMessage}`);
+            console.log(
+              'errorMessage from string message',
+              error?.errorMessage
+            );
+            this.toastr.error(`${error.errorMessage}`);
           }
           setTimeout(() => {
-            this.store.dispatch(
-              CourseActions.LoadCourseFailure({
-                courses: null,
-                IsLoading: false,
-                errorMessage: null,
-              })
-            );
+            this.store.dispatch(CourseActions.ResetCourseFetchState());
           }, 6000);
         })
       ),

@@ -10,6 +10,7 @@ import { MaterialModule } from '../../modules/material/material.module';
 import { SharedModule } from '../components/shared.module';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { NgOptimizedImage } from '@angular/common';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,12 @@ import { NgOptimizedImage } from '@angular/common';
   ],
   imports: [
     CourseRoutingModule,
+    ToastrModule.forRoot({
+      maxOpened: 8,
+      autoDismiss: true,
+      timeOut: 3000,
+      positionClass: 'toast-top-center',
+    }),
     NgOptimizedImage,
     YouTubePlayerModule,
     MaterialModule,
