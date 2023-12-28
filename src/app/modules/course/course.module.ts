@@ -23,12 +23,6 @@ import { ToastrModule } from 'ngx-toastr';
   ],
   imports: [
     CourseRoutingModule,
-    ToastrModule.forRoot({
-      maxOpened: 8,
-      autoDismiss: true,
-      timeOut: 3000,
-      positionClass: 'toast-top-center',
-    }),
     NgOptimizedImage,
     YouTubePlayerModule,
     MaterialModule,

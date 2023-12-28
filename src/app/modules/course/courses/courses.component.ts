@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import * as courseActions from '../state/action';
 import * as courseSelector from '../state/selector';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'learnal-courses',
@@ -15,10 +16,18 @@ export class CoursesComponent {
   public courses$ = this.store.select(courseSelector.getCourse);
   public IsCourseLoading$ = this.store.select(courseSelector.IsCourseLoading);
   public errorMessage$ = this.store.select(courseSelector.errorMessage);
-  constructor(private store: Store<AppState>, private router: Router) {}
+  constructor(
+    private store: Store<AppState>,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.getCourses();
+  }
+
+  ngAfterViewInit(): void {
+    this.toastr.info('Why are you not working on the other component bro');
   }
 
   goTo(path: string): void {
