@@ -36,7 +36,6 @@ import { JwtTokenInterceptor } from './extension/http.interceptor';
 import { TitleStrategy } from '@angular/router';
 import { register } from 'swiper/element/bundle';
 import { SharedModule } from './modules/components/shared.module';
-import { HandleGlobalError } from './extension/handle.error';
 import { NgOptimizedImage } from '@angular/common';
 import { MaterialModule } from './modules/material/material.module';
 import { ToastrModule } from 'ngx-toastr';
