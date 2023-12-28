@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -7,10 +7,11 @@ import {
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { LoginDto } from '../../../services/auth/Dto/login.dto';
-import { TimeOut } from '../../../services/utils/timeout.util';
 import { AppState } from '../../../state/app/app.state';
 import * as authActions from '../state/auth/auth.action';
 import * as authSelectors from '../state/auth/auth.selector';
+import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'learnal-login',
@@ -18,14 +19,14 @@ import * as authSelectors from '../state/auth/auth.selector';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  constructor(private store: Store<AppState>, private timeoutUtil: TimeOut) {}
-  hidePassword!: boolean;
+  constructor(private store: Store<AppState>, private alert: ToastrService) {}
+  hidePassword: boolean = true;
   loginForm!: FormGroup;
-  errorMessage: string | null = null;
   IsLoading$ = this.store.select(authSelectors.getLoading);
   errorMessage$ = this.store.select(authSelectors.getErrorMessage);
 
   ngOnInit(): void {
+    this.alert.error('Error Fetching something.');
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
@@ -47,8 +48,7 @@ export class LoginComponent {
 
   Login(): void {
     if (!this.loginForm.valid) {
-      this.errorMessage = 'All the fields are required.';
-      this.errorMessage = this.timeoutUtil.setTimeOut(50);
+      this.alert.error('All the fields are required.');
       return;
     }
     const loginCredentials: LoginDto = {

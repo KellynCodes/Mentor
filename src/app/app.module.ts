@@ -38,7 +38,7 @@ import { register } from 'swiper/element/bundle';
 import { SharedModule } from './modules/components/shared.module';
 import { NgOptimizedImage } from '@angular/common';
 import { MaterialModule } from './modules/material/material.module';
-import { ToastrModule } from 'ngx-toastr';
+import { ToastrModule, provideToastr } from 'ngx-toastr';
 
 register();
 
@@ -51,12 +51,6 @@ register();
     AppRoutingModule,
     HttpClientModule,
     NgOptimizedImage,
-    ToastrModule.forRoot({
-      maxOpened: 8,
-      autoDismiss: true,
-      timeOut: 3000,
-      positionClass: 'toast-top-center',
-    }),
     BrowserAnimationsModule,
     StoreModule.forRoot(appReducer),
     EffectsModule.forRoot(appEffects),
@@ -71,6 +65,12 @@ register();
     { provide: HTTP_INTERCEPTORS, useClass: JwtTokenInterceptor, multi: true },
     provideClientHydration(),
     provideHttpClient(withFetch()),
+    provideToastr({
+      maxOpened: 8,
+      autoDismiss: true,
+      timeOut: 3000,
+      positionClass: 'toast-top-center',
+    }),
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
