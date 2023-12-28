@@ -24,6 +24,7 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
+    console.log('called to fetch user.');
     //Get user from local storage.
     this.jwtService.CheckUser();
   }

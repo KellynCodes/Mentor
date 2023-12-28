@@ -5,6 +5,7 @@ import * as courseActions from './action';
 const _courseReducer = createReducer(
   initialCourseState,
   on(courseActions.CreateCourse, (state, action) => {
+    console.log('called');
     return {
       ...state,
       courses: state.courses,
@@ -13,6 +14,8 @@ const _courseReducer = createReducer(
   }),
 
   on(courseActions.UpdateCourse, (state, action) => {
+    console.log('called');
+
     return {
       ...state,
       courses: state.courses,
@@ -21,6 +24,8 @@ const _courseReducer = createReducer(
   }),
 
   on(courseActions.LoadCourse, (state, action) => {
+    console.log('called');
+
     return {
       ...state,
       courses: state.courses,
@@ -29,6 +34,8 @@ const _courseReducer = createReducer(
   }),
 
   on(courseActions.GetCourse, (state, action) => {
+    console.log('called');
+
     return {
       ...state,
       courses: state.courses,
@@ -37,6 +44,8 @@ const _courseReducer = createReducer(
   }),
 
   on(courseActions.LoadCourseFailure, (state, action) => {
+    console.log('called');
+
     return {
       ...state,
       courses: state.courses,
@@ -46,6 +55,8 @@ const _courseReducer = createReducer(
   }),
 
   on(courseActions.ResetCourseFetchState, (state, action) => {
+    console.log('called');
+
     return {
       ...state,
       courses: null,
@@ -55,6 +66,8 @@ const _courseReducer = createReducer(
   }),
 
   on(courseActions.LoadCourseSuccess, (state, action) => {
+    console.log('called');
+
     return {
       ...state,
       courses: action?.courses,
@@ -64,6 +77,8 @@ const _courseReducer = createReducer(
   }),
 
   on(courseActions.CreateCourseSuccess, (state, action) => {
+    console.log('called');
+
     let course = { ...action.course };
     return {
       ...state,
@@ -74,6 +89,8 @@ const _courseReducer = createReducer(
   }),
 
   on(courseActions.UpdateCourseSuccess, (state, action) => {
+    console.log('called');
+
     const updatedCourse = state.courses!.map((course) => {
       return action.course.id == course.id ? action.course : course;
     });
@@ -85,6 +102,8 @@ const _courseReducer = createReducer(
   }),
 
   on(courseActions.DeleteCourse, (state, action) => {
+    console.log('called');
+
     const deletedCourse = state.courses!.filter((course) => {
       return course.id !== action.id;
     });
@@ -97,6 +116,8 @@ const _courseReducer = createReducer(
   }),
 
   on(courseActions.CreateCourseFailure, (state, { error }) => {
+    console.log('called');
+
     return {
       ...state,
       IsLoading: false,
@@ -113,6 +134,8 @@ const _courseReducer = createReducer(
   }),
 
   on(courseActions.DeleteCourseFailure, (state, { error }) => {
+    console.log('called');
+
     return {
       ...state,
       IsLoading: false,
