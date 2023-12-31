@@ -20,7 +20,7 @@ mat-error {
 
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  @apply font-sans;
   position: relative;
   color: #444444;
   background: #f6f9ff;
@@ -34,15 +34,6 @@ a {
 a:hover {
   color: #86db9f;
   text-decoration: none;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Raleway", sans-serif;
 }
 
 /*--------------------------------------------------------------
