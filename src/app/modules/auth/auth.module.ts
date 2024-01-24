@@ -6,9 +6,10 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { SharedModule } from '../components/shared.module';
-import { MaterialModule } from '../material/material.module';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { NgIconsModule } from '@ng-icons/core';
+import { faEye, faEyeSlash } from '@ng-icons/font-awesome/regular';
 
 @NgModule({
   declarations: [
@@ -22,8 +23,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     CommonModule,
     AuthRoutingModule,
     ImageCropperModule,
-    MaterialModule,
     SharedModule,
+    NgIconsModule.withIcons({ faEye, faEyeSlash }),
   ],
 })
 export class AuthModule {}

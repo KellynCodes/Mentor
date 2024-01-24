@@ -37,7 +37,7 @@ export const authRoutes: Routes = [
         canActivate: [navigationGuard],
       },
       {
-        path: 'reset-password/:token',
+        path: 'reset-password',
         component: ResetPasswordComponent,
         title: 'Reset Password',
         canActivate: [navigationGuard],

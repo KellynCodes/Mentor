@@ -12,22 +12,24 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   constructor(
-    private router: Router,
     private jwtService: JwtService,
     private browserService: BrowserApiService
   ) {
-    afterRender(() => {
-      Aos.init({
-        duration: 1000,
-        easing: 'ease-in-out',
-        once: true,
-        mirror: false,
-      });
-      new PureCounter();
-    }, { phase: AfterRenderPhase.Read });
+    afterRender(
+      () => {
+        Aos.init({
+          duration: 1000,
+          easing: 'ease-in-out',
+          once: true,
+          mirror: false,
+        });
+        new PureCounter();
+      },
+      { phase: AfterRenderPhase.Write }
+    );
   }
 
   ngOnInit(): void {
-   this.jwtService.CheckUser();
+    this.jwtService.CheckUser();
   }
 }

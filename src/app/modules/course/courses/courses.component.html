@@ -17,10 +17,10 @@
   <div class="container" data-aos="fade-up">
     <div class="row" data-aos="zoom-in" data-aos-delay="100">
       <!-- Your course list rendering code -->
-      @for(course of courses$ | async; track course.name){
+      @for(course of courses$ | async; track course.id){
       <div
         class="col-lg-4 col-md-6 d-flex align-items-stretch cursor-pointer"
-        (click)="goTo('/course/{{course.id}}')"
+        (click)="goTo('/course/detail/', course.id)"
       >
         <div class="course-item">
           <img [src]="course.image" class="img-fluid" alt="..." />
@@ -47,7 +47,7 @@
                   class="img-fluid"
                   alt="Course Owner"
                 />
-                <span>{{ course?.user?.userName }}</span>
+                <!-- <span>{{ course?.user?.userName }}</span> -->
                 <learnal-button
                   [link]="['/course/detail', course.id]"
                   customClasses="ml-2 mx-auto text-sm"
