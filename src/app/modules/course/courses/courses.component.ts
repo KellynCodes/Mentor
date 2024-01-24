@@ -27,8 +27,8 @@ export class CoursesComponent {
   }
 
 
-  goTo(path: string): void {
-    this.router.navigateByUrl(path);
+  goTo(mainPath: string, path: string ): void {
+    this.router.navigateByUrl(`${mainPath}${path}`);
   }
 
   getCourses(
