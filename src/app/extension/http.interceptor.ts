@@ -1,15 +1,12 @@
 import {
-  HttpErrorResponse,
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
-  HttpStatusCode,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EMPTY, Observable, catchError, exhaustMap, from, take } from 'rxjs';
+import { Observable, catchError, exhaustMap, take } from 'rxjs';
 import { selectToken } from '../modules/auth/state/auth/auth.selector';
-import { AuthService } from '../services/auth/auth.service';
 import { AppState } from '../state/app/app.state';
 import { Store } from '@ngrx/store';
 import { setErrorMessage } from '../state/shared/shared.action';
@@ -20,10 +17,7 @@ import { ErrorResult } from '../data/Dto/shared/error.result';
   providedIn: 'root',
 })
 export class JwtTokenInterceptor implements HttpInterceptor {
-  constructor(
-    private store: Store<AppState>,
-    private authService: AuthService
-  ) {}
+  constructor(private store: Store<AppState>) {}
 
   intercept(
     request: HttpRequest<unknown>,

@@ -1,13 +1,11 @@
 import { BrowserApiService } from '../../../services/utils/browser.api.service';
 import { AfterRenderPhase, Component, afterRender } from '@angular/core';
-import * as Aos from 'aos';
 import { PaginationQueryDto } from '../../../data/Dto/shared/request.query.dto';
 import { Store } from '@ngrx/store';
 import * as courseActions from '../../../modules/course/state/action';
 import * as courseSelector from '../../../modules/course/state/selector';
 import * as authSelector from '../../../modules/auth/state/auth/auth.selector';
 import { AppState } from '../../../state/app/app.state';
-import PureCounter from '@srexi/purecounterjs';
 
 @Component({
   selector: 'learnal-home',
@@ -29,15 +27,7 @@ export class HomeComponent {
   }
 
   ngOnInit(): void {
-    if (this.browserApiService.isBrowser) {
-      Aos.init({
-        duration: 1000,
-        easing: 'ease-in-out',
-        once: true,
-        mirror: false,
-      });
-    }
-    new PureCounter();
+   
     //fetch popular courses
     this.getCourses();
   }

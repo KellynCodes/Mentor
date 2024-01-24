@@ -35,10 +35,11 @@ export const verifyEmailState = createFeatureSelector<
   HttpResponse<VerifyEmailDto>
 >(VERIFY_EMAIL_STATE_NAME);
 
-export const getVerifyEmailMessage = createSelector(
+export const message = createSelector(
   verifyEmailState,
   (state) => state?.message
 );
+
 export const isVerifySuccessful = createSelector(
   verifyEmailState,
   (state) => state?.isSuccessful

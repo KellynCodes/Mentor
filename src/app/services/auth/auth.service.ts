@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   AbstractControl,
   FormGroup,
@@ -36,7 +36,6 @@ export class AuthService {
   }
 
   signUp(model: FormData): Observable<HttpResponse> {
-    console.log(model.get('userName'));
     if (model == null) {
       throw new Error('model value cannot be null');
     }
@@ -50,6 +49,16 @@ export class AuthService {
     const model = { email: payload.email, otp: payload.otp };
     const url: string = `${environment.apiUrl}/auth/verify-email`;
     return this.http.post<HttpResponse<VerifyEmailDto>>(url, model);
+  }
+
+  resendOtp(email: string): Observable<HttpResponse> {
+    const url: string = `${environment.apiUrl}/auth/verify-email-otp`;
+    return this.http.post<HttpResponse>(url, { email: email });
+  }
+
+  forgotPassword(email: string): Observable<HttpResponse> {
+    const url: string = `${environment.apiUrl}/auth/forgot-password-otp`;
+    return this.http.post<HttpResponse>(url, { email: email });
   }
 
   logout(): boolean {

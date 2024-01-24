@@ -48,12 +48,22 @@ export const VerifyEmailSuccess = createAction(
   props<{ model: HttpResponse<VerifyEmailDto> }>()
 );
 
-export const StopLoading = createAction(
-  '[Email] Stop Loading',
-  props<{ model: HttpResponse<VerifyEmailDto> }>()
-);
-
 export const VerifyEmailFailure = createAction(
   '[Email] Verification Failure',
+  props<{ model: any }>()
+);
+
+export const ResendOtpRequest = createAction(
+  '[Email] Resend Otp',
+  props<{ email: string }>()
+);
+
+export const ForgotPasswordRequest = createAction(
+  '[Email] Forgot Password',
+  props<{ email: string }>()
+);
+
+export const StopLoading = createAction(
+  '[Email] Stop Loading',
   props<{ model: HttpResponse<VerifyEmailDto> }>()
 );

@@ -96,9 +96,27 @@ const _verificationEmailReducer = createReducer(
   on(authActions.VerifyEmailSuccess, (state, { model }) => {
     return {
       ...state,
-      message: model.message,
+      message: `${model.message}. \n Navigating you to login page.`,
       isSuccessful: model.isSuccessful,
       data: model.data,
+    };
+  }),
+
+  on(authActions.ResendOtpRequest, (state, action) => {
+    return {
+      ...state,
+      message: null,
+      isSuccessful: false,
+      data: { isLoading: true },
+    };
+  }),
+
+  on(authActions.ForgotPasswordRequest, (state, action) => {
+    return {
+      ...state,
+      message: null,
+      isSuccessful: false,
+      data: { isLoading: true },
     };
   }),
 
@@ -106,11 +124,9 @@ const _verificationEmailReducer = createReducer(
     return {
       ...state,
       message: model.message,
-      isSuccessful: model.isSuccessful,
+      isSuccessful: false,
       data: {
         isLoading: false,
-        email: null,
-        otp: null,
       },
     };
   }),
@@ -120,7 +136,7 @@ const _verificationEmailReducer = createReducer(
       ...state,
       message: model.message,
       isSuccessful: model.isSuccessful,
-      data: model.data,
+      data: { isLoading: false },
     };
   })
 );

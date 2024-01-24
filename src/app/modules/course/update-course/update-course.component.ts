@@ -38,7 +38,7 @@ export class UpdateCourseComponent {
   getCourse(id: string): void {
     this.courseService.getCourse(id).pipe(
       map((course) => {
-        this.originalCourse = course.data;
+        this.originalCourse = course?.data!;
       })
     );
   }

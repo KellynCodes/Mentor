@@ -1,7 +1,9 @@
 import { JwtService } from './services/utils/jwt.service';
-import { Component, afterRender } from '@angular/core';
+import { AfterRenderPhase, Component, afterRender } from '@angular/core';
 import * as Aos from 'aos';
 import { BrowserApiService } from './services/utils/browser.api.service';
+import PureCounter from '@srexi/purecounterjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'learnal-root',
@@ -10,6 +12,7 @@ import { BrowserApiService } from './services/utils/browser.api.service';
 })
 export class AppComponent {
   constructor(
+    private router: Router,
     private jwtService: JwtService,
     private browserService: BrowserApiService
   ) {
@@ -20,12 +23,11 @@ export class AppComponent {
         once: true,
         mirror: false,
       });
-    });
+      new PureCounter();
+    }, { phase: AfterRenderPhase.Read });
   }
 
   ngOnInit(): void {
-    console.log('called to fetch user.');
-    //Get user from local storage.
-    this.jwtService.CheckUser();
+   this.jwtService.CheckUser();
   }
 }
