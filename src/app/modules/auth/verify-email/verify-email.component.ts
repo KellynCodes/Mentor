@@ -64,7 +64,7 @@ export class VerifyEmailComponent {
       data: {
         isLoading: true,
         email: this.userEmail,
-        otp: this.otp,
+        otp: `${this.otp}`,
       },
     };
     this.store.dispatch(VerifyEmailRequest({ model: request }));

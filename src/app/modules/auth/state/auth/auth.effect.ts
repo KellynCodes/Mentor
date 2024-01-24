@@ -155,7 +155,7 @@ export class AuthEffect {
     this.actions$.pipe(
       ofType(verificationActions.ForgotPasswordRequest),
       exhaustMap((action) =>
-        this.authService.resendOtp(action.email).pipe(
+        this.authService.forgotPassword(action.email).pipe(
           map((res) => {
             return verificationActions.StopLoading({
               model: { message: res.message, isSuccessful: res.isSuccessful },

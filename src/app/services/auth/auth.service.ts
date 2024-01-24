@@ -47,6 +47,7 @@ export class AuthService {
     payload: VerifyEmailDto
   ): Observable<HttpResponse<VerifyEmailDto>> {
     const model = { email: payload.email, otp: payload.otp };
+    console.log(model);
     const url: string = `${environment.apiUrl}/auth/verify-email`;
     return this.http.post<HttpResponse<VerifyEmailDto>>(url, model);
   }
