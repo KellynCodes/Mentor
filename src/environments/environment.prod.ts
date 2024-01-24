@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://api-learnal.onrender.com/api/v1',
+  apiUrl: 'https://comelearnal.onrender.com/api/v1',
 };
