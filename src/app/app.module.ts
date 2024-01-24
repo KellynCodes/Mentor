@@ -38,7 +38,7 @@ import { register } from 'swiper/element/bundle';
 import { SharedModule } from './modules/components/shared.module';
 import { NgOptimizedImage } from '@angular/common';
 import { MaterialModule } from './modules/material/material.module';
-import { ToastrModule, provideToastr } from 'ngx-toastr';
+import { provideToastr } from 'ngx-toastr';
 
 register();
 

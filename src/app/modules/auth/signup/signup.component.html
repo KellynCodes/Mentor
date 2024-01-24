@@ -25,7 +25,7 @@
           <div class="">
             <input
               class="input"
-              type="name"
+              type="text"
               placeholder="Enter Username"
               formControlName="userName"
             />
@@ -196,9 +196,9 @@
                   <div class="mx-auto max-w-[10rem] max-h-[10rem]">
                     <image-cropper
                       [imageChangedEvent]="imageChangedEvent"
-                      [aspectRatio]="2 / 2"
+                      [aspectRatio]="4 / 4"
                       [maintainAspectRatio]="true"
-                      [resizeToHeight]="200"
+                      [resizeToHeight]="500"
                       (imageCropped)="cropImage($event)"
                       (imageLoaded)="loadImage()"
                       (cropperReady)="initCropper()"

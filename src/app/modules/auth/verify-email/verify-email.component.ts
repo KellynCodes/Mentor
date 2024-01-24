@@ -1,11 +1,15 @@
-import { Component, ElementRef, Renderer2 } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { HttpResponse } from '../../../data/Dto/shared/http.response.dto';
 import { VerifyEmailDto } from '../../../services/auth/Dto/verify-email.dto';
 import { AppState } from '../../../state/app/app.state';
-import { VerifyEmailRequest } from '../state/auth/auth.action';
+import {
+  ResendOtpRequest,
+  VerifyEmailRequest,
+} from '../state/auth/auth.action';
 import * as verifyEmailSelector from '../state/auth/auth.selector';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'learnal-verify-email',
@@ -15,65 +19,42 @@ import * as verifyEmailSelector from '../state/auth/auth.selector';
 export class VerifyEmailComponent {
   userEmail!: string | null;
   otp: string = '';
-  isNanMessage: string | null = null;
+  resendOtpTimes = signal<number>(0);
   isLoading$ = this.store.select(verifyEmailSelector.IsVerifyEmailLoading);
-  message$ = this.store.select(verifyEmailSelector.getVerifyEmailMessage);
+  message$ = this.store.select(verifyEmailSelector.message);
   isSuccessful$ = this.store.select(verifyEmailSelector.isVerifySuccessful);
   verificationState$ = this.store.select(verifyEmailSelector.verifyEmailState);
 
   constructor(
     private store: Store<AppState>,
     private route: ActivatedRoute,
-    private elRef: ElementRef,
-    private renderer: Renderer2
+    private alert: ToastrService
   ) {}
 
   ngOnInit(): void {
-    this.userEmail = this.route.snapshot.paramMap.get('email');
+    const queryParams = this.route.snapshot.queryParams;
+    this.userEmail = queryParams['email'];
+    this.otp = queryParams['otp'];
   }
 
-  ngAfterViewInit(): void {
-    this.initializeOTPInput();
-  }
+  resendOtp(): void {
+    if (!this.userEmail) {
+      this.alert.error('User email not found!');
+      return;
+    }
 
-  initializeOTPInput(): void {
-    const inputs = this.elRef.nativeElement.querySelectorAll('#otp > *[id]');
-    inputs[0].focus();
-    inputs.forEach((input: HTMLInputElement, i: number) => {
-      this.renderer.listen(input, 'keydown', (event: KeyboardEvent) => {
-        if (event.key !== 'Backspace' && isNaN(parseFloat(event.key))) {
-          this.isNanMessage = 'Enter only numbers';
-          setTimeout(() => {
-            this.isNanMessage = null;
-          }, 1000);
-          return;
-        }
-        if (event.key === 'Backspace') {
-          input.value = '';
-          this.otp = this.otp.replace(this.otp[i], '');
-
-          if (i !== 0) inputs[i - 1].focus();
-        } else {
-          if (i === inputs.length - 1 && input.value !== '') {
-            return true;
-          } else if (event.key.length === 1 && /[0-9]/.test(event.key)) {
-            // Number keys
-            input.value = event.key;
-            this.otp += event.key;
-            if (i !== inputs.length - 1) inputs[i + 1].focus();
-            event.preventDefault();
-          } else if (event.key.length === 1 && /[a-zA-Z]/.test(event.key)) {
-            // Letter keys
-            input.value = event.key;
-            this.otp += event.key;
-            if (i !== inputs.length - 1) inputs[i + 1].focus();
-            event.preventDefault();
-          }
-        }
-        console.log(this.otp);
-        return;
-      });
+    if (this.resendOtpTimes() >= 3) {
+      return;
+    }
+    this.resendOtpTimes.update((value) => {
+      if (value >= 0 && value < 3) {
+        return (value += 1);
+      } else {
+        return value;
+      }
     });
+
+    this.store.dispatch(ResendOtpRequest({ email: this.userEmail }));
   }
 
   onSubmit(): void {

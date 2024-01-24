@@ -1,17 +1,11 @@
-import { Component, signal } from '@angular/core';
-import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { LoginDto } from '../../../services/auth/Dto/login.dto';
 import { AppState } from '../../../state/app/app.state';
 import * as authActions from '../state/auth/auth.action';
 import * as authSelectors from '../state/auth/auth.selector';
 import { ToastrService } from 'ngx-toastr';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'learnal-login',
@@ -26,7 +20,6 @@ export class LoginComponent {
   errorMessage$ = this.store.select(authSelectors.getErrorMessage);
 
   ngOnInit(): void {
-    this.alert.error('Error Fetching something.');
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [

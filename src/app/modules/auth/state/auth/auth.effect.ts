@@ -118,6 +118,72 @@ export class AuthEffect {
     )
   );
 
+  ResendOtpEmailEffect$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(verificationActions.ResendOtpRequest),
+      exhaustMap((action) =>
+        this.authService.resendOtp(action.email).pipe(
+          map((res) => {
+            return verificationActions.StopLoading({
+              model: { message: res.message, isSuccessful: res.isSuccessful },
+            });
+          }),
+          catchError((error) => {
+            return of(
+              verificationActions.VerifyEmailFailure({ model: error.error })
+            );
+          }),
+          finalize(() => {
+            setTimeout(() => {
+              this.store.dispatch(
+                verificationActions.StopLoading({
+                  model: {
+                    message: null,
+                    isSuccessful: false,
+                    data: null,
+                  },
+                })
+              );
+            }, 3000);
+          })
+        )
+      )
+    )
+  );
+
+  ForgotPasswordEffect$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(verificationActions.ForgotPasswordRequest),
+      exhaustMap((action) =>
+        this.authService.resendOtp(action.email).pipe(
+          map((res) => {
+            return verificationActions.StopLoading({
+              model: { message: res.message, isSuccessful: res.isSuccessful },
+            });
+          }),
+          catchError((error) => {
+            return of(
+              verificationActions.VerifyEmailFailure({ model: error.error })
+            );
+          }),
+          finalize(() => {
+            setTimeout(() => {
+              this.store.dispatch(
+                verificationActions.StopLoading({
+                  model: {
+                    message: null,
+                    isSuccessful: false,
+                    data: null,
+                  },
+                })
+              );
+            }, 3000);
+          })
+        )
+      )
+    )
+  );
+
   VerificationSuccessful$ = createEffect(
     () =>
       this.actions$.pipe(

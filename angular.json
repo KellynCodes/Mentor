@@ -49,7 +49,8 @@
               "src/custom-theme.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css",
-              "src/assets/css/dashboard/style.css"
+              "src/assets/css/dashboard/style.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": ["src/assets/js/dashboard/main.js"]
           },
