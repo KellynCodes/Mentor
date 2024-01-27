@@ -16,9 +16,14 @@
       We are team of talented instructors and mentors creating exceptional
       course for you.
     </h2>
-    @if(authToken$ | async){
-    <a routerLink="/user/dashboard" class="btn-get-started">Dashboard</a>
+    @if(user$ | async; as user){ @if(user?.role == "Admin"){
+    <a [href]="adminDashboardLink" target="_blank" class="btn-get-started"
+      >Dashboard</a
+    >
     }@else{
+    <a routerLink="/dashboard" class="btn-get-started">Dashboard</a>
+
+    } }@else {
     <a routerLink="/auth/login" class="btn-get-started">Get Started</a>
     }
   </div>
@@ -297,51 +302,74 @@
 
       <div class="row" data-aos="zoom-in" data-aos-delay="100">
         @if(IsCourseLoading$ | async){
-        <learnal-loader contentText="Loading Popular Courses..." />
-        } @for(course of courses$ | async; track course.id){
-        <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-          <div class="course-item">
-            <img
-              [ngSrc]="course.image"
-              class="img-fluid"
-              [alt]="course.name"
-              loading="lazy"
-              width="1200"
-              height="1000"
-            />
-            <div class="course-content">
+        <learnal-loader contentText="Loading Course..." />
+        }@else {
+        <section id="courses" class="courses">
+          <div class="container" data-aos="fade-up">
+            <div class="row" data-aos="zoom-in" data-aos-delay="100">
+              <!-- Your course list rendering code -->
+              @for(course of courses$ | async; track course.id){
               <div
-                class="d-flex justify-content-between align-items-center mb-3"
+                class="max-h-[40rem] col-lg-4 col-md-6 d-flex align-items-center justify-content-evenly flex-wrap gap-4 cursor-pointer"
+                (click)="goTo('/course/detail/', course.id)"
               >
-                <h4>{{ course.category }}</h4>
-                <p class="price">${{ course.price }}</p>
-              </div>
+                <div class="course-item">
+                  <img
+                    [src]="course.image"
+                    class="max-h-[20rem] w-full object-cover"
+                    alt="..."
+                  />
+                  <div class="course-content">
+                    <div
+                      class="d-flex justify-content-between align-items-center mb-3"
+                    >
+                      <h4>{{ course.category }}</h4>
+                      <p class="price">${{ course.price }}</p>
+                    </div>
 
-              <h3>
-                <a [routerLink]="['/course/detail', course.id]">{{
-                  course.name
-                }}</a>
-              </h3>
-              <p>
-                {{ course.description }}
-              </p>
-              <div
-                class="trainer d-flex justify-content-between align-items-center"
-              >
-                <div class="trainer-profile d-flex align-items-center">
-                  <img [src]="course.user.avatarUrl" class="img-fluid" alt="" />
-                  <span>{{ course.user.userName }}</span>
-                </div>
-                <div class="trainer-rank d-flex align-items-center">
-                  <i class="bx bx-user"></i>&nbsp;50 &nbsp;&nbsp;
-                  <i class="bx bx-heart"></i>&nbsp;{{ course.likes }}
+                    <h3>
+                      <a [routerLink]="['/course/detail', course.id]">
+                        {{ course.name }}
+                      </a>
+                    </h3>
+                    <p>
+                      {{ course.description }}
+                    </p>
+                    <div
+                      class="trainer d-flex justify-content-between align-items-center"
+                    >
+                      <div
+                        class="trainer-profile d-flex align-items-center justify-content-evenly"
+                      >
+                        <img
+                          [src]="course.user.avatarUrl"
+                          class="img-fluid"
+                          alt="Course Owner"
+                        />
+                        <span>{{
+                          course?.user?.userName! | truncate : 10
+                        }}</span>
+                        <learnal-button
+                          [link]="['/course/detail', course.id]"
+                          customClasses="ml-2 mx-auto text-sm"
+                          label="Buy Course"
+                        />
+                      </div>
+                      <div class="trainer-rank d-flex align-items-center">
+                        <i class="bx bx-user"></i>&nbsp;60 &nbsp;&nbsp;
+                        <i class="bx bx-heart"></i>&nbsp;{{ course.likes }}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
+              }@empty{
+              <learnal-course-not-found />
+              }
+              <!-- End Course Item-->
             </div>
           </div>
-        </div>
-        }@empty{
-        <learnal-course-not-found />
+        </section>
         }
         <!-- End Course Item-->
       </div>

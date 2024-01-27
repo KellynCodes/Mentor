@@ -8,7 +8,6 @@ import {
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
 import { HttpResponse } from '../../data/Dto/shared/http.response.dto';
 import * as authActions from '../../modules/auth/state/auth/auth.action';
 import { AppState } from '../../state/app/app.state';
@@ -31,41 +30,41 @@ export class AuthService {
     if (model == null) {
       throw new Error('model value cannot be null');
     }
-    const url: string = `${environment.apiUrl}/auth/sign-in`;
-    return this.http.post<HttpResponse<LoginSuccessDto>>(url, model);
+    return this.http.post<HttpResponse<LoginSuccessDto>>('auth/sign-in', model);
   }
 
   signUp(model: FormData): Observable<HttpResponse> {
     if (model == null) {
       throw new Error('model value cannot be null');
     }
-    const url: string = `${environment.apiUrl}/auth/sign-up`;
-    return this.http.post<HttpResponse>(url, model);
+    return this.http.post<HttpResponse>('auth/sign-up', model);
   }
 
   verifyEmail(
     payload: VerifyEmailDto
   ): Observable<HttpResponse<VerifyEmailDto>> {
     const model = { email: payload.email, otp: payload.otp };
-    console.log(model);
-    const url: string = `${environment.apiUrl}/auth/verify-email`;
-    return this.http.post<HttpResponse<VerifyEmailDto>>(url, model);
+    return this.http.post<HttpResponse<VerifyEmailDto>>(
+      'auth/verify-email',
+      model
+    );
   }
 
   resendOtp(email: string): Observable<HttpResponse> {
-    const url: string = `${environment.apiUrl}/auth/verify-email-otp`;
-    return this.http.post<HttpResponse>(url, { email: email });
+    return this.http.post<HttpResponse>('auth/verify-email-otp', {
+      email: email,
+    });
   }
 
   forgotPassword(email: string): Observable<HttpResponse> {
-    const url: string = `${environment.apiUrl}/auth/forgot-password-otp`;
-    return this.http.post<HttpResponse>(url, { email: email });
+    return this.http.post<HttpResponse>('auth/forgot-password-otp', {
+      email: email,
+    });
   }
 
-  logout(): boolean {
+  logout(): void {
     this.browserApiService.removeItem('authUser');
     this.store.dispatch(authActions.LogoutSuccess());
-    return true;
   }
 
   mustMatch(controlName: string, matchingControlName: string): ValidatorFn {

@@ -18,9 +18,9 @@ export class JwtService {
     private store: Store<AppState>
   ) {}
 
-  public getUser(): UserDto {
+  public getUser(): UserDto | null {
     const authUser: LoginSuccessDto = JSON.parse(this.user);
-    return authUser?.user!;
+    return authUser?.user;
   }
 
   public CheckUser(): UserDto | undefined {

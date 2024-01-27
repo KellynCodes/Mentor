@@ -35,8 +35,8 @@
         >
           <h5>Course Owner</h5>
           <p>
-            <a [routerLink]="['course/', course?.user?.userName]">{{
-              course?.user?.userName
+            <a [routerLink]="['/course/', course?.user?.userName]">{{
+              course?.user?.userName! | truncate : 50
             }}</a>
           </p>
         </div>

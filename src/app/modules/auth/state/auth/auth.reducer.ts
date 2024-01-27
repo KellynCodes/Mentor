@@ -61,10 +61,10 @@ const _authReducer = createReducer(
     };
   }),
 
-  on(authActions.setAuthErrorMessage, (state, { errorMessage }) => {
+  on(authActions.setAuthErrorMessage, (state, error) => {
     return {
       ...state,
-      errorMessage: errorMessage,
+      errorMessage: error.errorMessage,
       IsLoading: false,
       accessToken: null,
       expiryTimeStamp: null,

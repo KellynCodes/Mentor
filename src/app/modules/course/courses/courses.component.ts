@@ -6,6 +6,7 @@ import * as courseActions from '../state/action';
 import * as courseSelector from '../state/selector';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'learnal-courses',
@@ -16,6 +17,7 @@ export class CoursesComponent {
   public courses$ = this.store.select(courseSelector.getCourse);
   public IsCourseLoading$ = this.store.select(courseSelector.IsCourseLoading);
   public errorMessage$ = this.store.select(courseSelector.errorMessage);
+  private unSubscribe = new Subject();
   constructor(
     private store: Store<AppState>,
     private router: Router,
@@ -23,11 +25,18 @@ export class CoursesComponent {
   ) {}
 
   ngOnInit(): void {
-    this.getCourses();
+    this.courses$.pipe(takeUntil(this.unSubscribe)).subscribe((courses) => {
+      if (!courses) {
+        this.getCourses();
+      }
+    });
   }
 
+  ngOnDestroy(): void {
+    this.unSubscribe.complete();
+  }
 
-  goTo(mainPath: string, path: string ): void {
+  goTo(mainPath: string, path: string): void {
     this.router.navigateByUrl(`${mainPath}${path}`);
   }
 

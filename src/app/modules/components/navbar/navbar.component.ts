@@ -1,8 +1,11 @@
+import { UserDto } from './../../../services/user/Dto/user.dto';
+import { JwtService } from './../../../services/utils/jwt.service';
 import { BrowserApiService } from './../../../services/utils/browser.api.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../state/app/app.state';
 import * as authSelectors from '../../auth/state/auth/auth.selector';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'learnal-navbar',
@@ -10,8 +13,10 @@ import * as authSelectors from '../../auth/state/auth/auth.selector';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
-  public user$ = this.store.select(authSelectors.selectToken);
+  public user$ = this.store.select(authSelectors.selectUser);
   isNavbarOpen = false;
+  adminDashboardLink: string = environment.adminDashboardLink;
+
   constructor(
     private store: Store<AppState>,
     private browserApiService: BrowserApiService

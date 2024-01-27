@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+@import url("./assets/css/style.css");
+
+body {
+  overflow-x: hidden !important;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+@media (min-width: 1200px) {
+  #main,
+  #footer {
+    margin-left: 300px;
+  }
+}

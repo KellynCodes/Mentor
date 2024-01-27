@@ -12,12 +12,12 @@ export const selectAuthState =
 
 export const selectToken = createSelector(
   selectAuthState,
-  (state) => state.accessToken
+  (state) => state?.accessToken
 );
 
 export const selectUser = createSelector(
   selectAuthState,
-  (state) => state.user
+  (state) => state?.user
 );
 
 export const getLoading = createSelector(

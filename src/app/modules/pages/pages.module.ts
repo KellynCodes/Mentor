@@ -5,7 +5,7 @@ import { PagesRoutingModule } from './routes/pages-routing.module';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { HomeComponent } from './home/home.component';
-import { SwiperDirective } from '../../../lib/directives/swiper';
+import { SwiperDirective } from '../../directives/swiper';
 import { SharedModule } from '../components/shared.module';
 import { MaterialModule } from '../material/material.module';
 import { NgOptimizedImage } from '@angular/common';
