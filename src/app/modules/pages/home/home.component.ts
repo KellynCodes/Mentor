@@ -1,35 +1,42 @@
-import { BrowserApiService } from '../../../services/utils/browser.api.service';
-import { AfterRenderPhase, Component, afterRender } from '@angular/core';
+import { environment } from '../../../../environments/environment.development';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PaginationQueryDto } from '../../../data/Dto/shared/request.query.dto';
 import { Store } from '@ngrx/store';
 import * as courseActions from '../../../modules/course/state/action';
 import * as courseSelector from '../../../modules/course/state/selector';
 import * as authSelector from '../../../modules/auth/state/auth/auth.selector';
 import { AppState } from '../../../state/app/app.state';
+import { Subject, takeUntil } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'learnal-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit, OnDestroy {
   public courses$ = this.store.select(courseSelector.getCourse);
   public IsCourseLoading$ = this.store.select(courseSelector.IsCourseLoading);
   public errorMessage$ = this.store.select(courseSelector.errorMessage);
-  public authToken$ = this.store.select(authSelector.selectToken);
   public user$ = this.store.select(authSelector.selectUser);
+  adminDashboardLink: string = environment.adminDashboardLink;
+  private unSubscribe = new Subject();
 
-  constructor(
-    private store: Store<AppState>,
-    private browserApiService: BrowserApiService
-  ) {
-    afterRender(() => {}, { phase: AfterRenderPhase.Read });
+  constructor(private store: Store<AppState>, private router: Router) {}
+  ngOnInit(): void {
+    this.courses$.pipe(takeUntil(this.unSubscribe)).subscribe((courses) => {
+      if (!courses) {
+        this.getCourses();
+      }
+    });
   }
 
-  ngOnInit(): void {
-   
-    //fetch popular courses
-    this.getCourses();
+  ngOnDestroy(): void {
+    this.unSubscribe.complete();
+  }
+
+  goTo(mainPath: string, path: string): void {
+    this.router.navigateByUrl(`${mainPath}${path}`);
   }
 
   getCourses(

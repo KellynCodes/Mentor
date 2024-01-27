@@ -28,6 +28,10 @@ export class AuthEffect {
         this.authService.Login(action.model).pipe(
           map((res) => {
             const user = this.jwtService.decodeJwtToken(res.data!);
+            if (res.data) {
+              console.log(user);
+              res.data.user = user;
+            }
             return AuthActions.LoginSuccess(res.data!);
           }),
           catchError((error) => {

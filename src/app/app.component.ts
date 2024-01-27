@@ -1,5 +1,10 @@
 import { JwtService } from './services/utils/jwt.service';
-import { AfterRenderPhase, Component, afterRender } from '@angular/core';
+import {
+  AfterRenderPhase,
+  Component,
+  ElementRef,
+  afterRender,
+} from '@angular/core';
 import * as Aos from 'aos';
 import { BrowserApiService } from './services/utils/browser.api.service';
 import PureCounter from '@srexi/purecounterjs';
@@ -13,10 +18,12 @@ import { Router } from '@angular/router';
 export class AppComponent {
   constructor(
     private jwtService: JwtService,
-    private browserService: BrowserApiService
+    private browserService: BrowserApiService,
+    private elementRef: ElementRef<HTMLDivElement>
   ) {
     afterRender(
       () => {
+        this.handlePreloader();
         Aos.init({
           duration: 1000,
           easing: 'ease-in-out',
@@ -31,5 +38,15 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.jwtService.CheckUser();
+  }
+
+  handlePreloader(): void {
+    const preloader: HTMLDivElement | null =
+      this.elementRef.nativeElement.querySelector('#preloader');
+    if (!preloader) {
+      return;
+    }
+
+    preloader.style.display = 'none';
   }
 }

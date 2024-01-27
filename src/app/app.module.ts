@@ -1,10 +1,5 @@
 import { TemplatePageTitleStrategy } from './extension/title.strategy';
-import {
-  CUSTOM_ELEMENTS_SCHEMA,
-  ErrorHandler,
-  NgModule,
-  isDevMode,
-} from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, isDevMode } from '@angular/core';
 import {
   BrowserModule,
   provideClientHydration,
@@ -31,12 +26,13 @@ import {
   ImageLoaderConfig,
   LocationStrategy,
   PathLocationStrategy,
+  provideCloudinaryLoader,
 } from '@angular/common';
 import { JwtTokenInterceptor } from './extension/http.interceptor';
 import { TitleStrategy } from '@angular/router';
 import { register } from 'swiper/element/bundle';
 import { SharedModule } from './modules/components/shared.module';
-import { NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage, APP_BASE_HREF } from '@angular/common';
 import { MaterialModule } from './modules/material/material.module';
 import { provideToastr } from 'ngx-toastr';
 
@@ -65,6 +61,7 @@ register();
     { provide: HTTP_INTERCEPTORS, useClass: JwtTokenInterceptor, multi: true },
     provideClientHydration(),
     provideHttpClient(withFetch()),
+    // provideCloudinaryLoader('http://res.cloudinary.com'),
     provideToastr({
       maxOpened: 8,
       autoDismiss: true,

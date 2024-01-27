@@ -5,13 +5,13 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, exhaustMap, take } from 'rxjs';
+import { EMPTY, Observable, catchError, exhaustMap, take } from 'rxjs';
 import { selectToken } from '../modules/auth/state/auth/auth.selector';
 import { AppState } from '../state/app/app.state';
 import { Store } from '@ngrx/store';
 import { setErrorMessage } from '../state/shared/shared.action';
 import { ErrorResult } from '../data/Dto/shared/error.result';
-// ... other imports ...
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -27,27 +27,18 @@ export class JwtTokenInterceptor implements HttpInterceptor {
       take(1),
       exhaustMap((token) => {
         if (!token) {
-          return next.handle(request);
+          const clonedRequest = request.clone({
+            url: `${environment.apiUrl}/${request.url}` || request.url,
+          });
+          return next.handle(clonedRequest);
         }
-
         const headers = request.headers.set('Authorization', `Bearer ${token}`);
-        const clonedRequest = request.clone({ headers });
+        const clonedRequest = request.clone({
+          headers,
+          url: `${environment.apiUrl}/${request.url}` || request.url,
+        });
 
         return next.handle(clonedRequest);
-      }),
-      catchError((error) => {
-        const errorResponse: ErrorResult = {
-          isSuccessful: error?.error?.IsSuccessful,
-          message: error?.error?.Message,
-          httpStatusCode: error?.error?.HttpStatusCode,
-        };
-        this.store.dispatch(
-          setErrorMessage({
-            message: errorResponse.message,
-            isSuccessful: errorResponse.isSuccessful,
-          })
-        );
-        return next.handle(request);
       })
     );
   }

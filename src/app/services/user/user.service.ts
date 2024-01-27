@@ -13,23 +13,20 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   UpdateUser(id: string, model: UserDto): Observable<HttpResponse<UserDto>> {
-    const url: string = `${environment.apiUrl}/user/${id}`;
-    return this.http.put<HttpResponse<UserDto>>(url, model);
+    return this.http.put<HttpResponse<UserDto>>(`user/${id}`, model);
   }
   PatchUpdateUser(id: string, model: UserDto) {}
 
   getUser(id: string): Observable<HttpResponse<UserDto>> {
-    const url: string = `${environment.apiUrl}/user/${id}`;
-    return this.http.get<HttpResponse<UserDto>>(url);
+    return this.http.get<HttpResponse<UserDto>>(`user/${id}`);
   }
 
   getUsers(query: PaginationQueryDto): Observable<HttpResponse<UserDto[]>> {
-    const url: string = `${environment.apiUrl}/user/get-all?page=${query.pageNumber}&limit=${query.pageSize}&keyword=${query.keyword}`;
+    const url: string = `user/get-all?page=${query.pageNumber}&limit=${query.pageSize}&keyword=${query.keyword}`;
     return this.http.get<HttpResponse<UserDto[]>>(url);
   }
 
   deleteUser(id: string): Observable<HttpResponse> {
-    const url: string = `${environment.apiUrl}/user/${id}`;
-    return this.http.delete<HttpResponse>(url);
+    return this.http.delete<HttpResponse>(`user/${id}`);
   }
 }
