@@ -76,4 +76,13 @@
   </div>
 </section>
 }
+
+<mat-paginator
+  color="accent"
+  [length]="(courses$ | async)?.length"
+  [pageSizeOptions]="[10, 50, 100]"
+  aria-label="Select page"
+  (page)="pageChanged($event)"
+>
+</mat-paginator>
 <!-- End Courses Section -->

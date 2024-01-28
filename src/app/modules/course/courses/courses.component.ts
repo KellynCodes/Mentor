@@ -1,3 +1,4 @@
+import { BrowserApiService } from './../../../services/utils/browser.api.service';
 import { AppState } from '../../../state/app/app.state';
 import { PaginationQueryDto } from '../../../data/Dto/shared/request.query.dto';
 import { Component } from '@angular/core';
@@ -7,6 +8,7 @@ import * as courseSelector from '../state/selector';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil } from 'rxjs';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'learnal-courses',
@@ -21,7 +23,8 @@ export class CoursesComponent {
   constructor(
     private store: Store<AppState>,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private browserApiService: BrowserApiService
   ) {}
 
   ngOnInit(): void {
@@ -46,14 +49,24 @@ export class CoursesComponent {
     pageNumber: number = 1,
     courseLikes: number = 0
   ): void {
-    const query: PaginationQueryDto = {
-      keyword: keyword,
-      pageNumber: pageNumber,
-      pageSize: pageSize,
-      courseLikes: courseLikes,
-    };
     this.store.dispatch(
-      courseActions.LoadCourse({ query: query, IsLoading: true })
+      courseActions.LoadCourse({
+        query: {
+          keyword: keyword,
+          pageNumber: pageNumber,
+          pageSize: pageSize,
+          courseLikes: courseLikes,
+        },
+        IsLoading: true,
+      })
     );
+  }
+
+  pageChanged(event: PageEvent) {
+    const page: number = event.pageIndex + 1;
+    this.getCourses('', 10, page);
+    if (this.browserApiService.isBrowser) {
+      window.scrollTo(0, 0);
+    }
   }
 }
