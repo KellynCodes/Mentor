@@ -86,6 +86,20 @@ export const DeleteCourseFailure = createAction(
   props<{ error: any }>()
 );
 
+export const LikeCourse = createAction(
+  '[Course] Like Course',
+  props<{ email: string; courseId: string }>()
+);
+export const LikeCourseSuccess = createAction(
+  '[Course] Like Course Success',
+  props<HttpResponse>()
+);
+
+export const LikeCourseFailure = createAction(
+  '[Course] Like Course Failure',
+  props<any>()
+);
+
 export const BuyCourse = createAction(
   '[Course] Buy Course',
   props<{ model: BuyCourseRequest }>()

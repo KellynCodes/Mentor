@@ -7,12 +7,14 @@ export interface CourseState {
   courses: CourseResponseDto[] | null;
   IsLoading: boolean;
   errorMessage: string | null;
+  subLoading: boolean;
 }
 
 export const initialCourseState: CourseState = {
   courses: null,
   IsLoading: false,
   errorMessage: null,
+  subLoading: false,
 };
 
 export const CourseStateSelector =
@@ -26,6 +28,11 @@ export const getCourse = createSelector(
 export const IsCourseLoading = createSelector(
   CourseStateSelector,
   (state) => state.IsLoading
+);
+
+export const IsLoading = createSelector(
+  CourseStateSelector,
+  (state) => state.subLoading
 );
 
 export const errorMessage = createSelector(

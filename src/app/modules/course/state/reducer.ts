@@ -141,6 +141,27 @@ const _courseReducer = createReducer(
       ...state,
       IsLoading: false,
     };
+  }),
+
+  on(courseActions.LikeCourse, (state) => {
+    return {
+      ...state,
+      subLoading: true,
+    };
+  }),
+
+  on(courseActions.LikeCourseSuccess, (state) => {
+    return {
+      ...state,
+      subLoading: false,
+    };
+  }),
+
+  on(courseActions.LikeCourseFailure, (state) => {
+    return {
+      ...state,
+      subLoading: false,
+    };
   })
 );
 

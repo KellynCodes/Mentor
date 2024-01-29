@@ -1,12 +1,10 @@
 import { BrowserApiService } from './../../../services/utils/browser.api.service';
 import { AppState } from '../../../state/app/app.state';
-import { PaginationQueryDto } from '../../../data/Dto/shared/request.query.dto';
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as courseActions from '../state/action';
 import * as courseSelector from '../state/selector';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 
@@ -18,12 +16,13 @@ import { PageEvent } from '@angular/material/paginator';
 export class CoursesComponent {
   public courses$ = this.store.select(courseSelector.getCourse);
   public IsCourseLoading$ = this.store.select(courseSelector.IsCourseLoading);
+  public isLoading$ = this.store.select(courseSelector.IsLoading);
   public errorMessage$ = this.store.select(courseSelector.errorMessage);
   private unSubscribe = new Subject();
+
   constructor(
     private store: Store<AppState>,
     private router: Router,
-    private toastr: ToastrService,
     private browserApiService: BrowserApiService
   ) {}
 
@@ -41,6 +40,17 @@ export class CoursesComponent {
 
   goTo(mainPath: string, path: string): void {
     this.router.navigateByUrl(`${mainPath}${path}`);
+  }
+
+  likeCourse(email: string, courseId: string): void {
+    console.log(email, courseId);
+    if (email && courseId) {
+      const action = courseActions.LikeCourse({
+        email: email,
+        courseId: courseId,
+      });
+      this.store.dispatch(action);
+    }
   }
 
   getCourses(

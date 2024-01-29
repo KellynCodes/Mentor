@@ -159,6 +159,47 @@ export class CourseEffect {
     )
   );
 
+  LikeCourseRequest$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CourseActions.LikeCourse),
+      exhaustMap((action) =>
+        this.courseService.LikeCourse(action.email, action.courseId).pipe(
+          map((res) => {
+            return CourseActions.LikeCourseSuccess(res);
+          }),
+          catchError((error) => {
+            console.log(error);
+            return of(CourseActions.LikeCourseFailure(error.error));
+          })
+        )
+      )
+    )
+  );
+
+  LikeCourseSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(CourseActions.LikeCourseSuccess),
+        map((response) => {
+          if (response.isSuccessful) {
+            this.toastr.success(response.message);
+          }
+        })
+      ),
+    { dispatch: false }
+  );
+
+  LikeCourseFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(CourseActions.LikeCourseFailure),
+        tap((response) => {
+          this.toastr.error('Something went wrong.', 'Try again!');
+        })
+      ),
+    { dispatch: false }
+  );
+
   BuyCourseSuccess$ = createEffect(
     () =>
       this.actions$.pipe(

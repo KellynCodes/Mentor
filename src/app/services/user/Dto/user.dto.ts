@@ -15,7 +15,7 @@ export interface UserDto {
 }
 
 export interface UserResponseDto {
-  email: string;
+  userEmail: string;
   userName: string;
   avatarUrl: string;
   courses?: CourseResponseDto[];
