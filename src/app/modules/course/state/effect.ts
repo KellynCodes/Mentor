@@ -1,3 +1,4 @@
+import { BrowserApiService } from './../../../services/utils/browser.api.service';
 import { errorMessage } from './selector';
 import { CourseService } from './../../../services/course/course.service';
 import { Injectable, inject } from '@angular/core';
@@ -7,6 +8,7 @@ import * as CourseActions from './action';
 import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
 import { AppState } from '../../../state/app/app.state';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class CourseEffect {
@@ -14,7 +16,9 @@ export class CourseEffect {
     private actions$: Actions,
     private courseService: CourseService,
     private store: Store<AppState>,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router,
+    private browserAPiService: BrowserApiService
   ) {}
 
   // Fetch Course request
@@ -136,5 +140,47 @@ export class CourseEffect {
         )
       )
     )
+  );
+
+  BuyCourseRequest$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CourseActions.BuyCourse),
+      exhaustMap((action) =>
+        this.courseService.buyCourse(action.model).pipe(
+          map((res) => {
+            return CourseActions.BuyCourseSuccess(res);
+          }),
+          catchError((error) => {
+            console.log(error);
+            return of(CourseActions.BuyCourseFailure(error.error));
+          })
+        )
+      )
+    )
+  );
+
+  BuyCourseSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(CourseActions.BuyCourseSuccess),
+        map((response) => {
+          if (this.browserAPiService.isBrowser) {
+            window.open(response?.data?.paymentLink);
+          }
+        })
+      ),
+    { dispatch: false }
+  );
+
+  BuyCourseFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(CourseActions.BuyCourseFailure),
+        map((res) => {
+          this.toastr.error(`${res.error.message}`, 'Error');
+          this.router.navigateByUrl('/payment-verification?status=failed');
+        })
+      ),
+    { dispatch: false }
   );
 }

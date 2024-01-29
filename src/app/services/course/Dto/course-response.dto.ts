@@ -33,11 +33,11 @@ export interface MediaDto {
 }
 
 export interface TopicDto {
-  topic: string;
+  title: string;
   description: string;
 }
 
 export interface ResourceLinkDto {
-  name: string;
+  title: string;
   link: string;
 }

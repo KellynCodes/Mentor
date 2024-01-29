@@ -1,5 +1,10 @@
+import { HttpResponse } from './../../../data/Dto/shared/http.response.dto';
+import {
+  BuyCourseRequest,
+  BuyCourseResponse,
+} from '../../../services/course/Dto/buy-course.dto';
 import { PaginationQueryDto } from './../../../data/Dto/shared/request.query.dto';
-import { CourseResponseDto } from './../../../services/course/Dto/CourseResponseDto';
+import { CourseResponseDto } from '../../../services/course/Dto/course-response.dto';
 import { createAction, props } from '@ngrx/store';
 import { Operation } from 'fast-json-patch';
 
@@ -78,5 +83,20 @@ export const DeleteCourse = createAction(
 
 export const DeleteCourseFailure = createAction(
   '[Course] Update Course Success.',
+  props<{ error: any }>()
+);
+
+export const BuyCourse = createAction(
+  '[Course] Buy Course',
+  props<{ model: BuyCourseRequest }>()
+);
+
+export const BuyCourseSuccess = createAction(
+  '[Course] Buy Course success',
+  props<HttpResponse<BuyCourseResponse>>()
+);
+
+export const BuyCourseFailure = createAction(
+  '[Course] Buy Course Failure',
   props<{ error: any }>()
 );

@@ -1,14 +1,15 @@
+import { BuyCourseRequest } from './../../../services/course/Dto/buy-course.dto';
+import { JwtService } from './../../../services/utils/jwt.service';
 import { PaginationQueryDto } from './../../../data/Dto/shared/request.query.dto';
-import { CourseResponseDto } from './../../../services/course/Dto/CourseResponseDto';
-import { CourseService } from './../../../services/course/course.service';
+import { CourseResponseDto } from '../../../services/course/Dto/course-response.dto';
 import { Component } from '@angular/core';
 import { AppState } from '../../../state/app/app.state';
 import { Store } from '@ngrx/store';
 import * as courseActions from '../state/action';
 import * as courseSelector from '../state/selector';
 import { ActivatedRoute } from '@angular/router';
-import { AsyncSubject, Observable, Subject, takeUntil } from 'rxjs';
-import { HttpResponse } from 'src/app/data/Dto/shared/http.response.dto';
+import { Subject, takeUntil } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'learnal-course-detail',
@@ -24,7 +25,8 @@ export class CourseDetailComponent {
   public _videoId: string = '';
   constructor(
     private store: Store<AppState>,
-    private courseService: CourseService,
+    private alert: ToastrService,
+    private jwtService: JwtService,
     private router: ActivatedRoute
   ) {}
 
@@ -34,6 +36,22 @@ export class CourseDetailComponent {
       this.LoadCourse();
       this.getCourse();
     }
+  }
+
+  checkout(): void {
+    const courseId = this.router.snapshot.params['id'];
+    const userEmail = this.jwtService.CheckUser()?.email;
+    if (!courseId && !userEmail && this.filteredCourse?.length > 0) {
+      this.alert.error('Payload is not valid. Please try again.', 'Error');
+      return;
+    }
+    const model: BuyCourseRequest = {
+      courseId: courseId,
+      email: userEmail!,
+      amount: this.filteredCourse[0]?.price,
+    };
+    console.log(model);
+    this.store.dispatch(courseActions.BuyCourse({ model: model }));
   }
 
   public extractVideoId(youtubeLink: string): string {

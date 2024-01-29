@@ -1,4 +1,4 @@
-import { MediaType } from '../../../data/enum/MediaType';
+// import { MediaType } from '../../../data/enum/MediaType';
 
 export interface CourseDto {
   name: string;
@@ -7,5 +7,5 @@ export interface CourseDto {
   createdBy: string;
   category: string;
   courseFile: File;
-  fileType: MediaType;
+  // fileType: MediaType;
 }

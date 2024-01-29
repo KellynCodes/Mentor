@@ -1,4 +1,4 @@
-import { CourseResponseDto } from '../../course/Dto/CourseResponseDto';
+import { CourseResponseDto } from '../../course/Dto/course-response.dto';
 
 export interface UserDto {
   userId?: string;
