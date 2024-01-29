@@ -1,4 +1,4 @@
-import { CourseResponseDto } from './../../../services/course/Dto/CourseResponseDto';
+import { CourseResponseDto } from '../../../services/course/Dto/course-response.dto';
 import { CourseService } from '../../../services/course/course.service';
 import { Component } from '@angular/core';
 import * as jsonpatch from 'fast-json-patch';

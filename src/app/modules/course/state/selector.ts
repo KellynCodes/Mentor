@@ -1,4 +1,4 @@
-import { CourseResponseDto } from './../../../services/course/Dto/CourseResponseDto';
+import { CourseResponseDto } from '../../../services/course/Dto/course-response.dto';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 export const COURSE_STATE_NAME = 'course';

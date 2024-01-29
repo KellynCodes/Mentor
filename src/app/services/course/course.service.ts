@@ -3,8 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PaginationQueryDto } from '../../data/Dto/shared/request.query.dto';
-import { CourseResponseDto } from './Dto/CourseResponseDto';
+import { CourseResponseDto } from './Dto/course-response.dto';
 import { Operation } from 'fast-json-patch';
+import { BuyCourseRequest, BuyCourseResponse } from './Dto/buy-course.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -50,5 +51,15 @@ export class CourseService {
     return this.http.delete<HttpResponse<CourseResponseDto>>(
       `course/${courseId}`
     );
+  }
+
+  buyCourse(
+    model: BuyCourseRequest
+  ): Observable<HttpResponse<BuyCourseResponse>> {
+    return this.http.post<HttpResponse<BuyCourseResponse>>(`payment`, model);
+  }
+
+  verifyPayment(reference: string): Observable<HttpResponse> {
+    return this.http.get<HttpResponse>(`payment/verify?reference=${reference}`);
   }
 }

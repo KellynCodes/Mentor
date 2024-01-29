@@ -39,6 +39,13 @@ export const routes: Routes = [
         loadChildren: () =>
           import('../modules/course/course.module').then((m) => m.CourseModule),
       },
+      {
+        path: 'payment',
+        loadChildren: () =>
+          import('../modules/payment/payment.module').then(
+            (m) => m.PaymentModule
+          ),
+      },
     ],
   },
 

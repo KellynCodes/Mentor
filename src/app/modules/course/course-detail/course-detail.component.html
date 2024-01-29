@@ -62,8 +62,20 @@
           <p>5.00 pm - 7.00 pm</p>
         </div>
 
-        <div class="checkout my-5">
-          <button class="btn btn-success btn-large">Checkout</button>
+        <div class="w-full my-5">
+          @if(IsCourseLoading$ | async){
+          <button class="!w-full btn btn-success">
+            <span class="spinner-border spinner-border-sm"></span>
+            Loading...
+          </button>
+          }@else{
+          <button
+            (click)="checkout()"
+            class="!w-full btn btn-success btn-large !font-bold !text-base"
+          >
+            Checkout
+          </button>
+          }
         </div>
       </div>
     </div>
@@ -82,27 +94,27 @@
               class="nav-link active show"
               data-bs-toggle="tab"
               href="#tab-1"
-              >{{ course?.topic?.topic }}</a
+              >{{ course?.topic?.title }}</a
             >
           </li>
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="tab" href="#tab-2">
-              {{ course?.topic?.topic }}
+              {{ course?.topic?.title }}
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="tab" href="#tab-3">
-              {{ course?.topic?.topic }}
+              {{ course?.topic?.title }}
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="tab" href="#tab-4">
-              {{ course?.topic?.topic }}
+              {{ course?.topic?.title }}
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="tab" href="#tab-5">
-              {{ course?.topic?.topic }}
+              {{ course?.topic?.title }}
             </a>
           </li>
         </ul>
@@ -112,7 +124,7 @@
           <div class="tab-pane active show" id="tab-1">
             <div class="row">
               <div class="col-lg-8 details order-2 order-lg-1">
-                <h3>{{ course?.topic?.topic }}</h3>
+                <h3>{{ course?.topic?.title }}</h3>
                 <p class="fst-italic">
                   {{ course?.topic?.description }}
                 </p>
@@ -132,7 +144,7 @@
           <div class="tab-pane" id="tab-2">
             <div class="row">
               <div class="col-lg-8 details order-2 order-lg-1">
-                <h3>{{ course?.topic?.topic }}</h3>
+                <h3>{{ course?.topic?.title }}</h3>
                 <p class="fst-italic">
                   {{ course?.topic?.description }}
                 </p>
@@ -152,7 +164,7 @@
           <div class="tab-pane" id="tab-3">
             <div class="row">
               <div class="col-lg-8 details order-2 order-lg-1">
-                <h3>{{ course?.topic?.topic }}</h3>
+                <h3>{{ course?.topic?.title }}</h3>
                 <p class="fst-italic">
                   {{ course?.topic?.description }}
                 </p>
@@ -173,7 +185,7 @@
             <div class="row">
               <div class="col-lg-8 details order-2 order-lg-1">
                 <h3>
-                  {{ course?.topic?.topic }}
+                  {{ course?.topic?.title }}
                 </h3>
                 <p class="fst-italic">
                   {{ course?.topic?.description }}
@@ -194,7 +206,7 @@
           <div class="tab-pane" id="tab-5">
             <div class="row">
               <div class="col-lg-8 details order-2 order-lg-1">
-                <h3>{{ course?.topic?.topic }}</h3>
+                <h3>{{ course?.topic?.title }}</h3>
                 <p class="fst-italic">
                   {{ course?.topic?.description }}
                 </p>
