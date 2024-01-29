@@ -59,6 +59,12 @@ export class CourseService {
     return this.http.post<HttpResponse<BuyCourseResponse>>(`payment`, model);
   }
 
+  LikeCourse(email: string, courseId: string): Observable<HttpResponse> {
+    return this.http.get<HttpResponse>(
+      `course?email=${email}&courseId=${courseId}`
+    );
+  }
+
   verifyPayment(reference: string): Observable<HttpResponse> {
     return this.http.get<HttpResponse>(`payment/verify?reference=${reference}`);
   }

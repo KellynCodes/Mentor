@@ -20,7 +20,6 @@
       @for(course of courses$ | async; track course.id){
       <div
         class="max-h-[40rem] col-lg-4 col-md-6 d-flex align-items-center justify-content-evenly flex-wrap gap-4 cursor-pointer"
-        (click)="goTo('/course/detail/', course.id)"
       >
         <div class="course-item">
           <img
@@ -61,8 +60,15 @@
                 />
               </div>
               <div class="trainer-rank d-flex align-items-center">
-                <i class="bx bx-user"></i>&nbsp;60 &nbsp;&nbsp;
-                <i class="bx bx-heart"></i>&nbsp;{{ course.likes }}
+                <i class="bx bx-user"></i>
+                &nbsp;60 &nbsp;&nbsp; @if((isLoading$ | async)) {
+                <span class="spinner-border spinner-border-sm"></span>
+                } @else {
+                <i
+                  (click)="likeCourse(course.user.userEmail, course.id)"
+                  class="bx bx-heart"
+                ></i
+                >&nbsp; {{ course.likes }} }
               </div>
             </div>
           </div>
