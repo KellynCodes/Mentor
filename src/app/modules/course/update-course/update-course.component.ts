@@ -1,12 +1,12 @@
-import { CourseResponseDto } from '../../../services/course/Dto/course-response.dto';
-import { CourseService } from '../../../services/course/course.service';
+import { CourseResponseDto } from '../../../../core/services/course/Dto/course-response.dto';
+import { CourseService } from '../../../../core/services/course/course.service';
 import { Component } from '@angular/core';
 import * as jsonpatch from 'fast-json-patch';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { map } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../state/app/app.state';
-import * as courseActions from '../state/action';
+import { AppState } from '../../../../core/state/app/app.state';
+import * as courseActions from '../../../../core/state/course/action';
 
 @Component({
   selector: 'learnal-update-course',

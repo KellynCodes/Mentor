@@ -1,3 +1,5 @@
+@import url("assets/css/webflow.css");
+
 *,
 *::after,
 *::before {
@@ -24,6 +26,7 @@ body {
   position: relative;
   color: #444444;
   background: #f6f9ff;
+  overflow-x: hidden;
 }
 
 a {

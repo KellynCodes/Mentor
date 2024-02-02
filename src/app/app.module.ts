@@ -1,4 +1,4 @@
-import { TemplatePageTitleStrategy } from './extension/title.strategy';
+import { TemplatePageTitleStrategy } from '../core/extension/title.strategy';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule, isDevMode } from '@angular/core';
 import {
   BrowserModule,
@@ -8,13 +8,13 @@ import {
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './routes/app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { appReducer } from './state/app/app.reducer';
+import { appReducer } from '../core/state/app/app.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { appEffects } from './state/app/app.effects';
-import { CustomSerializer } from './services/router/custom.serializer';
+import { appEffects } from '../core/state/app/app.effects';
+import { CustomSerializer } from '../core/services/router/custom.serializer';
 import {
   HTTP_INTERCEPTORS,
   HttpClientModule,
@@ -28,7 +28,7 @@ import {
   PathLocationStrategy,
   provideCloudinaryLoader,
 } from '@angular/common';
-import { JwtTokenInterceptor } from './extension/http.interceptor';
+import { RequestInterceptor } from '../core/extension/http.interceptor';
 import { TitleStrategy } from '@angular/router';
 import { register } from 'swiper/element/bundle';
 import { SharedModule } from './modules/components/shared.module';
@@ -58,7 +58,7 @@ register();
   providers: [
     { provide: LocationStrategy, useClass: PathLocationStrategy },
     { provide: TitleStrategy, useClass: TemplatePageTitleStrategy },
-    { provide: HTTP_INTERCEPTORS, useClass: JwtTokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
     provideClientHydration(),
     provideHttpClient(withFetch()),
     // provideCloudinaryLoader('http://res.cloudinary.com'),

@@ -56,4 +56,7 @@ input[type="number"]::-webkit-outer-spin-button {
   background-color: #1dbf73;
   border: 1px solid #1dbf73;
   width: 140px;
+  display: flex;
+  align-tracks: center;
+  justify-content: center;
 }

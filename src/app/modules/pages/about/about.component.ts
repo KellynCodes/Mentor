@@ -1,7 +1,5 @@
-import { BrowserApiService } from '../../../services/utils/browser.api.service';
 import { AfterRenderPhase, Component, afterRender } from '@angular/core';
 import PureCounter from '@srexi/purecounterjs';
-import * as Aos from 'aos';
 import { SwiperOptions } from 'swiper/types';
 
 @Component({
@@ -35,23 +33,7 @@ export class AboutComponent {
       },
     },
   };
-  constructor(private browserApiService: BrowserApiService) {
-    afterRender(
-      () => {
-        Aos.init({
-          duration: 1000,
-          easing: 'ease-in-out',
-          once: true,
-          mirror: false,
-        });
-      },
-      { phase: AfterRenderPhase.Read }
-    );
-  }
-
-  ngOnInit(): void {
-    if (this.browserApiService.isBrowser) {
-    }
-    new PureCounter();
+  constructor() {
+    afterRender(() => {}, { phase: AfterRenderPhase.Write });
   }
 }

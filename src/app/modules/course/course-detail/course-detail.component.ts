@@ -1,15 +1,15 @@
-import { BuyCourseRequest } from './../../../services/course/Dto/buy-course.dto';
-import { JwtService } from './../../../services/utils/jwt.service';
-import { PaginationQueryDto } from './../../../data/Dto/shared/request.query.dto';
-import { CourseResponseDto } from '../../../services/course/Dto/course-response.dto';
-import { Component } from '@angular/core';
-import { AppState } from '../../../state/app/app.state';
+import { selectUser } from './../../../../core/state/auth/auth.selector';
 import { Store } from '@ngrx/store';
-import * as courseActions from '../state/action';
-import * as courseSelector from '../state/selector';
-import { ActivatedRoute } from '@angular/router';
+import * as courseActions from '../../../../core/state/course/action';
+import * as courseSelector from '../../../../core/state/course/selector';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { Component } from '@angular/core';
+import { BuyCourseRequest } from '../../../../core/services/course/Dto/buy-course.dto';
+import { CourseResponseDto } from '../../../../core/services/course/Dto/course-response.dto';
+import { AppState } from '../../../../core/state/app/app.state';
+import { PaginationQueryDto } from 'src/core/types/dto/request.query.dto';
 
 @Component({
   selector: 'learnal-course-detail',
@@ -22,12 +22,13 @@ export class CourseDetailComponent {
   public courses$ = this.store.select(courseSelector.getCourse);
   public ngUnSubscribe = new Subject();
   public filteredCourse: CourseResponseDto[] = [];
-  public _videoId: string = '';
+  public _videoId: string | null = '';
+  public _userEmail: string = '';
   constructor(
     private store: Store<AppState>,
     private alert: ToastrService,
-    private jwtService: JwtService,
-    private router: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -39,15 +40,26 @@ export class CourseDetailComponent {
   }
 
   checkout(): void {
-    const courseId = this.router.snapshot.params['id'];
-    const userEmail = this.jwtService.CheckUser()?.email;
-    if (!courseId && !userEmail && this.filteredCourse?.length > 0) {
+    const courseId = this.route.snapshot.params['id'];
+    this.store
+      .select(selectUser)
+      .pipe(takeUntil(this.ngUnSubscribe))
+      .subscribe((user) => (this._userEmail = user?.email!));
+    if (!courseId && this.filteredCourse?.length <= 0) {
       this.alert.error('Payload is not valid. Please try again.', 'Error');
+      return;
+    }
+
+    if (!this._userEmail) {
+      this.alert.info('Login first to continue.', 'You are not logged In');
+      this.router.navigateByUrl(
+        `/auth/login?redirectTo=/course/detail/${courseId}`
+      );
       return;
     }
     const model: BuyCourseRequest = {
       courseId: courseId,
-      email: userEmail!,
+      email: this._userEmail!,
       amount: this.filteredCourse[0]?.price,
     };
     console.log(model);
@@ -65,7 +77,14 @@ export class CourseDetailComponent {
   }
 
   getCourse(): void {
-    const courseId = this.router.snapshot.params['id'];
+    const courseId = this.route.snapshot.params['id'];
+    if (!courseId) {
+      this.alert.info(
+        'Sorry! something unexpected happened.',
+        'Try reloading the page.'
+      );
+      return;
+    }
     this.courses$.pipe(takeUntil(this.ngUnSubscribe)).subscribe((data) => {
       const course: CourseResponseDto[] = data?.filter(
         (x) => x.id == courseId
