@@ -1,4 +1,4 @@
-import { JwtService } from './services/utils/jwt.service';
+import { JwtService } from '../core/services/utils/jwt.service';
 import {
   AfterRenderPhase,
   Component,
@@ -6,7 +6,7 @@ import {
   afterRender,
 } from '@angular/core';
 import * as Aos from 'aos';
-import { BrowserApiService } from './services/utils/browser.api.service';
+import { BrowserApiService } from '../core/services/utils/browser.api.service';
 import PureCounter from '@srexi/purecounterjs';
 import { Router } from '@angular/router';
 

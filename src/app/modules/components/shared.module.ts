@@ -1,4 +1,4 @@
-import { TruncatePipe } from './../../pipes/truncate.pipe';
+import { TruncatePipe } from './../../../core/pipes/truncate.pipe';
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { LoaderComponent } from './loader/loader.component';
@@ -21,11 +21,11 @@ import { FormsModule } from '@angular/forms';
     ButtonComponent,
     SearchComponent,
     CourseNotFoundComponent,
-    TruncatePipe
+    TruncatePipe,
   ],
   imports: [CommonModule, FormsModule, RouterModule.forChild([])],
   exports: [
-  TruncatePipe,
+    TruncatePipe,
     CommonModule,
     NavbarComponent,
     FooterComponent,

@@ -1,13 +1,13 @@
-import { environment } from '../../../../environments/environment.development';
+import { environment } from '../../../../environments/environment';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { PaginationQueryDto } from '../../../data/Dto/shared/request.query.dto';
 import { Store } from '@ngrx/store';
-import * as courseActions from '../../../modules/course/state/action';
-import * as courseSelector from '../../../modules/course/state/selector';
-import * as authSelector from '../../../modules/auth/state/auth/auth.selector';
-import { AppState } from '../../../state/app/app.state';
+import * as courseSelector from '../../../../core/state/course/selector';
+import * as authSelector from '../../../../core/state/auth/auth.selector';
+import * as courseAction from '../../../../core/state/course/action';
 import { Subject, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
+import { AppState } from '../../../../core/state/app/app.state';
+import { PaginationQueryDto } from 'src/core/types/dto/request.query.dto';
 
 @Component({
   selector: 'learnal-home',
@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       courseLikes: courseLikes,
     };
     this.store.dispatch(
-      courseActions.LoadCourse({ query: query, IsLoading: true })
+      courseAction.LoadCourse({ query: query, IsLoading: true })
     );
   }
 }

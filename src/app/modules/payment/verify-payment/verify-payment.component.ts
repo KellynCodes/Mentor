@@ -1,8 +1,8 @@
-import { PaginationQueryDto } from './../../../data/Dto/shared/request.query.dto';
-import { CourseResponseDto } from '../../../services/course/Dto/course-response.dto';
-import { JwtService } from './../../../services/utils/jwt.service';
-import { HttpResponse } from './../../../data/Dto/shared/http.response.dto';
-import { CourseService } from './../../../services/course/course.service';
+import { PaginationQueryDto } from './../../../../core/types/dto/request.query.dto';
+import { JwtService } from './../../../../core/services/utils/jwt.service';
+import { CourseService } from './../../../../core/services/course/course.service';
+import { CourseResponseDto } from './../../../../core/services/course/Dto/course-response.dto';
+import { AppState } from './../../../../core/state/app/app.state';
 import {
   AfterViewInit,
   Component,
@@ -13,11 +13,11 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil } from 'rxjs';
-import { BuyCourseRequest } from './../../../services/course/Dto/buy-course.dto';
-import { AppState } from '../../../state/app/app.state';
+import { BuyCourseRequest } from '../../../../core/services/course/Dto/buy-course.dto';
 import { Store } from '@ngrx/store';
-import * as courseActions from '../../course/state/action';
-import * as courseSelector from '../../course/state/selector';
+import * as courseActions from '../../../../core/state/course/action';
+import * as courseSelector from '../../../../core/state/course/selector';
+import { HttpResponse } from '../../../../core/types/dto/http.response.dto';
 
 @Component({
   selector: 'learnal-verify-payment',
@@ -82,7 +82,6 @@ export class VerifyPaymentComponent
       email: userEmail!,
       amount: this.filteredCourse[0]?.price,
     };
-    console.log(model);
     this.store.dispatch(courseActions.BuyCourse({ model: model }));
   }
 

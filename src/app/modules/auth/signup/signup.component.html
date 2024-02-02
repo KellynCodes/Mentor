@@ -30,7 +30,7 @@
               formControlName="userName"
             />
             @if(controlHasError('userName', 'required')){
-            <mat-error> Email is required. </mat-error>
+            <mat-error> Username is required. </mat-error>
             }
           </div>
 
@@ -196,12 +196,12 @@
                   <div class="mx-auto max-w-[10rem] max-h-[10rem]">
                     <image-cropper
                       [imageChangedEvent]="imageChangedEvent"
-                      [aspectRatio]="4 / 4"
-                      [maintainAspectRatio]="true"
+                      [aspectRatio]="50 / 50"
                       [resizeToHeight]="500"
                       (imageCropped)="cropImage($event)"
                       (imageLoaded)="loadImage()"
                       (cropperReady)="initCropper()"
+                      [roundCropper]="true"
                       (loadImageFailed)="loadImageFailed()"
                     >
                     </image-cropper>
@@ -218,20 +218,35 @@
                       (change)="onFileSelect($event)"
                     />
                     <!-- Use a label with "for" attribute pointing to the file input -->
+                    @if(imagePreviewLink){
+                    <button
+                      (click)="toggleModal()"
+                      type="button"
+                      class="flex cursor-pointer items-center w-full justify-center rounded-md bg-accent text-center text-sm font-semibold text-white shadow-sm hover:bg-accent-dark sm:ml-3 sm:w-auto p-3"
+                    >
+                      Upload
+                    </button>
+
+                    <label
+                      for="profileImage"
+                      class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                    >
+                      Change </label
+                    >}@else{
                     <label
                       for="profileImage"
                       class="flex cursor-pointer items-center w-full justify-center rounded-md bg-accent text-center text-sm font-semibold text-white shadow-sm hover:bg-accent-dark sm:ml-3 sm:w-auto p-3"
                     >
-                      {{ imagePreviewLink != null ? "Change" : "Upload" }}
+                      Upload
                     </label>
-
                     <button
                       (click)="toggleModal()"
                       type="button"
                       class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                     >
-                      {{ imagePreviewLink != null ? "Close" : "Cancel" }}
+                      Cancel
                     </button>
+                    }
                   </div>
                 </div>
               </div>
@@ -239,18 +254,18 @@
           </div>
 
           <!-- end of modal -->
-          @if(errorMessage$ | async){
+          @if(errorMessage$ | async; as errorMessage){
           <h6
             class="p-2 font-bold text-sm rounded-sm text-red-300 m-auto text-center"
           >
-            {{ errorMessage$ | async }}
+            {{ errorMessage }}
           </h6>
           }
           <div>
             <button
               type="submit"
               [disabled]="!regForm.valid"
-              [innerText]="(isSigningUp$ | async) ? 'Signing up...' : 'Sign Up'"
+              [innerText]="(isLoading$ | async) ? 'Signing up...' : 'Sign Up'"
               class="w-full text-center bg-accent-dark hover:bg-accent text-gray-100 p-3 rounded-md font-semibold cursor-pointer transition ease-in duration-500"
             ></button>
           </div>

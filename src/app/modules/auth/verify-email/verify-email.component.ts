@@ -1,15 +1,13 @@
 import { Component, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { HttpResponse } from '../../../data/Dto/shared/http.response.dto';
-import { VerifyEmailDto } from '../../../services/auth/Dto/verify-email.dto';
-import { AppState } from '../../../state/app/app.state';
+import { ToastrService } from 'ngx-toastr';
+import { AppState } from 'src/core/state/app/app.state';
 import {
   ResendOtpRequest,
   VerifyEmailRequest,
-} from '../state/auth/auth.action';
-import * as verifyEmailSelector from '../state/auth/auth.selector';
-import { ToastrService } from 'ngx-toastr';
+} from '../../../../core/state/auth/auth.action';
+import * as authSelector from '../../../../core/state/auth/auth.selector';
 
 @Component({
   selector: 'learnal-verify-email',
@@ -20,10 +18,10 @@ export class VerifyEmailComponent {
   userEmail!: string | null;
   otp: string = '';
   resendOtpTimes = signal<number>(0);
-  isLoading$ = this.store.select(verifyEmailSelector.IsVerifyEmailLoading);
-  message$ = this.store.select(verifyEmailSelector.message);
-  isSuccessful$ = this.store.select(verifyEmailSelector.isVerifySuccessful);
-  verificationState$ = this.store.select(verifyEmailSelector.verifyEmailState);
+  isLoading$ = this.store.select(authSelector.getLoading);
+  errorMessage$ = this.store.select(authSelector.getErrorMessage);
+  successMessage$ = this.store.select(authSelector.successMessage);
+  isSuccessful$ = this.store.select(authSelector.isSuccessful);
 
   constructor(
     private store: Store<AppState>,
@@ -58,15 +56,18 @@ export class VerifyEmailComponent {
   }
 
   onSubmit(): void {
-    const request: HttpResponse<VerifyEmailDto> = {
-      message: null,
-      isSuccessful: false,
-      data: {
-        isLoading: true,
-        email: this.userEmail,
-        otp: `${this.otp}`,
-      },
-    };
-    this.store.dispatch(VerifyEmailRequest({ model: request }));
+    if (this.userEmail && this.otp) {
+      this.store.dispatch(
+        VerifyEmailRequest({
+          model: { email: this.userEmail, otp: `${this.otp}` },
+        })
+      );
+    } else {
+      this.alert.error(
+        'User email and OTP is required.',
+        'Invalid Model state.'
+      );
+      return;
+    }
   }
 }

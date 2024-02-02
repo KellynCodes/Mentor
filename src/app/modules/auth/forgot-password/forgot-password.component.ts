@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { AppState } from '../../../state/app/app.state';
-import * as authActions from '../state/auth/auth.action';
-import * as authSelectors from '../state/auth/auth.selector';
+import { AppState } from '../../../../core/state/app/app.state';
+import * as authActions from '../../../../core/state/auth/auth.action';
+import * as authSelectors from '../../../../core/state/auth/auth.selector';
 import { ToastrService } from 'ngx-toastr';
 import { Store } from '@ngrx/store';
 @Component({
@@ -11,8 +11,9 @@ import { Store } from '@ngrx/store';
 })
 export class ForgotPasswordComponent {
   IsLoading$ = this.store.select(authSelectors.getLoading);
-  message$ = this.store.select(authSelectors.message);
-  isSuccessful$ = this.store.select(authSelectors.isVerifySuccessful);
+  errorMessage$ = this.store.select(authSelectors.getErrorMessage);
+  successMessage$ = this.store.select(authSelectors.successMessage);
+  isSuccessful$ = this.store.select(authSelectors.isSuccessful);
   email: string = '';
   constructor(private store: Store<AppState>, private alert: ToastrService) {}
 

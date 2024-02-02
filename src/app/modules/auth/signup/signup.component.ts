@@ -1,16 +1,13 @@
-import { Component, HostListener, Inject } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
-import { SignUpDto } from '../../../services/auth/Dto/signup.dto';
-import { AuthService } from '../../../services/auth/auth.service';
-import { AppState } from '../../../state/app/app.state';
-import * as signUpActions from '../state/signup/signup.action';
-import * as selectSignUpStates from '../state/signup/signup.selector';
+import { SignUpDto } from '../../../../core/services/auth/Dto/signup.dto';
+import { AuthService } from '../../../../core/services/auth/auth.service';
+import { AppState } from '../../../../core/state/app/app.state';
+import * as authAction from '../../../../core/state/auth/auth.action';
+import * as authSelector from '../../../../core/state/auth/auth.selector';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'learnal-signup',
@@ -25,36 +22,32 @@ export class SignupComponent {
   croppedFile!: Blob;
   imageChangedEvent!: Event;
   hidePassword!: boolean;
-  regForm!: FormGroup;
   isOpen: boolean = false;
+  regForm: FormGroup = new FormGroup(
+    {
+      userName: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+        this.authService.passwordValidator(),
+      ]),
+      confirmPassword: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+      ]),
+    },
+    { validators: this.authService.mustMatch('password', 'confirmPassword') }
+  );
 
-  // signup
-  isSigningUp$ = this.store.select(selectSignUpStates.getSignUpIsLoading);
-  errorMessage$ = this.store.select(selectSignUpStates.getSignUpMessage);
+  isLoading$ = this.store.select(authSelector.getLoading);
+  errorMessage$ = this.store.select(authSelector.getErrorMessage);
 
   constructor(
     private store: Store<AppState>,
-    private authService: AuthService
+    private authService: AuthService,
+    private alert: ToastrService
   ) {}
-
-  ngOnInit(): void {
-    this.regForm = new FormGroup(
-      {
-        userName: new FormControl('', Validators.required),
-        email: new FormControl('', [Validators.required, Validators.email]),
-        password: new FormControl('', [
-          Validators.required,
-          Validators.minLength(8),
-          this.authService.passwordValidator(),
-        ]),
-        confirmPassword: new FormControl('', [
-          Validators.required,
-          Validators.minLength(8),
-        ]),
-      },
-      { validators: this.authService.mustMatch('password', 'confirmPassword') }
-    );
-  }
 
   toggleModal(): void {
     this.isOpen = !this.isOpen;
@@ -90,17 +83,22 @@ export class SignupComponent {
 
   initCropper(): void {}
 
-  loadImageFailed(): void {}
+  loadImageFailed(): void {
+    this.alert.info(
+      `Only image with maximum size: 5mb is supported.`,
+      'Image upload failed.'
+    );
+  }
 
   onSubmit(): void {
     if (!this.regForm.valid) {
+      this.alert.error('All the input is required.', 'Invalid Model State.');
       return;
     }
 
     const model: SignUpDto = {
       ...this.regForm.value,
     };
-    console.log({ ...model });
     const formData: FormData = new FormData();
     formData.append('email', model.email);
     formData.append('userName', model.userName);
@@ -109,14 +107,8 @@ export class SignupComponent {
     if (this.croppedFile != null) {
       formData.append('profileImage', this.croppedFile, this.file?.name);
     }
-    console.log(`${formData.get('userName')} ${model}`);
     this.store.dispatch(
-      signUpActions.RegistrationFired({
-        message: null,
-        isSuccessful: false,
-        data: { IsLoading: true },
-      })
+      authAction.RegistrationRequest({ formData: formData, email: model.email })
     );
-    this.store.dispatch(signUpActions.RegistrationRequest({ file: formData }));
   }
 }

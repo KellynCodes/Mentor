@@ -1,9 +1,9 @@
+import { navigationGuard } from '../../core/guard/navigation/navigation.guard';
+import { authGuard } from '../../core/guard/auth/auth.guard';
 import { Routes } from '@angular/router';
 import { HomeComponent } from '../modules/pages/home/home.component';
 import { NotfoundComponent } from '../modules/components/notfound/notfound.component';
 import { IndexComponent } from '../modules/pages/index/index.component';
-import { navigationGuard } from '../guard/navigation/navigation.guard';
-import { authGuard } from '../guard/auth/auth.guard';
 
 export const routes: Routes = [
   {

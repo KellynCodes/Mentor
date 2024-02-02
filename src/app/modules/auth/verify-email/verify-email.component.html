@@ -23,25 +23,26 @@
             min="6"
             max="6"
           />
-          <div *ngIf="(verificationState$ | async)?.isSuccessful == false">
-            <h5 *ngIf="message$ | async as message" class="badge bg-danger">
-              {{ message }}
-            </h5>
-          </div>
-          <div *ngIf="isSuccessful$ | async as isSuccessful">
-            <h5
-              *ngIf="message$ | async as message"
-              class="p-1 bg-green-700 text-white text-center rounded-md"
-            >
-              {{ message }}
-            </h5>
-          </div>
-          <h5 *ngIf="isLoading$ | async" class="badge bg-success">Verifying</h5>
-
+          <h5 *ngIf="errorMessage$ | async as message" class="badge bg-danger">
+            {{ message }}
+          </h5>
+          <h5
+            *ngIf="successMessage$ | async as message"
+            class="p-1 bg-green-700 text-white text-center rounded-md"
+          >
+            {{ message }}
+          </h5>
           <div class="mt-4">
+            @if(isLoading$ | async){
+            <button class="btn btn-success validating">
+              <span class="spinner-border spinner-border-sm"></span>
+              Verifying...
+            </button>
+            }@else{
             <button type="submit" class="btn btn-success px-4 validate">
               Verify
             </button>
+            }
           </div>
         </form>
       </div>

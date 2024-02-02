@@ -1,9 +1,9 @@
-import { BrowserApiService } from './../../../services/utils/browser.api.service';
-import { AppState } from '../../../state/app/app.state';
+import { BrowserApiService } from '../../../../core/services/utils/browser.api.service';
+import { AppState } from '../../../../core/state/app/app.state';
 import { Component, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as courseActions from '../state/action';
-import * as courseSelector from '../state/selector';
+import * as courseActions from '../../../../core/state/course/action';
+import * as courseSelector from '../../../../core/state/course/selector';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
