@@ -9,6 +9,9 @@ const _authReducer = createReducer(
     return { ...state, isLoading: true };
   }),
   on(authActions.LoginSuccess, (state, { response }) => {
+    if (response == null) {
+      return { ...state, IsLoading: false };
+    }
     return {
       ...state,
       user: response.user,

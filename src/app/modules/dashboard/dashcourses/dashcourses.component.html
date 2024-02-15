@@ -1,1 +1,41 @@
-<p>dashcourses works!</p>
+<div class="flex flex-wrap items-center justify-center gap-4">
+  @for(course of courses$ | async; track course.id){
+
+  <div
+    data-w-id="dba5cb3b-f27a-c4e7-dbae-71be22375845"
+    style="border-color: rgb(234, 235, 239)"
+    class="border-2 border-slate-200 w-fit h-fit rounded-md"
+  >
+    <div class="w-60 h-60 flex flex-col items-center justify-center gap-y-4">
+      <img
+        [src]="course.image"
+        loading="lazy"
+        alt=""
+        class="h-48 w-full mx-auto object-cover"
+      />
+      <div class="flex items-center justify-center gap-2 p-3">
+        <div class="card-h !text-sm">
+          {{ course.description | truncate : 80 }}
+        </div>
+      </div>
+    </div>
+    <div
+      style="color: rgb(0, 0, 0); background-color: rgb(236, 231, 254)"
+      class="card-bot"
+    >
+      <a (click)="showCourseDetail(course.id)" class="card-bot_text"
+        >Learn More</a
+      >
+
+      <div class="info-icon w-embed flex items-center justify-center gap-x-2">
+        <img src="../../../assets/svg/course/exclamation-mark.svg" alt="!" />
+        <div class="card-description cursor-pointer"></div>
+      </div>
+    </div>
+  </div>
+  }
+</div>
+
+@if(courseId && showCourse){
+<learnal-course [courseId]="courseId" [(show)]="showCourse" />
+}

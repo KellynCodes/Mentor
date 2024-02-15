@@ -1,9 +1,10 @@
+import { PaginationQueryDto } from 'src/core/types/dto/request.query.dto';
+import { HttpResponse } from './../../types/dto/http.response.dto';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PaginationQueryDto } from '../../../lib/types/dto/request.query.dto';
-import { HttpResponse } from '../../../lib/types/dto/http.response.dto';
 import { UserDto } from './Dto/user.dto';
+import { CourseResponseDto } from '../course/Dto/course-response.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -27,5 +28,12 @@ export class UserService {
 
   deleteUser(id: string): Observable<HttpResponse> {
     return this.http.delete<HttpResponse>(`user/${id}`);
+  }
+
+  getCourses(
+    query: PaginationQueryDto
+  ): Observable<HttpResponse<CourseResponseDto[]>> {
+    const url: string = `user/courses?page=${query.pageNumber}&limit=${query.pageSize}&keyword=${query.keyword}`;
+    return this.http.get<HttpResponse<CourseResponseDto[]>>(url);
   }
 }

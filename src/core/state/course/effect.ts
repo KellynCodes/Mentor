@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user/user.service';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
@@ -14,9 +15,9 @@ export class CourseEffect {
   constructor(
     private actions$: Actions,
     private courseService: CourseService,
+    private userService: UserService,
     private store: Store<AppState>,
     private toastr: ToastrService,
-    private router: Router,
     private browserAPiService: BrowserApiService
   ) {}
 
@@ -29,6 +30,30 @@ export class CourseEffect {
           map((res) => {
             return CourseActions.LoadCourseSuccess({
               courses: res.data!.records,
+            });
+          }),
+          catchError((error) => {
+            return of(
+              CourseActions.LoadCourseFailure({
+                courses: null,
+                IsLoading: false,
+                errorMessage: error.error,
+              })
+            );
+          })
+        )
+      )
+    )
+  );
+
+  FetchUserCourseRequest$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CourseActions.LoadUserCourse),
+      exhaustMap((action) =>
+        this.userService.getCourses(action.query!).pipe(
+          map((res) => {
+            return CourseActions.LoadUserCourseSuccess({
+              courses: res.data!,
             });
           }),
           catchError((error) => {

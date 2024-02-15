@@ -1,6 +1,6 @@
 import { Store } from '@ngrx/store';
 import { setErrorMessage } from './../state/shared/shared.action';
-import { ErrorHandler, Injectable } from '@angular/core';
+import { ErrorHandler } from '@angular/core';
 import { AppState } from '../state/app/app.state';
 
 export class HandleGlobalError implements ErrorHandler {

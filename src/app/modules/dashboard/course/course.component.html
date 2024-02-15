@@ -1,1 +1,84 @@
-<p>course works!</p>
+<!-- ======= Breadcrumbs ======= -->
+<a
+  (click)="ngOnDestroy()"
+  class="fixed inset-0 w-screen z-[999] h-screen opacity-10 bg-black"
+></a>
+<div
+  class="bg-white fixed inset-0 m-auto flex items-center justify-center z-[1000] w-[80vw] h-[90vh] shadow-lg rounded-md"
+>
+  @for(course of filteredCourse; track course?.id){
+  <!-- ======= Course Details Section ======= -->
+  <div class="w-full h-full p-4">
+    <div class="w-full h-full container" data-aos="fade-up">
+      <div class="row">
+        <div class="col-lg-8">
+          <img
+            [src]="course?.image"
+            width="900"
+            height="900"
+            class="img-fluid"
+            priority=""
+            [alt]="course?.name"
+          />
+          <h3>{{ course?.name }}</h3>
+          <p>
+            {{ course?.description }}
+          </p>
+        </div>
+        <div class="col-lg-4">
+          <div
+            class="course-info d-flex justify-content-between align-items-center"
+          >
+            <h5>Course Owner</h5>
+            <p>
+              <a [routerLink]="['/course/', course?.user?.userName]">{{
+                course?.user?.userName! | truncate
+              }}</a>
+            </p>
+          </div>
+
+          <div
+            class="course-info d-flex justify-content-between align-items-center"
+          >
+            <h5>Course Fee</h5>
+            <p>${{ course?.price }}</p>
+          </div>
+
+          <div
+            class="course-info d-flex justify-content-between align-items-center"
+          >
+            <h5>Available Seats</h5>
+            <p>30</p>
+          </div>
+
+          <div
+            class="course-info d-flex justify-content-between align-items-center"
+          >
+            <h5>Schedule</h5>
+            <p>5.00 pm - 7.00 pm</p>
+          </div>
+
+          <div class="w-full my-5">
+            @if(IsCourseLoading$ | async){
+            <button class="!w-full btn btn-danger">
+              <span class="spinner-border spinner-border-sm"></span>
+              Loading...
+            </button>
+            }@else{
+            <button
+              class="!w-full btn btn-danger btn-large !font-bold !text-base"
+            >
+              Delete
+            </button>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Cource Details Section -->
+
+  }
+</div>
+
+<!-- End Cource Details Tabs Section -->

@@ -13,7 +13,7 @@ export const LoginRequest = createAction(
 
 export const LoginSuccess = createAction(
   '[Auth] Login Success',
-  props<{ response: LoginSuccessDto; redirectTo: string | null }>()
+  props<{ response: LoginSuccessDto| null; redirectTo: string | null }>()
 );
 
 export const GetUserSuccess = createAction(

@@ -28,6 +28,32 @@ const _courseReducer = createReducer(
     };
   }),
 
+  on(courseActions.LoadCourseSuccess, (state, action) => {
+    return {
+      ...state,
+      courses: action?.courses,
+      IsLoading: false,
+      errorMessage: null,
+    };
+  }),
+
+  on(courseActions.LoadUserCourse, (state, action) => {
+    return {
+      ...state,
+      courses: state.courses,
+      IsLoading: action.IsLoading,
+    };
+  }),
+
+  on(courseActions.LoadUserCourseSuccess, (state, action) => {
+    return {
+      ...state,
+      courses: action?.courses,
+      IsLoading: false,
+      errorMessage: null,
+    };
+  }),
+
   on(courseActions.GetCourse, (state, action) => {
     return {
       ...state,
@@ -49,15 +75,6 @@ const _courseReducer = createReducer(
     return {
       ...state,
       courses: null,
-      IsLoading: false,
-      errorMessage: null,
-    };
-  }),
-
-  on(courseActions.LoadCourseSuccess, (state, action) => {
-    return {
-      ...state,
-      courses: action?.courses,
       IsLoading: false,
       errorMessage: null,
     };
