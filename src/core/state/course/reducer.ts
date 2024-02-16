@@ -103,7 +103,7 @@ const _courseReducer = createReducer(
 
   on(courseActions.DeleteCourse, (state, action) => {
     const deletedCourse = state.courses!.filter((course) => {
-      return course.id != action.id;
+      return course.id != action.courseId;
     });
 
     return {

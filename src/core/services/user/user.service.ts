@@ -1,24 +1,30 @@
 import { PaginationQueryDto } from 'src/core/types/dto/request.query.dto';
 import { HttpResponse } from './../../types/dto/http.response.dto';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { DestroyRef, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserDto } from './Dto/user.dto';
+import { UserDto, UserResponseDto } from './Dto/user.dto';
 import { CourseResponseDto } from '../course/Dto/course-response.dto';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private _destroyRef: DestroyRef) {}
 
   UpdateUser(id: string, model: UserDto): Observable<HttpResponse<UserDto>> {
     return this.http.put<HttpResponse<UserDto>>(`user/${id}`, model);
   }
   PatchUpdateUser(id: string, model: UserDto) {}
 
-  getUser(id: string): Observable<HttpResponse<UserDto>> {
-    return this.http.get<HttpResponse<UserDto>>(`user/${id}`);
+  getUser(id: string): UserResponseDto | null {
+    const response = this.http.get<HttpResponse<UserResponseDto>>(`user/${id}`);
+    let user: UserResponseDto | null = null;
+    response
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe((x) => (user = x.data!));
+    return user;
   }
 
   getUsers(query: PaginationQueryDto): Observable<HttpResponse<UserDto[]>> {

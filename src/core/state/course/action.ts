@@ -87,12 +87,15 @@ export const UpdateCourseFailure = createAction(
 );
 
 export const DeleteCourse = createAction(
-  '[Course] Update Course Success.',
-  props<{ id: string; IsLoading: boolean }>()
+  '[Course] Delete Course.',
+  props<{ courseId: string }>()
+);
+export const DeleteCourseSuccess = createAction(
+  '[Course] Delete Course Success.'
 );
 
 export const DeleteCourseFailure = createAction(
-  '[Course] Update Course Success.',
+  '[Course] Delete Course Failure.',
   props<{ error: any }>()
 );
 

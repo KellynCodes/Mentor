@@ -11,6 +11,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { FormsModule } from '@angular/forms';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { FormsModule } from '@angular/forms';
     ButtonComponent,
     SearchComponent,
     CourseNotFoundComponent,
+    UserProfileComponent,
     TruncatePipe,
   ],
   imports: [CommonModule, FormsModule, RouterModule.forChild([])],
@@ -32,6 +34,7 @@ import { FormsModule } from '@angular/forms';
     NotfoundComponent,
     LoaderComponent,
     ButtonComponent,
+    UserProfileComponent,
     CourseNotFoundComponent,
     MaterialModule,
   ],

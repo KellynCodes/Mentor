@@ -9,7 +9,7 @@ import { FavCoursesComponent } from './fav-courses/fav-courses.component';
 import { ChartComponent } from './chart/chart.component';
 import { NotificationComponent } from './notification/notification.component';
 import { NgIconsModule } from '@ng-icons/core';
-import { faChartBar } from '@ng-icons/font-awesome/regular';
+import { faChartBar, faCircleXmark } from '@ng-icons/font-awesome/regular';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,7 @@ import { faChartBar } from '@ng-icons/font-awesome/regular';
     SharedModule,
     DashboardRoutingModule,
     NgChartsModule.forRoot(),
-    NgIconsModule.withIcons({ faChartBar }),
+    NgIconsModule.withIcons({ faChartBar, faCircleXmark }),
   ],
 })
 export class DashboardModule {}

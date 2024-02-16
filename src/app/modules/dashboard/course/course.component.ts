@@ -1,21 +1,16 @@
-import { selectUser } from './../../../../core/state/auth/auth.selector';
 import { Store } from '@ngrx/store';
 import * as courseActions from '../../../../core/state/course/action';
 import * as courseSelector from '../../../../core/state/course/selector';
-import { ActivatedRoute, Router } from '@angular/router';
-import { takeUntil } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import {
   Component,
   DestroyRef,
-  ElementRef,
   Renderer2,
   inject,
   Input,
   Output,
   EventEmitter,
 } from '@angular/core';
-import { BuyCourseRequest } from '../../../../core/services/course/Dto/buy-course.dto';
 import { CourseResponseDto } from '../../../../core/services/course/Dto/course-response.dto';
 import { AppState } from '../../../../core/state/app/app.state';
 import { PaginationQueryDto } from 'src/core/types/dto/request.query.dto';
@@ -39,6 +34,7 @@ export class CourseComponent {
   public _userEmail: string = '';
   private _destroyRef = inject(DestroyRef);
   private _document = inject(DOCUMENT);
+  public isUserProfileVisible: boolean = false;
   constructor(
     private store: Store<AppState>,
     private alert: ToastrService,
@@ -46,7 +42,6 @@ export class CourseComponent {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.show);
     this.renderer2.setStyle(this._document.body, 'overflow', 'hidden');
     this.getCourse();
     if (this.filteredCourse == null) {
@@ -58,6 +53,12 @@ export class CourseComponent {
   ngOnDestroy(): void {
     this.renderer2.setStyle(this._document.body, 'overflow', 'scroll');
     this.showChange.emit(false);
+  }
+
+  deleteCourse(courseId: string) {
+    if (courseId) {
+      this.store.dispatch(courseActions.DeleteCourse({ courseId: courseId }));
+    }
   }
 
   getCourse(): void {

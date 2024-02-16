@@ -4,12 +4,20 @@
   class="fixed inset-0 w-screen z-[999] h-screen opacity-10 bg-black"
 ></a>
 <div
-  class="bg-white fixed inset-0 m-auto flex items-center justify-center z-[1000] w-[80vw] h-[90vh] shadow-lg rounded-md"
+  class="bg-white fixed inset-0 m-auto flex items-center justify-center z-[1000] w-full md:w-[80vw] h-full md:h-[90vh] shadow-lg rounded-md"
 >
   @for(course of filteredCourse; track course?.id){
   <!-- ======= Course Details Section ======= -->
-  <div class="w-full h-full p-4">
-    <div class="w-full h-full container" data-aos="fade-up">
+  <div class="w-full h-full pt-8 p-4 relative">
+    <ng-icon
+      title="Close"
+      class="absolute right-2 top-2 cursor-pointer text-gray-700"
+      name="faCircleXmark"
+      size="1.5rem"
+      color="black"
+      (click)="ngOnDestroy()"
+    />
+    <div class="w-full h-full mt-8 container" data-aos="fade-up">
       <div class="row">
         <div class="col-lg-8">
           <img
@@ -30,11 +38,11 @@
             class="course-info d-flex justify-content-between align-items-center"
           >
             <h5>Course Owner</h5>
-            <p>
-              <a [routerLink]="['/course/', course?.user?.userName]">{{
-                course?.user?.userName! | truncate
-              }}</a>
-            </p>
+            <learnal-user-profile
+              [userId]="course?.user?.userId!"
+              [buttonLabel]="course?.user?.userName!"
+              className="text-accent text-base"
+            />
           </div>
 
           <div
@@ -59,6 +67,11 @@
           </div>
 
           <div class="w-full my-5">
+            <a
+              class="btn !bg-accent hover:bg-accent-dark"
+              routerLink="/course/{{ course.id }}/files"
+              >Continue Learning</a
+            >
             @if(IsCourseLoading$ | async){
             <button class="!w-full btn btn-danger">
               <span class="spinner-border spinner-border-sm"></span>
@@ -66,6 +79,7 @@
             </button>
             }@else{
             <button
+              (click)="deleteCourse(course.id)"
               class="!w-full btn btn-danger btn-large !font-bold !text-base"
             >
               Delete
@@ -78,7 +92,7 @@
   </div>
   <!-- End Cource Details Section -->
 
-  }
+  }@empty{ }
 </div>
 
 <!-- End Cource Details Tabs Section -->
