@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component } from '@angular/core';
 import {
   NavigationCancel,
@@ -19,7 +20,8 @@ export class IndexComponent {
 
   constructor(
     private isLoadingService: IsLoadingService,
-    private router: Router
+    private router: Router,
+    private alert: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -39,6 +41,18 @@ export class IndexComponent {
         // If it's the start of navigation, `add()` a loading indicator
         if (event instanceof NavigationStart) {
           this.isLoadingService.add();
+          return;
+        }
+
+        if (event instanceof NavigationCancel) {
+          // return;
+        }
+
+        if (event instanceof NavigationError) {
+          this.alert.info(
+            'Something happened while performing the navigation, please refresh the page.',
+            'Page navigation error.'
+          );
           return;
         }
 

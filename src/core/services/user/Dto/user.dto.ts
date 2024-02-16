@@ -15,6 +15,7 @@ export interface UserDto {
 }
 
 export interface UserResponseDto {
+  userId: string;
   userEmail: string;
   userName: string;
   avatarUrl: string;

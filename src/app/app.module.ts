@@ -1,5 +1,11 @@
+import { HandleGlobalError } from './../core/extension/handle.error';
 import { TemplatePageTitleStrategy } from '../core/extension/title.strategy';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule, isDevMode } from '@angular/core';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  ErrorHandler,
+  NgModule,
+  isDevMode,
+} from '@angular/core';
 import {
   BrowserModule,
   provideClientHydration,
@@ -58,6 +64,7 @@ register();
   providers: [
     { provide: LocationStrategy, useClass: PathLocationStrategy },
     { provide: TitleStrategy, useClass: TemplatePageTitleStrategy },
+    // { provide: ErrorHandler, useClass: HandleGlobalError },
     { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
     provideClientHydration(),
     provideHttpClient(withFetch()),

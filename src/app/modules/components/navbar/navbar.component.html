@@ -102,14 +102,10 @@
     </nav>
     <!-- .navbar -->
 
-    @if (user$ | async; as user) { @if(user?.role == "Admin"){
-    <a [href]="adminDashboardLink" target="_blank" class="get-started-btn"
-      >Dashboard</a
-    >
-    }@else{
+    @if (user$ | async; as user){
     <a routerLink="/dashboard" class="get-started-btn">Dashboard</a>
 
-    } }@else {
+    }@else {
     <a routerLink="/auth/login" class="get-started-btn">Get Started</a>
     }
   </div>

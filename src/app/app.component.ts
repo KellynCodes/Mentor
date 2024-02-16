@@ -6,9 +6,7 @@ import {
   afterRender,
 } from '@angular/core';
 import * as Aos from 'aos';
-import { BrowserApiService } from '../core/services/utils/browser.api.service';
 import PureCounter from '@srexi/purecounterjs';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'learnal-root',
@@ -18,7 +16,6 @@ import { Router } from '@angular/router';
 export class AppComponent {
   constructor(
     private jwtService: JwtService,
-    private browserService: BrowserApiService,
     private elementRef: ElementRef<HTMLDivElement>
   ) {
     afterRender(

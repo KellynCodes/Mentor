@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Role } from 'src/core/types/enum/role';
+import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
@@ -10,9 +11,12 @@ import * as authActions from './auth.action';
 import * as verificationActions from './auth.action';
 import { setAuthErrorMessage } from './auth.action';
 import { ToastrService } from 'ngx-toastr';
+import { DOCUMENT } from '@angular/common';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class AuthEffect {
+  window = inject(DOCUMENT).defaultView;
   constructor(
     private actions$: Actions,
     private store: Store<AppState>,
@@ -32,6 +36,19 @@ export class AuthEffect {
             const user = this.jwtService.decodeJwtToken(res.data!);
             if (res.data) {
               res.data.user = user;
+            }
+
+            if (user?.role == Role.ADMIN) {
+              this.alert.info(
+                `Hello ${user.unique_name[0]} we are navigating you to the admin dashboard, you can login from there.`
+              );
+              setTimeout(() => {
+                this.window?.open(environment.adminDashboardLink, '_blank');
+              }, 3500);
+              return authActions.LoginSuccess({
+                response: null,
+                redirectTo: '/',
+              });
             }
             return authActions.LoginSuccess({
               response: res.data!,
@@ -56,7 +73,7 @@ export class AuthEffect {
             this.router.navigateByUrl(res.redirectTo);
             return;
           }
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('/dashboard');
         })
       ),
     { dispatch: false }

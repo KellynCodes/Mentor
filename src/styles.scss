@@ -26,12 +26,12 @@ body {
   position: relative;
   color: #444444;
   background: #f6f9ff;
-  overflow-x: hidden;
+  overflow-x: hidden !important;
 }
 
 a {
-  color: #5fcf80;
   text-decoration: none;
+  cursor: pointer;
 }
 
 a:hover {

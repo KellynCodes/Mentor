@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user/user.service';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
@@ -14,9 +15,9 @@ export class CourseEffect {
   constructor(
     private actions$: Actions,
     private courseService: CourseService,
+    private userService: UserService,
     private store: Store<AppState>,
-    private toastr: ToastrService,
-    private router: Router,
+    private alert: ToastrService,
     private browserAPiService: BrowserApiService
   ) {}
 
@@ -29,6 +30,30 @@ export class CourseEffect {
           map((res) => {
             return CourseActions.LoadCourseSuccess({
               courses: res.data!.records,
+            });
+          }),
+          catchError((error) => {
+            return of(
+              CourseActions.LoadCourseFailure({
+                courses: null,
+                IsLoading: false,
+                errorMessage: error.error,
+              })
+            );
+          })
+        )
+      )
+    )
+  );
+
+  FetchUserCourseRequest$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CourseActions.LoadUserCourse),
+      exhaustMap((action) =>
+        this.userService.getCourses(action.query!).pipe(
+          map((res) => {
+            return CourseActions.LoadUserCourseSuccess({
+              courses: res.data!,
             });
           }),
           catchError((error) => {
@@ -75,10 +100,10 @@ export class CourseEffect {
         ofType(CourseActions.LoadCourseFailure),
         tap((error) => {
           if (typeof error?.errorMessage == 'object') {
-            this.toastr.error(error.errorMessage.message);
+            this.alert.error(error.errorMessage.message);
           }
           if (typeof error?.errorMessage == 'string') {
-            this.toastr.error(`${error.errorMessage}`);
+            this.alert.error(`${error.errorMessage}`);
           }
           setTimeout(() => {
             this.store.dispatch(CourseActions.ResetCourseFetchState());
@@ -145,7 +170,6 @@ export class CourseEffect {
             return CourseActions.BuyCourseSuccess(res);
           }),
           catchError((error) => {
-            console.log(error);
             return of(CourseActions.BuyCourseFailure(error.error));
           })
         )
@@ -162,7 +186,24 @@ export class CourseEffect {
             return CourseActions.LikeCourseSuccess(res);
           }),
           catchError((error) => {
-            console.log(error);
+            return of(CourseActions.LikeCourseFailure(error.error));
+          })
+        )
+      )
+    )
+  );
+
+  DeleteCourseRequest$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CourseActions.DeleteCourse),
+      exhaustMap((action) =>
+        this.courseService.deleteCourse(action.courseId).pipe(
+          map((res) => {
+            if (res.isSuccessful) {
+              this.alert.success('Course deleted.', 'Success');
+            }
+          }),
+          catchError((error) => {
             return of(CourseActions.LikeCourseFailure(error.error));
           })
         )
@@ -176,7 +217,7 @@ export class CourseEffect {
         ofType(CourseActions.LikeCourseSuccess),
         map((response) => {
           if (response.isSuccessful) {
-            this.toastr.success(response.message);
+            this.alert.success(response.message);
             this.store.dispatch(
               CourseActions.LoadCourse({
                 query: {
@@ -199,7 +240,7 @@ export class CourseEffect {
       this.actions$.pipe(
         ofType(CourseActions.LikeCourseFailure),
         tap((response) => {
-          this.toastr.error('Something went wrong.', 'Try again!');
+          this.alert.error('Something went wrong.', 'Try again!');
         })
       ),
     { dispatch: false }
@@ -223,7 +264,7 @@ export class CourseEffect {
       this.actions$.pipe(
         ofType(CourseActions.BuyCourseFailure),
         map((res) => {
-          this.toastr.error(`${res.error.message}`, 'Error');
+          this.alert.error(`${res.error.message}`, 'Error');
         })
       ),
     { dispatch: false }

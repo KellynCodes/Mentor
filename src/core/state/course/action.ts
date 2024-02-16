@@ -13,6 +13,21 @@ export const LoadCourse = createAction(
   props<{ query: PaginationQueryDto | null; IsLoading: boolean }>()
 );
 
+export const LoadCourseSuccess = createAction(
+  '[Course] Load Course Success.',
+  props<{ courses: CourseResponseDto[] }>()
+);
+
+export const LoadUserCourse = createAction(
+  '[Course] Load User Course.',
+  props<{ query: PaginationQueryDto | null; IsLoading: boolean }>()
+);
+
+export const LoadUserCourseSuccess = createAction(
+  '[Course] Load User Course Success.',
+  props<{ courses: CourseResponseDto[] }>()
+);
+
 export const GetCourse = createAction(
   '[Course] Get Course.',
   props<{ courseId: string; IsLoading: boolean }>()
@@ -29,11 +44,6 @@ export const LoadCourseFailure = createAction(
 
 export const ResetCourseFetchState = createAction(
   '[Course] Load Course State Reset'
-);
-
-export const LoadCourseSuccess = createAction(
-  '[Course] Load Course Success.',
-  props<{ courses: CourseResponseDto[] }>()
 );
 
 export const GetCourseSuccess = createAction(
@@ -77,12 +87,15 @@ export const UpdateCourseFailure = createAction(
 );
 
 export const DeleteCourse = createAction(
-  '[Course] Update Course Success.',
-  props<{ id: string; IsLoading: boolean }>()
+  '[Course] Delete Course.',
+  props<{ courseId: string }>()
+);
+export const DeleteCourseSuccess = createAction(
+  '[Course] Delete Course Success.'
 );
 
 export const DeleteCourseFailure = createAction(
-  '[Course] Update Course Success.',
+  '[Course] Delete Course Failure.',
   props<{ error: any }>()
 );
 
