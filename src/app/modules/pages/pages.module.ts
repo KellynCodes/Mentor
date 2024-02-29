@@ -8,7 +8,7 @@ import { SwiperDirective } from '../../../core/directives/swiper';
 import { SharedModule } from '../components/shared.module';
 import { MaterialModule } from '../material/material.module';
 import { NgOptimizedImage } from '@angular/common';
-import { IndexComponent } from './index/index.component';
+import { PageIndex } from './index';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,7 @@ import { IndexComponent } from './index/index.component';
     AboutComponent,
     ContactComponent,
     SwiperDirective,
-    IndexComponent,
+    PageIndex,
   ],
   imports: [NgOptimizedImage, PagesRoutingModule, MaterialModule, SharedModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -1,9 +1,7 @@
 export enum Page {
   FAV_COURSES = 'FAV_COURSES',
-  COURSES = 'COURSES',
-  COURSE = 'COURSES',
-  CHART = 'CHART',
-  ALERTS = 'ALERTS',
-  NOTIFICATIONS = 'NOTIFICATIONS',
-  CREATE_COURSE = 'CREATE_COURSE',
+  COURSES = 'courses',
+  COURSE = 'course',
+  NOTIFICATIONS = 'notifications',
+  CREATE_COURSE = 'create-course',
 }

@@ -6,14 +6,6 @@ import { PaginationQueryDto } from '../../../core/types/dto/request.query.dto';
 import { CourseResponseDto } from './Dto/course-response.dto';
 import { Operation } from 'fast-json-patch';
 import { BuyCourseRequest, BuyCourseResponse } from './Dto/buy-course.dto';
-import {
-  ChartComponent,
-  CourseComponent,
-  DashCoursesComponent,
-  FavCoursesComponent,
-  NotificationComponent,
-} from '../../../app/modules/dashboard';
-import { Page } from 'src/core/types/enum/Page';
 
 @Injectable({
   providedIn: 'root',
@@ -75,29 +67,5 @@ export class CourseService {
 
   verifyPayment(reference: string): Observable<HttpResponse> {
     return this.http.get<HttpResponse>(`payment/verify?reference=${reference}`);
-  }
-
-  getComponent(component: Page) {
-    switch (component) {
-      case Page.FAV_COURSES:
-        return FavCoursesComponent;
-
-      case Page.COURSES:
-        return DashCoursesComponent;
-
-      case Page.CREATE_COURSE:
-        return DashCoursesComponent;
-
-      case Page.COURSE:
-        return CourseComponent;
-
-      case Page.CHART:
-        return ChartComponent;
-
-      case Page.NOTIFICATIONS:
-        return NotificationComponent;
-      default:
-        return ChartComponent;
-    }
   }
 }

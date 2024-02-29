@@ -7,7 +7,6 @@ import { Store } from '@ngrx/store';
 @Component({
   selector: 'learnal-forgot-password',
   templateUrl: './forgot-password.component.html',
-  styleUrl: './forgot-password.component.css',
 })
 export class ForgotPasswordComponent {
   IsLoading$ = this.store.select(authSelectors.getLoading);

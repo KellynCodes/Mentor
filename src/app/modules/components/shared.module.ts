@@ -2,16 +2,17 @@ import { TruncatePipe } from './../../../core/pipes/truncate.pipe';
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { LoaderComponent } from './loader/loader.component';
-import { ButtonComponent } from './button/button.component';
+import { Button } from './button';
 import { RouterModule } from '@angular/router';
 import { SearchComponent } from './search/search.component';
-import { CourseNotFoundComponent } from './course-not-found/course-not-found.component';
+import { CourseNotFound } from './course-not-found/course-not-found';
 import { MaterialModule } from '../material/material.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { FormsModule } from '@angular/forms';
-import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserProfile } from './user-profile/user-profile';
+import { DeleteConfirmation } from './delete/delete-confirmation';
 
 @NgModule({
   declarations: [
@@ -19,11 +20,12 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     FooterComponent,
     NotfoundComponent,
     LoaderComponent,
-    ButtonComponent,
+    Button,
     SearchComponent,
-    CourseNotFoundComponent,
-    UserProfileComponent,
+    CourseNotFound,
+    UserProfile,
     TruncatePipe,
+    DeleteConfirmation,
   ],
   imports: [CommonModule, FormsModule, RouterModule.forChild([])],
   exports: [
@@ -33,10 +35,11 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     FooterComponent,
     NotfoundComponent,
     LoaderComponent,
-    ButtonComponent,
-    UserProfileComponent,
-    CourseNotFoundComponent,
+    Button,
+    UserProfile,
+    CourseNotFound,
     MaterialModule,
+    DeleteConfirmation,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

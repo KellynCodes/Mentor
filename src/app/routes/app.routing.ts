@@ -3,12 +3,12 @@ import { authGuard } from '../../core/guard/auth/auth.guard';
 import { Routes } from '@angular/router';
 import { HomeComponent } from '../modules/pages/home/home.component';
 import { NotfoundComponent } from '../modules/components/notfound/notfound.component';
-import { IndexComponent } from '../modules/pages/index/index.component';
+import { PageIndex } from '../modules/pages/index';
 
 export const routes: Routes = [
   {
     path: '',
-    component: IndexComponent,
+    component: PageIndex,
     children: [
       {
         path: '',

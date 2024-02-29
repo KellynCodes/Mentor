@@ -1,11 +1,10 @@
-@import url("assets/css/webflow.css");
-
 *,
 *::after,
 *::before {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 @tailwind base;
@@ -32,11 +31,6 @@ body {
 a {
   text-decoration: none;
   cursor: pointer;
-}
-
-a:hover {
-  color: #86db9f;
-  text-decoration: none;
 }
 
 /*--------------------------------------------------------------
@@ -204,4 +198,12 @@ section {
   font-size: 15px;
   font-weight: 600;
   color: #37423b;
+}
+
+.learnal-btn {
+  @apply w-auto h-auto py-2 px-4 text-center bg-accent text-white font-bold text-base rounded-[2rem] flex items-center justify-center gap-2 hover:bg-accent-dark hover:text-white;
+}
+
+.overflow-behaviour-contain {
+  overscroll-behavior: contain !important;
 }

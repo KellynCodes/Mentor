@@ -11,20 +11,15 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient, private _destroyRef: DestroyRef) {}
+  constructor(private http: HttpClient) {}
 
   UpdateUser(id: string, model: UserDto): Observable<HttpResponse<UserDto>> {
     return this.http.put<HttpResponse<UserDto>>(`user/${id}`, model);
   }
   PatchUpdateUser(id: string, model: UserDto) {}
 
-  getUser(id: string): UserResponseDto | null {
-    const response = this.http.get<HttpResponse<UserResponseDto>>(`user/${id}`);
-    let user: UserResponseDto | null = null;
-    response
-      .pipe(takeUntilDestroyed(this._destroyRef))
-      .subscribe((x) => (user = x.data!));
-    return user;
+  getUser(id: string): Observable<HttpResponse<UserResponseDto>> {
+    return this.http.get<HttpResponse<UserResponseDto>>(`user/${id}`);
   }
 
   getUsers(query: PaginationQueryDto): Observable<HttpResponse<UserDto[]>> {

@@ -1,165 +1,178 @@
-<router-outlet />
-<div class="dashboard">
-  <h1 class="">Welcome!&nbsp; Kelly Please read me.</h1>
-  <p>
-    The page you are on is a static version of the dashboard.&nbsp;To view this
-    dashboard in a gated environment, click the button below!
-  </p>
-  <div
-    data-w-id="6bc66341-54ed-2b72-43b9-f981943f69a4"
-    class="close-icon w-embed"
+<button
+  data-drawer-target="default-sidebar"
+  data-drawer-toggle="default-sidebar"
+  aria-controls="default-sidebar"
+  type="button"
+  class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+>
+  <span class="sr-only">Open sidebar</span>
+  <svg
+    class="w-6 h-6"
+    aria-hidden="true"
+    fill="currentColor"
+    viewBox="0 0 20 20"
+    xmlns="http://www.w3.org/2000/svg"
   >
-    <img src="../../../assets/svg/course/search.svg" alt="" />
-  </div>
-</div>
-<div class="dashboard">
-  <div class="container">
-    <div class="content-wrap">
-      <div class="content-nav">
-        <div class="form-block w-form">
-          <form
-            id="email-form"
-            name="email-form"
-            data-name="Email Form"
-            method="get"
-            class="form"
-          >
-            <input
-              type="text"
-              class="search w-input"
-              maxlength="256"
-              name="Search"
-              data-name="Search"
-              placeholder="Search anything..."
-              id="Search"
-            />
-          </form>
-        </div>
-      </div>
-      <div id="content" class="content">
-        <div class="content-hero">
-          <div class="heading-wrap">
-            <h1>Learn New Skills</h1>
-            <div class="hero-description">
-              One Simple Price. Unlimited Skills
-            </div>
-          </div>
-          <a routerLink="/course/courses" class="button w-inline-block"
-            ><div class="w-embed">
-              <img src="../../../assets/svg/course/explore-more.svg" alt="" />
-            </div>
-            <div class="button-text">Explore More</div></a
-          >
-          <button
-            type="button"
-            class="btn btn-success bg-accent"
-            (click)="logout()"
-          >
-            Logout
-          </button>
-        </div>
-        <div id="cards-scroll" class="cards-wrap">
-          @for(course of courses$ | async; track course.id){
-          <div
-            data-w-id="dba5cb3b-f27a-c4e7-dbae-71be22375845"
-            style="border-color: rgb(234, 235, 239)"
-            class="border-2 border-slate-200 w-fit h-fit rounded-md"
-          >
-            <div
-              class="w-60 h-60 flex flex-col items-center justify-center gap-y-4"
-            >
-              <img
-                [src]="course.image"
-                loading="lazy"
-                alt=""
-                class="h-48 w-full mx-auto object-cover"
-              />
-              <div class="flex items-center justify-center gap-2 p-3">
-                <div class="card-h !text-sm">
-                  {{ course.description | truncate : 80 }}
-                </div>
-              </div>
-            </div>
-            <div
-              style="color: rgb(0, 0, 0); background-color: rgb(236, 231, 254)"
-              class="card-bot"
-            >
-              <a
-                routerLink="/course/detail/{{ course.id }}"
-                class="card-bot_text"
-                >Learn More</a
-              >
-              <div
-                class="info-icon w-embed flex items-center justify-center gap-x-2"
-              >
-                <img
-                  src="../../../assets/svg/course/exclamation-mark.svg"
-                  alt="!"
-                />
-                @if (isLoading$ | async) {
+    <path
+      clip-rule="evenodd"
+      fill-rule="evenodd"
+      d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
+    ></path>
+  </svg>
+</button>
 
-                <span class="spinner-border spinner-border-sm"></span>
-                }@else {
-                <div
-                  (click)="likeCourse(course?.user?.userEmail!, course?.id!)"
-                  class="card-description cursor-pointer"
-                >
-                  Likes {{ course.likes }}
-                </div>
-                }
-              </div>
-            </div>
-          </div>
-          }
-        </div>
-      </div>
-      <div class="content-flex">
-        <div id="view_container" class="graph-wrap overflow-y-scroll">
-          <ng-container *ngComponentOutlet="renderComponent" />
-        </div>
-        <div class="options-wrap">
-          <div class="options-grid">
-            <a
-              (click)="getComponent(page.COURSES)"
-              class="options-card w-inline-block"
-            >
-              <div class="w-embed">
-                <img src="../../../assets/svg/course/course.svg" alt="" />
-              </div>
-              <div class="option-h">Courses</div></a
-            ><a
-              (click)="getComponent(page.FAV_COURSES)"
-              class="options-card w-inline-block"
-              ><div class="w-embed">
-                <img src="../../../assets/svg/course/fav-course.svg" alt="" />
-              </div>
-              <div class="option-h">Favorites</div></a
-            ><a routerLink="/course/courses" class="options-card w-inline-block"
-              ><div class="w-embed">
-                <img src="../../../assets/svg/course/explore.svg" alt="" />
-              </div>
-              <div class="option-h">Explore</div></a
-            ><a
-              (click)="getComponent(page.NOTIFICATIONS)"
-              class="options-card w-inline-block"
-              ><div class="w-embed">
-                <img src="../../../assets/svg/course/notification.svg" alt="" />
-              </div>
-              <div class="option-h">Notifications</div></a
-            ><a
-              (click)="getComponent(page.CHART)"
-              class="options-card w-inline-block"
-              ><div class="w-embed">
-                <ng-icon name="faChartBar" size="2rem" color="gray" />
-              </div>
-              <div class="option-h">Chart</div></a
-            >
-          </div>
-          <a routerLink="/course/courses" class="button res-small w-button"
-            >Kelly learn new things today</a
+<aside
+  id="default-sidebar"
+  class="fixed mt-12 top-0 left-0 z-40 w-64 h-auto py-4 transition-transform -translate-x-full sm:translate-x-0"
+  aria-label="Sidebar"
+>
+  <learnal-sidebar />
+</aside>
+
+<!-- POP DISPLAY -->
+
+<router-outlet />
+
+<!-- END OF POP DISPLAY -->
+
+<div class="p-4 sm:ml-64 h-auto">
+  <div class="p-4 border-1 border-green-600 rounded-lg h-auto">
+    <div
+      class="w-full bg-red-500 flex justify-center items-center flex-wrap gap-y-4 gap-x-4 mb-4 h-auto"
+    >
+      <div
+        class="w-full md:w-[45%] lg:w-[32%] min-h-24 max-h-40 flex flex-col items-center justify-center rounded bg-green-800 p-8"
+      >
+        <h1 class="text-2xl text-white font-bold">New Courses</h1>
+
+        <h2
+          class="flex items-center justify-center gap-1 w-fit h-12 text-xl text-bold text-green-500 bg-white rounded-full py-2 px-4 m-2"
+        >
+          {{ (courses$ | async)?.length }}
+          <svg
+            class="w-3.5 h-3.5"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 18 18"
           >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 1v16M1 9h16"
+            />
+          </svg>
+        </h2>
+      </div>
+      <div
+        class="w-full md:w-[45%] lg:w-[32%] min-h-24 max-h-40 flex flex-col items-center justify-center rounded bg-white border-2 border-green-800 p-8"
+      >
+        <h1 class="text-2xl text-green-800 font-bold">Enrolled Courses</h1>
+
+        <h2
+          class="flex items-center justify-center gap-1 w-full h-12 text-xl text-bold text-green-600"
+        >
+          {{ (courses$ | async)?.length }}
+          <svg
+            class="w-3.5 h-3.5"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 18 18"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 1v16M1 9h16"
+            />
+          </svg>
+        </h2>
+      </div>
+      <div
+        class="w-full md:w-[45%] lg:w-[32%] min-h-24 max-h-40 flex flex-col items-center justify-center rounded bg-green-800 p-4"
+      >
+        <h1 class="text-2xl text-white font-bold">New Courses</h1>
+
+        <h2
+          class="flex items-center justify-center gap-1 w-fit h-12 text-xl text-bold text-green-500 bg-white rounded-full py-2 px-4 m-2"
+        >
+          {{ (courses$ | async)?.length }}00000
+          <svg
+            class="w-3.5 h-3.5"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 18 18"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 1v16M1 9h16"
+            />
+          </svg>
+        </h2>
+      </div>
+    </div>
+    <div
+      id="activities"
+      class="flex flex-col items-center justify-center h-auto w-auto my-5 rounded bg-gray-50"
+    >
+      <h1 class="capitalize text-3xl font-bold text-center text-gray-600 my-4">
+        this month activities.
+      </h1>
+      <learnal-chart />
+    </div>
+
+    <div
+      id="courses"
+      class="bg-gray-50 w-full h-auto max-h-screen overflow-y-auto container gap-4 my-8"
+    >
+      <h1 class="capitalize text-3xl font-bold text-center text-gray-600 my-4">
+        enrolled courses
+      </h1>
+      <learnal-dashcourses />
+    </div>
+    <div class="flex items-center justify-center h-auto mb-4 rounded">
+      <h3 class="text-2xl font-bold text-green-700">Recommended Course</h3>
+    </div>
+    <div class="flex flex-wrap items-center justify-center gap-4">
+      @for(course of courses$ | async; track course.id){
+      <div
+        class="w-full md:w-[47%] relative p-4 bg-white rounded-lg shadow md:p-4 h-[12rem]"
+      >
+        <div class="mb-2 text-sm font-light text-gray-500">
+          <h3 class="mb-1 text-xl font-bold text-gray-900">
+            {{ course.name }}
+          </h3>
+          <p>
+            {{ course.description }}
+          </p>
+        </div>
+        <div class="flex justify-center items-center pt-0 my-2 sm:space-y-0">
+          <div class="flex items-center gap-x-4 justify-between w-full">
+            <button
+              type="button"
+              (click)="dontLikeCourse(course.id)"
+              class="py-2 px-4 w-full text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 sm:w-auto hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10"
+            >
+              Remove
+            </button>
+            <a
+              routerLink="/course/detail/{{ course.id }}"
+              class="py-2 px-4 w-full text-sm font-medium text-center text-white rounded-lg bg-primary-700 sm:w-auto hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300"
+            >
+              Enroll
+            </a>
+          </div>
         </div>
       </div>
+      }
     </div>
   </div>
 </div>

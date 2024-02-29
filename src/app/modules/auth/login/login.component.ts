@@ -10,7 +10,6 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'learnal-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
   hidePassword: boolean = true;

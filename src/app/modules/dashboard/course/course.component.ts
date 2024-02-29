@@ -29,7 +29,7 @@ export class CourseComponent {
   public IsCourseLoading$ = this.store.select(courseSelector.IsCourseLoading);
   public errorMessage$ = this.store.select(courseSelector.errorMessage);
   public courses$ = this.store.select(courseSelector.getCourse);
-  public filteredCourse: CourseResponseDto[] = [];
+  public course: CourseResponseDto | null = null;
   public _videoId: string | null = '';
   public _userEmail: string = '';
   private _destroyRef = inject(DestroyRef);
@@ -42,22 +42,23 @@ export class CourseComponent {
   ) {}
 
   ngOnInit(): void {
-    this.renderer2.setStyle(this._document.body, 'overflow', 'hidden');
+    this.renderer2.addClass(this._document.body, 'overflow-hidden');
     this.getCourse();
-    if (this.filteredCourse == null) {
+    if (this.course == null) {
       this.LoadCourse();
       this.getCourse();
     }
   }
 
   ngOnDestroy(): void {
-    this.renderer2.setStyle(this._document.body, 'overflow', 'scroll');
+    this.renderer2.removeClass(this._document.body, 'overflow-hidden');
     this.showChange.emit(false);
   }
 
   deleteCourse(courseId: string) {
     if (courseId) {
       this.store.dispatch(courseActions.DeleteCourse({ courseId: courseId }));
+      this.ngOnDestroy();
     }
   }
 
@@ -72,10 +73,10 @@ export class CourseComponent {
     this.courses$
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe((data) => {
-        const course: CourseResponseDto[] = data?.filter(
+        const course: CourseResponseDto = data?.find(
           (x) => x.id == this.courseId
         )!;
-        this.filteredCourse = course;
+        this.course = course;
       });
   }
 

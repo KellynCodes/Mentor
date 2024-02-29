@@ -7,15 +7,26 @@ import {
   NavigationStart,
   Router,
 } from '@angular/router';
-import { IsLoadingService } from '../../../../core/services/router/Isloading';
+import { IsLoadingService } from '../../../core/services/router/Isloading';
 import { Observable, filter } from 'rxjs';
 
 @Component({
   selector: 'learnal-index',
-  templateUrl: './index.component.html',
-  styleUrl: './index.component.css',
+  template: `
+    @if(isLoading | async){
+    <mat-progress-bar
+      mode="indeterminate"
+      color="red"
+      style="position: absolute; top: 0; z-index: 5000; background-color: green !important"
+    >
+    </mat-progress-bar>
+    }
+    <learnal-navbar />
+    <router-outlet />
+    <learnal-footer />
+  `,
 })
-export class IndexComponent {
+export class PageIndex {
   isLoading!: Observable<boolean>;
 
   constructor(
