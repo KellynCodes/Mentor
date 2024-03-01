@@ -20,7 +20,6 @@ import { DOCUMENT } from '@angular/common';
 @Component({
   selector: 'learnal-course',
   templateUrl: './course.component.html',
-  styleUrl: './course.component.css',
 })
 export class CourseComponent {
   @Input({ required: true }) courseId: string = '';
