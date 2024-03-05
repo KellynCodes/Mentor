@@ -12,6 +12,7 @@ import { faChartBar, faCircleXmark } from '@ng-icons/font-awesome/regular';
 import { faSolidAddressBook } from '@ng-icons/font-awesome/solid';
 import { SideBar } from './sidebar';
 import { Alert, Alerts } from './alert';
+import { UserAccount } from './account/account';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { Alert, Alerts } from './alert';
     CourseComponent,
     FavCoursesComponent,
     ChartComponent,
+    UserAccount,
     Alerts,
     SideBar,
     Alert,

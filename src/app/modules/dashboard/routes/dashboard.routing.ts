@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { DashboardComponent } from '../dashboard.component';
-import { CourseComponent } from '../course/course.component';
 import { Alerts } from '../alert';
+import { UserAccount } from '../account/account';
 
 export const dashboardRoutes: Routes = [
   {
@@ -14,7 +14,11 @@ export const dashboardRoutes: Routes = [
         component: Alerts,
         title: 'Notifications',
       },
+      {
+        path: 'account/:userId',
+        component: UserAccount,
+        title: 'Account',
+      },
     ],
   },
-  { path: 'course/:id', component: CourseComponent, title: 'Course' },
 ];

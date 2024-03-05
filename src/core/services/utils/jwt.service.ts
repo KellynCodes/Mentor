@@ -19,6 +19,7 @@ export class JwtService {
   ) {}
 
   public CheckUser(): User | null {
+    console.log(this.user)
     const authUser: LoginSuccessDto = JSON.parse(this.user);
     this.store.dispatch(GetUserSuccess(authUser));
     return authUser?.user!;

@@ -34,7 +34,7 @@
     </div>
   </div>
   }@empty {
-  <learnal-course-not-found [isNotEnrolled]="true" />
+  <learnal-empty [isNotEnrolled]="true" />
   } @if(courseId && showCourse){
   <learnal-course [courseId]="courseId" [(show)]="showCourse" />
 

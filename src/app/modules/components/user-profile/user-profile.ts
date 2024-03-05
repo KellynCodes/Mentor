@@ -3,9 +3,9 @@ import { UserService } from '../../../../core/services/user/user.service';
 import { Component, DestroyRef, Input, inject } from '@angular/core';
 import { UserResponseDto } from '../../../../core/services/user/Dto/user.dto';
 import { initFlowbite } from 'flowbite';
-import { AuthService } from 'src/core/services/auth/auth.service';
+import { AuthService } from '../../../../core/services/auth/auth.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { selectUser } from 'src/core/state/auth/auth.selector';
+import { selectUser } from '../../../../core/state/auth/auth.selector';
 import { Store } from '@ngrx/store';
 
 @Component({

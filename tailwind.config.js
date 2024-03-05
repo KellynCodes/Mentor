@@ -29,7 +29,12 @@ module.exports = {
           900: "#064e3b",
           950: "#022c22",
         },
+        deemgreen: "#638763",
+        whitegray: "#F0F5F0",
+        graywhite: "#DBE5DB",
+        dark: "#121712",
         white: "#ffffff",
+
         tahiti: {
           100: "#cffafe",
           200: "#a5f3fc",
