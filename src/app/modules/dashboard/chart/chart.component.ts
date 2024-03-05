@@ -1,19 +1,21 @@
 import { Component, ViewChild } from '@angular/core';
-import {
-  ChartConfiguration,
-  ChartData,
-  ChartOptions,
-  ChartType,
-  ChartEvent,
-} from 'chart.js';
+import { ChartConfiguration, ChartData, ChartType, ChartEvent } from 'chart.js';
 import { BaseChartDirective, ThemeService } from 'ng2-charts';
 import DataLabelsPlugin from 'chartjs-plugin-datalabels';
 type Theme = 'light-theme' | 'dark-theme';
 
 @Component({
   selector: 'learnal-chart',
-  templateUrl: './chart.component.html',
-  styleUrl: './chart.component.css',
+  template: `
+    <canvas
+      style="height: 22rem; width: 100%"
+      baseChart
+      [data]="barChartData"
+      [options]="barChartOptions"
+      type="bar"
+    >
+    </canvas>
+  `,
 })
 export class ChartComponent {
   private _selectedTheme: Theme = 'light-theme';

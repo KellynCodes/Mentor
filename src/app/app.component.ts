@@ -11,7 +11,6 @@ import PureCounter from '@srexi/purecounterjs';
 @Component({
   selector: 'learnal-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   constructor(

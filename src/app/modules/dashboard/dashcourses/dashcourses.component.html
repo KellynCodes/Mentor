@@ -1,39 +1,42 @@
-<div class="flex flex-wrap items-center justify-center gap-4">
+<div
+  class="w-full h-auto flex flex-wrap items-center justify-center gap-y-4 gap-x-4"
+>
   @for(course of courses$ | async; track course.id){
 
   <div
-    data-w-id="dba5cb3b-f27a-c4e7-dbae-71be22375845"
-    style="border-color: rgb(234, 235, 239)"
-    class="border-2 border-slate-200 w-fit h-fit rounded-md"
+    class="flex flex-col items-center justify-center w-52 h-60 rounded-lg shadow-md"
   >
-    <div class="w-60 h-60 flex flex-col items-center justify-center gap-y-4">
+    <div
+      class="w-full h-[78%] flex flex-col items-center justify-center gap-y-[2%]"
+    >
       <img
         [src]="course.image"
         loading="lazy"
-        alt=""
-        class="h-48 w-full mx-auto object-cover"
+        alt="course Image"
+        class="h-[60%] w-full object-cover rounded-tr-lg rounded-tl-lg"
       />
-      <div class="flex items-center justify-center gap-2 p-3">
+      <div class="w-full h-[38%] flex items-center justify-center gap-2 p-3">
         <div class="card-h !text-sm">
-          {{ course.description | truncate : 80 }}
+          {{ course.description | truncate : 75 }}
         </div>
       </div>
     </div>
     <div
-      style="color: rgb(0, 0, 0); background-color: rgb(236, 231, 254)"
-      class="card-bot"
+      class="flex w-full h-[20%] items-center justify-around shadow cursor-pointer"
     >
-      <a (click)="showCourseDetail(course.id)" class="card-bot_text">Detail</a>
-
-      <div class="info-icon w-embed flex items-center justify-center gap-x-2">
-        <img src="../../../assets/svg/course/exclamation-mark.svg" alt="!" />
-        <div class="card-description cursor-pointer"></div>
-      </div>
+      <img
+        title="{{ course.description }}"
+        class="bg-gray-400 hover:bg-gray-600 rounded-full p-2"
+        src="../../../assets/svg/course/exclamation-mark.svg"
+        alt="!"
+      />
+      <learnal-button (click)="showCourseDetail(course.id)" label="detail" />
     </div>
   </div>
+  }@empty {
+  <learnal-course-not-found [isNotEnrolled]="true" />
+  } @if(courseId && showCourse){
+  <learnal-course [courseId]="courseId" [(show)]="showCourse" />
+
   }
 </div>
-
-@if(courseId && showCourse){
-<learnal-course [courseId]="courseId" [(show)]="showCourse" />
-}

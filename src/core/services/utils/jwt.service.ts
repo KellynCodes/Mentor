@@ -1,14 +1,12 @@
-import { selectUser } from './../../state/auth/auth.selector';
 import jwtDecode from 'jwt-decode';
 import { Injectable } from '@angular/core';
-import { UserDto } from '../user/Dto/user.dto';
+import { User } from '../user/Dto/user.dto';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../state/app/app.state';
 import { LoginSuccessDto } from '../auth/Dto/LoginSuccessDto';
 import { setErrorMessage } from '../../state/shared/shared.action';
 import { GetUserSuccess } from '../../state/auth/auth.action';
 import { BrowserApiService } from './browser.api.service';
-import { Subscription, takeLast, takeUntil } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -20,15 +18,15 @@ export class JwtService {
     private store: Store<AppState>
   ) {}
 
-  public CheckUser(): UserDto | null {
+  public CheckUser(): User | null {
     const authUser: LoginSuccessDto = JSON.parse(this.user);
     this.store.dispatch(GetUserSuccess(authUser));
     return authUser?.user!;
   }
 
-  public decodeJwtToken(loginSuccess: LoginSuccessDto): UserDto | null {
+  public decodeJwtToken(loginSuccess: LoginSuccessDto): User | null {
     try {
-      const decodedToken: UserDto = jwtDecode(loginSuccess.accessToken!);
+      const decodedToken: User = jwtDecode(loginSuccess.accessToken!);
       const userSession: LoginSuccessDto = {
         accessToken: loginSuccess.accessToken,
         refreshToken: loginSuccess.refreshToken,

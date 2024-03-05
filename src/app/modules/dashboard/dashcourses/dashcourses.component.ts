@@ -15,7 +15,6 @@ import { CourseComponent } from '../course/course.component';
 @Component({
   selector: 'learnal-dashcourses',
   templateUrl: './dashcourses.component.html',
-  styleUrl: './dashcourses.component.css',
 })
 export class DashCoursesComponent {
   public courses$ = this.store.select(courseSelector.getCourse);
@@ -35,12 +34,9 @@ export class DashCoursesComponent {
     private store: Store<AppState>,
     private browserApiService: BrowserApiService,
     @Inject(DOCUMENT) private document: Document
-  ) {
-    this.renderComponent = this.courseService.getComponent(Page.CHART);
-  }
+  ) {}
 
   ngOnInit(): void {
-    console.log(this.showCourse);
     this.courses$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((courses) => {
@@ -54,16 +50,6 @@ export class DashCoursesComponent {
     this.courseId = courseId;
     this.showCourse = !this.showCourse;
     return courseId;
-  }
-
-  getComponent(component: Page) {
-    this.renderComponent = this.courseService.getComponent(component);
-    if (this.window?.innerWidth! <= 600) {
-      this.window?.scrollTo(0, 700);
-    }
-    if (this.window?.innerWidth! < 900) {
-      this.window?.scrollTo(0, 500);
-    }
   }
 
   getCourses(

@@ -11,7 +11,6 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'learnal-reset-password',
   templateUrl: './reset-password.component.html',
-  styleUrl: './reset-password.component.css',
 })
 export class ResetPasswordComponent {
   resetPwdForm: FormGroup = new FormGroup(

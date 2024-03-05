@@ -1,4 +1,4 @@
-import { UserResponseDto } from '../../user/Dto/user.dto';
+import { UserDto } from '../../user/Dto/user.dto';
 
 export interface CourseResponseDto {
   id: string;
@@ -23,7 +23,7 @@ export interface CourseResponseDto {
 
   topic: TopicDto;
 
-  user: UserResponseDto;
+  user: UserDto;
 }
 
 export interface MediaDto {

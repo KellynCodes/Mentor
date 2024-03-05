@@ -7,9 +7,11 @@ import { CourseComponent } from './course/course.component';
 import { NgChartsModule } from 'ng2-charts';
 import { FavCoursesComponent } from './fav-courses/fav-courses.component';
 import { ChartComponent } from './chart/chart.component';
-import { NotificationComponent } from './notification/notification.component';
 import { NgIconsModule } from '@ng-icons/core';
 import { faChartBar, faCircleXmark } from '@ng-icons/font-awesome/regular';
+import { faSolidAddressBook } from '@ng-icons/font-awesome/solid';
+import { SideBar } from './sidebar';
+import { Alert, Alerts } from './alert';
 
 @NgModule({
   declarations: [
@@ -18,13 +20,15 @@ import { faChartBar, faCircleXmark } from '@ng-icons/font-awesome/regular';
     CourseComponent,
     FavCoursesComponent,
     ChartComponent,
-    NotificationComponent,
+    Alerts,
+    SideBar,
+    Alert,
   ],
   imports: [
     SharedModule,
     DashboardRoutingModule,
     NgChartsModule.forRoot(),
-    NgIconsModule.withIcons({ faChartBar, faCircleXmark }),
+    NgIconsModule.withIcons({ faChartBar, faCircleXmark, faSolidAddressBook }),
   ],
 })
 export class DashboardModule {}
