@@ -1,11 +1,11 @@
 <!-- ======= Breadcrumbs ======= -->
-@for(course of filteredCourse; track course?.id){
+@if(course){
 
 <div class="breadcrumbs" data-aos="fade-in">
   <div class="container">
     <h2>Course Details</h2>
     <p>
-      {{ course?.headerDescription }}
+      {{ course.headerDescription }}
     </p>
   </div>
 </div>
@@ -22,11 +22,11 @@
           height="1056"
           class="img-fluid"
           priority=""
-          [alt]="course?.name"
+          [alt]="course.name"
         />
-        <h3>{{ course?.name }}</h3>
+        <h3>{{ course.name }}</h3>
         <p>
-          {{ course?.description }}
+          {{ course.description }}
         </p>
       </div>
       <div class="col-lg-4">
@@ -35,8 +35,8 @@
         >
           <h5>Course Owner</h5>
           <p>
-            <a [routerLink]="['/course/', course?.user?.userName]">{{
-              course?.user?.userName! | truncate : 50
+            <a [routerLink]="['/course/', course.user.userName]">{{
+              course.user.userName! | truncate : 50
             }}</a>
           </p>
         </div>
@@ -45,7 +45,7 @@
           class="course-info d-flex justify-content-between align-items-center"
         >
           <h5>Course Fee</h5>
-          <p>${{ course?.price }}</p>
+          <p>${{ course.price }}</p>
         </div>
 
         <div
@@ -94,27 +94,27 @@
               class="nav-link active show"
               data-bs-toggle="tab"
               href="#tab-1"
-              >{{ course?.topic?.title }}</a
+              >{{ course.topic.title }}</a
             >
           </li>
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="tab" href="#tab-2">
-              {{ course?.topic?.title }}
+              {{ course.topic.title }}
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="tab" href="#tab-3">
-              {{ course?.topic?.title }}
+              {{ course.topic.title }}
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="tab" href="#tab-4">
-              {{ course?.topic?.title }}
+              {{ course.topic.title }}
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="tab" href="#tab-5">
-              {{ course?.topic?.title }}
+              {{ course.topic.title }}
             </a>
           </li>
         </ul>
@@ -124,18 +124,18 @@
           <div class="tab-pane active show" id="tab-1">
             <div class="row">
               <div class="col-lg-8 details order-2 order-lg-1">
-                <h3>{{ course?.topic?.title }}</h3>
+                <h3>{{ course.topic.title }}</h3>
                 <p class="fst-italic">
-                  {{ course?.topic?.description }}
+                  {{ course.topic.description }}
                 </p>
                 <p>
-                  {{ course?.topic?.description }}
+                  {{ course.topic.description }}
                 </p>
               </div>
               <div class="col-lg-4 text-center order-1 order-lg-2">
                 <img
-                  [src]="course?.subImage"
-                  [alt]="course?.name"
+                  [src]="course.subImage"
+                  [alt]="course.name"
                   class="img-fluid"
                 />
               </div>
@@ -144,18 +144,18 @@
           <div class="tab-pane" id="tab-2">
             <div class="row">
               <div class="col-lg-8 details order-2 order-lg-1">
-                <h3>{{ course?.topic?.title }}</h3>
+                <h3>{{ course.topic.title }}</h3>
                 <p class="fst-italic">
-                  {{ course?.topic?.description }}
+                  {{ course.topic.description }}
                 </p>
                 <p>
-                  {{ course?.topic?.description }}
+                  {{ course.topic.description }}
                 </p>
               </div>
               <div class="col-lg-4 text-center order-1 order-lg-2">
                 <img
-                  [src]="course?.subImage"
-                  [alt]="course?.name"
+                  [src]="course.subImage"
+                  [alt]="course.name"
                   class="img-fluid"
                 />
               </div>
@@ -164,18 +164,18 @@
           <div class="tab-pane" id="tab-3">
             <div class="row">
               <div class="col-lg-8 details order-2 order-lg-1">
-                <h3>{{ course?.topic?.title }}</h3>
+                <h3>{{ course.topic.title }}</h3>
                 <p class="fst-italic">
-                  {{ course?.topic?.description }}
+                  {{ course.topic.description }}
                 </p>
                 <p>
-                  {{ course?.topic?.description }}
+                  {{ course.topic.description }}
                 </p>
               </div>
               <div class="col-lg-4 text-center order-1 order-lg-2">
                 <img
-                  [src]="course?.subImage"
-                  [alt]="course?.name"
+                  [src]="course.subImage"
+                  [alt]="course.name"
                   class="img-fluid"
                 />
               </div>
@@ -185,19 +185,19 @@
             <div class="row">
               <div class="col-lg-8 details order-2 order-lg-1">
                 <h3>
-                  {{ course?.topic?.title }}
+                  {{ course.topic.title }}
                 </h3>
                 <p class="fst-italic">
-                  {{ course?.topic?.description }}
+                  {{ course.topic.description }}
                 </p>
                 <p>
-                  {{ course?.topic?.description }}
+                  {{ course.topic.description }}
                 </p>
               </div>
               <div class="col-lg-4 text-center order-1 order-lg-2">
                 <img
-                  [src]="course?.subImage"
-                  [alt]="course?.name"
+                  [src]="course.subImage"
+                  [alt]="course.name"
                   class="img-fluid"
                 />
               </div>
@@ -206,19 +206,19 @@
           <div class="tab-pane" id="tab-5">
             <div class="row">
               <div class="col-lg-8 details order-2 order-lg-1">
-                <h3>{{ course?.topic?.title }}</h3>
+                <h3>{{ course.topic.title }}</h3>
                 <p class="fst-italic">
-                  {{ course?.topic?.description }}
+                  {{ course.topic.description }}
                 </p>
 
                 <p>
-                  {{ course?.topic?.description }}
+                  {{ course.topic.description }}
                 </p>
               </div>
               <div class="col-lg-4 text-center order-1 order-lg-2">
                 <!-- <img
-                  [src]="course?.subImage"
-                  [alt]="course?.name"
+                  [src]="course.subImage"
+                  [alt]="course.name"
                   class="img-fluid"
                 /> -->
                 <learnal-youtube-player videoId="qj_AZ_FkPtQ" />
@@ -230,6 +230,8 @@
     </div>
   </div>
 </section>
+}@else{
+<learnal-empty [isNotEnrolled]="false" />
 }
 
 <!-- End Cource Details Tabs Section -->

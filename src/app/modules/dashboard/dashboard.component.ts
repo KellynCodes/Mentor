@@ -58,9 +58,10 @@ export class DashboardComponent {
   }
 
   dontLikeCourse(courseId: string): void {
-    this.courseService.deleteCourse(courseId);
+    if (courseId) {
+      this.store.dispatch(courseActions.DeleteCourse({ courseId: courseId }));
+    }
   }
-
   getCourses(
     keyword: string = '',
     pageSize: number = 10,

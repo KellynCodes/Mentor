@@ -11,10 +11,10 @@
   <div class="w-full h-full pt-8 p-4 relative">
     <ng-icon
       title="Close"
-      class="absolute right-2 top-2 cursor-pointer text-gray-700"
+      class="absolute right-2 top-2 cursor-pointer"
       name="faCircleXmark"
       size="1.5rem"
-      color="black"
+      color="#638763"
       (click)="ngOnDestroy()"
     />
     <div class="w-full h-full mt-8 container" data-aos="fade-up">
@@ -26,7 +26,7 @@
             height="900"
             class="img-fluid"
             priority=""
-            [alt]="course?.name"
+            [alt]="course.name"
           />
           <h3>{{ course.name }}</h3>
           <p>
@@ -39,8 +39,8 @@
           >
             <h5>Course Owner</h5>
             <learnal-user-profile
-              [userId]="course.user?.userId!"
-              [buttonLabel]="course.user?.userName!"
+              [userId]="course.user.userId!"
+              [buttonLabel]="course.user.userName!"
               className="text-accent text-base"
             />
           </div>
@@ -93,7 +93,7 @@
   <!-- End Cource Details Section -->
 
   }@else{
-  <learnal-course-not-found [isNotEnrolled]="false" />
+  <learnal-empty [isNotEnrolled]="false" />
   }
 </div>
 

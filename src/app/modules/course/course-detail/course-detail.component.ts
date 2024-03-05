@@ -21,7 +21,7 @@ export class CourseDetailComponent {
   public errorMessage$ = this.store.select(courseSelector.errorMessage);
   public courses$ = this.store.select(courseSelector.getCourse);
   public ngUnSubscribe = new Subject();
-  public filteredCourse: CourseResponseDto[] = [];
+  public course!: CourseResponseDto;
   public _videoId: string | null = '';
   public _userEmail: string = '';
   constructor(
@@ -33,7 +33,7 @@ export class CourseDetailComponent {
 
   ngOnInit(): void {
     this.getCourse();
-    if (this.filteredCourse == null) {
+    if (!this.course) {
       this.LoadCourse();
       this.getCourse();
     }
@@ -45,7 +45,7 @@ export class CourseDetailComponent {
       .select(selectUser)
       .pipe(takeUntil(this.ngUnSubscribe))
       .subscribe((user) => (this._userEmail = user?.email!));
-    if (!courseId && this.filteredCourse?.length <= 0) {
+    if (!courseId && this.course) {
       this.alert.error('Payload is not valid. Please try again.', 'Error');
       return;
     }
@@ -60,9 +60,8 @@ export class CourseDetailComponent {
     const model: BuyCourseRequest = {
       courseId: courseId,
       email: this._userEmail!,
-      amount: this.filteredCourse[0]?.price,
+      amount: this.course.price,
     };
-    console.log(model);
     this.store.dispatch(courseActions.BuyCourse({ model: model }));
   }
 
@@ -86,10 +85,7 @@ export class CourseDetailComponent {
       return;
     }
     this.courses$.pipe(takeUntil(this.ngUnSubscribe)).subscribe((data) => {
-      const course: CourseResponseDto[] = data?.filter(
-        (x) => x.id == courseId
-      )!;
-      this.filteredCourse = course;
+      this.course = data?.find((x) => x.id == courseId)!;
     });
   }
 

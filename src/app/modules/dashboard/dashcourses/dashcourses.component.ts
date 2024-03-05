@@ -6,7 +6,6 @@ import { Store } from '@ngrx/store';
 import { CourseService } from '../../../../core/services/course/course.service';
 import { BrowserApiService } from '../../../../core/services/utils/browser.api.service';
 import { AppState } from '../../../../core/state/app/app.state';
-import { Page } from '../../../../core/types/enum/Page';
 import { Role } from '../../../../core/types/enum/role';
 import * as courseSelector from '../../../../core/state/course/selector';
 import * as courseAction from '../../../../core/state/course/action';

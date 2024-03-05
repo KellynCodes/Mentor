@@ -5,7 +5,7 @@ import { LoaderComponent } from './loader/loader.component';
 import { Button } from './button';
 import { RouterModule } from '@angular/router';
 import { SearchComponent } from './search/search.component';
-import { CourseNotFound } from './course-not-found/course-not-found';
+import { Empty } from './empty/empty';
 import { MaterialModule } from '../material/material.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
@@ -22,7 +22,7 @@ import { DeleteConfirmation } from './delete/delete-confirmation';
     LoaderComponent,
     Button,
     SearchComponent,
-    CourseNotFound,
+    Empty,
     UserProfile,
     TruncatePipe,
     DeleteConfirmation,
@@ -37,7 +37,7 @@ import { DeleteConfirmation } from './delete/delete-confirmation';
     LoaderComponent,
     Button,
     UserProfile,
-    CourseNotFound,
+    Empty,
     MaterialModule,
     DeleteConfirmation,
   ],

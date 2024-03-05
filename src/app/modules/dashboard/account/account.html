@@ -1,0 +1,149 @@
+<a
+  routerLink="/dashboard"
+  class="fixed inset-0 w-screen z-[999] h-screen opacity-5 bg-black"
+></a>
+<div
+  class="fixed rounded-lg bg-white overflow-y-auto z-[1000] inset-0 m-auto w-[98vw] md:w-[85vw] lg:w-[75vw] h-[98vh] md:h-[90vh] grid grid-cols-1 py-6"
+>
+  <a routerLink="/dashboard">
+    <ng-icon
+      title="Close"
+      class="absolute right-2 top-2 cursor-pointer"
+      name="faCircleXmark"
+      size="1.5rem"
+      color="#638763"
+    />
+  </a>
+  @if(user){
+  <div
+    class="w-full m-auto flex items-center justify-center md:justify-evenly flex-wrap gap-x-4 h-auto md:h-[160px]"
+  >
+    <img
+      src="{{user.user.avatarUrl}}"
+      alt="user profile image"
+      class="w-[128px] h-[128px] rounded-full object-cover"
+    />
+    <div class="w-full h-24 md:w-[48%] p-2">
+      <h1 class="text-dark font-bold text-base">{{user.user.userName}}</h1>
+      <p class="text-deemgreen text-sm font-semibold">
+        Technology company building the future. Our courses help you level up
+        your career.
+        <br />
+        <a
+          routerLink="/user/{{userId}}/followers"
+          class="text-deemgreen text-sm font-semibold"
+        >
+          1.5k followers
+        </a>
+      </p>
+    </div>
+
+    <div
+      class="w-full flex flex-wrap gap-4 h-auto items-center justify-evenly md:w-[25%]"
+    >
+      <learnal-button
+        className="bg-whitegray text-dark hover:bg-graywhite"
+        label="Follow"
+        (buttonClicked)="followAuthor()"
+      />
+      <learnal-button
+        label="View Course"
+        link="/course/search?author=acnejoeden"
+      />
+    </div>
+  </div>
+
+  <div class="w-[95%] m-auto flex flex-col items-start justify-between px-4">
+    <h1 class="text-dark font-bold text-base">About</h1>
+    <p class="text-sm text-dark">
+      We believe in a world where everyone has access to high-quality education
+      that is tailored to their needs and helps them achieve their goals. We
+      offer a range of courses, from beginner to advanced, in topics such as
+      data science, web development, and machine learning. Our courses are
+      designed to be hands-on and project-based, so you can apply what you learn
+      right away.
+    </p>
+  </div>
+
+  <div class="w-[95%] h-auto m-auto flex flex-col p-4">
+    <h1 class="text-dark font-bold text-base">Courses</h1>
+
+    <div
+      class="w-full h-auto md:h-[200px] flex flex-wrap gap-3 justify-evenly items-center"
+    >
+      @for(course of user.courses; track course.id){
+
+      <div class="w-[176px] h-[269px] block shadow-sm rounded-lg">
+        <img
+          class="w-[176px] h-[176px] rounded-lg object-cover"
+          [src]="course.image  || '/assets/img/course-placeholder-1.jpg'"
+          alt="course image"
+        />
+        <p class="ml-3 mt-4 text-xs font-semibold text-dark">
+          {{course.description | truncate : 50}}
+        </p>
+        <p class="ml-3 text-[0.78rem] text-deemgreen font-normal">6 Courses</p>
+      </div>
+      }
+    </div>
+  </div>
+
+  <div class="w-[95%] m-auto h-auto md:h-[169px] flex flex-col p-4">
+    <h1 class="text-dark font-bold text-base">Stats</h1>
+
+    <div class="w-full h-auto md:h-[109px] gap-4 custom-grid">
+      <div
+        class="w-[196px] h-[85px] flex items-start flex-col justify-center border-2 border-whitegray rounded-lg pl-4"
+      >
+        <h1 class="text-xl text-dark">4.5</h1>
+        <p class="text-[0.78rem] text-deemgreen font-normal">Average Rating.</p>
+      </div>
+
+      <div
+        class="w-[196px] h-[85px] flex items-start flex-col justify-center border-2 border-whitegray rounded-lg pl-4"
+      >
+        <h1 class="text-xl text-dark">3k</h1>
+        <p class="text-[0.78rem] text-deemgreen font-normal">Students.</p>
+      </div>
+
+      <div
+        class="w-[196px] h-[85px] flex items-start flex-col justify-center border-2 border-whitegray rounded-lg pl-4"
+      >
+        <h1 class="text-xl text-dark">20k</h1>
+        <p class="text-[0.78rem] text-deemgreen font-normal">
+          Course Published.
+        </p>
+      </div>
+
+      <div
+        class="w-[196px] h-[85px] flex items-start flex-col justify-center border-2 border-whitegray rounded-lg pl-4"
+      >
+        <h1 class="text-base text-dark">50k</h1>
+        <p class="text-[0.78rem] text-deemgreen font-normal">Reviews.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-[95%] m-auto h-[169px] flex flex-col p-4">
+    <h1 class="text-dark font-bold text-base">New Courses</h1>
+
+    <div class="w-full gap-3 new-course-grid">
+      @for(newCourse of user.courses; track newCourse.id){
+      <div class="h-[72px] flex items-center gap-x-3 justify-start bg-white">
+        <img
+          [src]="newCourse.image  || '/assets/img/course-placeholder-2.jpg'"
+          alt=""
+          class="h-[56px] w-[56px] object-cover rounded-full"
+        />
+        <h5 class="text-dark text-base mt-6">
+          {{ newCourse.description | truncate : 28}}<br />
+          <p class="text-[0.78rem] text-deemgreen font-normal">10/20/2024</p>
+        </h5>
+      </div>
+      }
+    </div>
+  </div>
+  }@else{
+  <learnal-empty message="Sorry! user not found." title="User not found." />
+  }
+</div>
